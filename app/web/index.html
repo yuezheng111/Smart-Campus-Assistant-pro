@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>校园智助 · 学校信息随手问</title>
+<meta name="description" content="用自然语言查学校通知文件、竞赛与考试安排，每条回答都附原文出处，点开即可读原文。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<!-- 字体非阻塞加载：主字体加载失败时回退到本地系统字体栈，视觉不塌 -->
+<link rel="stylesheet" media="print" onload="this.media='all'"
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap">
+<link rel="stylesheet" href="styles/tokens.css">
+<link rel="stylesheet" href="styles/base.css">
+<link rel="stylesheet" href="styles/components.css">
+</head>
+<body>
+<div class="atmosphere" aria-hidden="true"></div>
+<div class="grain" aria-hidden="true"></div>
+
+<div class="shell">
+
+  <!-- ============ 顶栏 ============ -->
+  <header class="app-header">
+    <div class="brand">
+      <span class="brand__mark">校园<em>·</em>智助</span>
+      <span class="brand__sub">学校信息随手问</span>
+    </div>
+    <div class="header__spacer"></div>
+    <div class="status-strip" id="statusStrip">
+      <span class="status-strip__item">
+        <i class="dot dot--wait" id="dbDot"></i><span id="dbText">连接中</span>
+      </span>
+    </div>
+  </header>
+
+  <!-- ============ 左侧导航 ============ -->
+  <nav class="rail rail--left" aria-label="功能导航">
+    <div>
+      <p class="rail__label">功能</p>
+      <div class="nav" id="nav">
+        <button class="nav__item" data-nav="chat" aria-current="true">
+          <span class="nav__idx">01</span>智能问答</button>
+        <button class="nav__item" data-nav="docs">
+          <span class="nav__idx">02</span>文件检索</button>
+        <button class="nav__item" data-nav="competitions">
+          <span class="nav__idx">03</span>学科竞赛</button>
+        <button class="nav__item" data-nav="exams">
+          <span class="nav__idx">04</span>考试信息</button>
+        <button class="nav__item" data-nav="planning">
+          <span class="nav__idx">05</span>学业规划</button>
+      </div>
+    </div>
+
+    <div class="rail__side-extra">
+      <p class="rail__label">资料库</p>
+      <div class="stat-block" id="statBlock">
+        <div class="stat-block__row"><span class="stat-block__k">学校文件</span><span class="stat-block__v" id="statDocs">—</span></div>
+        <div class="stat-block__row"><span class="stat-block__k">竞赛记录</span><span class="stat-block__v" id="statComps">—</span></div>
+        <div class="stat-block__row"><span class="stat-block__k">考试记录</span><span class="stat-block__v" id="statExams">—</span></div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ============ 主内容区 ============ -->
+  <main class="main" id="main">
+
+    <!-- ---------- 01 智能问答 ---------- -->
+    <section class="view view--chat" data-view="chat" data-active="true">
+      <div class="hero hero--slim reveal">
+        <h1>学校发过的文件，直接问我。</h1>
+        <p class="hero__lede">
+          奖学金、转专业、四六级、竞赛安排都能问。每条回答下面会列出参考到的学校文件，
+          点一下就能读原文。
+        </p>
+      </div>
+
+      <div class="quick reveal" id="quickChips">
+        <button class="quick__chip" data-q="帮我找一下2025年国家奖学金评选通知">
+          <span class="tag">找文件</span>2025 年国家奖学金评选通知</button>
+        <button class="quick__chip" data-q="2022到2026年蓝桥杯分别什么时候报名？">
+          <span class="tag">查时间</span>蓝桥杯历年报名时间</button>
+        <button class="quick__chip" data-q="转专业笔试考什么？有什么条件？">
+          <span class="tag">看要求</span>转专业考核方式与条件</button>
+        <button class="quick__chip" data-q="我是大二软件工程专业的学生，正在学 Web 开发，明年适合参加哪些竞赛？">
+          <span class="tag">做规划</span>大二软件工程适合参加什么竞赛</button>
+        <button class="quick__chip" data-q="学校什么时候发布过关于四六级报名的通知？">
+          <span class="tag">找文件</span>四六级报名通知发布时间</button>
+      </div>
+
+      <div class="panel panel--bracket reveal" style="margin-top: var(--space-5)">
+        <div class="panel__head">
+          <h2 class="panel__title">对话</h2>
+          <span class="panel__meta" id="chatMeta">就绪</span>
+          <div class="header__spacer"></div>
+          <button class="btn btn--ghost btn--sm" id="clearChat">清空记录</button>
+        </div>
+        <div class="chat-log" id="chatLog" role="log" aria-live="polite" aria-label="对话记录"></div>
+        <div class="composer">
+          <label class="sr-only" for="composer">输入你的问题</label>
+          <textarea class="composer__field" id="composer" rows="1"
+            placeholder="想问什么？例如：转专业要考什么"></textarea>
+          <button class="btn btn--primary" id="sendBtn">
+            <span class="btn__label">提问</span>
+            <span class="btn__dots" aria-hidden="true"><i></i><i></i><i></i></span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ---------- 02 文件检索 ---------- -->
+    <section class="view" data-view="docs">
+      <div class="panel panel--bracket">
+        <div class="panel__head">
+          <h2 class="panel__title">文件检索</h2>
+          <span class="panel__meta" id="docsMeta">—</span>
+        </div>
+        <form class="toolbar" id="docsForm">
+          <div class="field field--wide">
+            <label class="field__label" for="docsQ">想找什么内容（可留空只看筛选）</label>
+            <input class="input" id="docsQ" placeholder="如：转专业笔试考什么 / 奖学金申请条件">
+          </div>
+          <div class="field">
+            <label class="field__label" for="docsType">文件类型</label>
+            <select class="select" id="docsType">
+              <option value="">全部</option>
+              <option>奖学金</option><option>助学金</option><option>考试</option>
+              <option>竞赛</option><option>学籍</option><option>教学</option>
+              <option>规章制度</option><option>活动</option><option>后勤</option>
+            </select>
+          </div>
+          <div class="field">
+            <label class="field__label" for="docsCollege">学院</label>
+            <select class="select" id="docsCollege">
+              <option value="">全部</option>
+              <option>计算机学院</option><option>数学学院</option>
+            </select>
+          </div>
+          <div class="field">
+            <label class="field__label" for="docsDept">发布部门</label>
+            <select class="select" id="docsDept">
+              <option value="">全部</option>
+              <option>学生工作处</option><option>教务处</option>
+              <option>计算机学院</option><option>团委</option>
+              <option>图书馆</option>
+            </select>
+          </div>
+          <button class="btn btn--primary btn--sm" type="submit">检索</button>
+        </form>
+        <div id="docsResult"></div>
+      </div>
+    </section>
+
+    <!-- ---------- 03 学科竞赛 ---------- -->
+    <section class="view" data-view="competitions">
+      <div class="panel panel--bracket">
+        <div class="panel__head">
+          <h2 class="panel__title">学科竞赛库</h2>
+          <span class="panel__meta" id="compsMeta">—</span>
+        </div>
+        <form class="toolbar" id="compsForm">
+          <div class="field">
+            <label class="field__label" for="compCat">类别</label>
+            <select class="select" id="compCat">
+              <option value="">全部</option>
+              <option>计算机</option><option>数学</option><option>英语</option>
+              <option>电子</option><option>创新创业</option>
+            </select>
+          </div>
+          <div class="field">
+            <label class="field__label" for="compLevel">级别</label>
+            <select class="select" id="compLevel">
+              <option value="">全部</option>
+              <option>国家级</option><option>省级</option><option>校级</option>
+            </select>
+          </div>
+          <div class="field">
+            <label class="field__label" for="compYear">届次年份</label>
+            <input class="input" id="compYear" type="number" placeholder="如 2026" min="2000" max="2100">
+          </div>
+          <div class="field">
+            <label class="field__label" for="compGrade">面向年级</label>
+            <select class="select" id="compGrade">
+              <option value="">不限</option>
+              <option>大一</option><option>大二</option><option>大三</option>
+              <option>大四</option><option>研究生</option>
+            </select>
+          </div>
+          <div class="field field--wide">
+            <label class="field__label" for="compKw">关键词</label>
+            <input class="input" id="compKw" placeholder="如：蓝桥杯 / 数模 / CTF / ACM">
+          </div>
+          <button class="btn btn--primary btn--sm" type="submit">查询</button>
+        </form>
+        <div id="compsResult"></div>
+      </div>
+    </section>
+
+    <!-- ---------- 04 考试信息 ---------- -->
+    <section class="view" data-view="exams">
+      <div class="panel panel--bracket">
+        <div class="panel__head">
+          <h2 class="panel__title">考试信息库</h2>
+          <span class="panel__meta" id="examsMeta">—</span>
+        </div>
+        <form class="toolbar" id="examsForm">
+          <div class="field">
+            <label class="field__label" for="examCat">类别</label>
+            <select class="select" id="examCat">
+              <option value="">全部</option>
+              <option>英语</option><option>计算机</option>
+              <option>职业资格</option><option>学业</option><option>其他</option>
+            </select>
+          </div>
+          <div class="field">
+            <label class="field__label" for="examYear">年份</label>
+            <input class="input" id="examYear" type="number" placeholder="如 2026" min="2000" max="2100">
+          </div>
+          <div class="field field--wide">
+            <label class="field__label" for="examKw">关键词</label>
+            <input class="input" id="examKw" placeholder="如：四六级 / 软考 / 普通话 / 考研">
+          </div>
+          <div class="field">
+            <label class="field__label" for="examUpcoming">只看未过期</label>
+            <select class="select" id="examUpcoming">
+              <option value="false">否</option>
+              <option value="true">是</option>
+            </select>
+          </div>
+          <button class="btn btn--primary btn--sm" type="submit">查询</button>
+        </form>
+        <div id="examsResult"></div>
+      </div>
+    </section>
+
+    <!-- ---------- 05 学业规划 ---------- -->
+    <section class="view" data-view="planning">
+      <div class="panel panel--bracket">
+        <div class="panel__head">
+          <h2 class="panel__title">竞赛规划推荐</h2>
+          <span class="panel__meta" id="planMeta">—</span>
+        </div>
+        <form class="toolbar" id="planForm">
+          <div class="field">
+            <label class="field__label" for="planGrade">年级 <span aria-hidden="true">*</span></label>
+            <select class="select" id="planGrade" required>
+              <option value="大一">大一</option>
+              <option value="大二" selected>大二</option>
+              <option value="大三">大三</option>
+              <option value="大四">大四</option>
+              <option value="研一">研一</option>
+            </select>
+          </div>
+          <div class="field">
+            <label class="field__label" for="planMajor">专业</label>
+            <input class="input" id="planMajor" value="软件工程" placeholder="如 计算机科学与技术">
+          </div>
+          <div class="field field--wide">
+            <label class="field__label" for="planInterests">兴趣方向（逗号分隔）</label>
+            <input class="input" id="planInterests" value="Web开发,创新创业" placeholder="如 算法,信息安全">
+          </div>
+          <div class="field">
+            <label class="field__label" for="planLimit">推荐数量</label>
+            <input class="input" id="planLimit" type="number" value="6" min="1" max="20">
+          </div>
+          <button class="btn btn--primary btn--sm" type="submit">生成推荐</button>
+        </form>
+        <div id="planResult"></div>
+      </div>
+    </section>
+
+  </main>
+
+</div>
+
+<!-- ============ 原文阅读器 ============ -->
+<div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle" hidden>
+  <div class="modal__box">
+    <div class="reader__bar">
+      <div class="reader__id">
+        <h3 id="modalTitle">文件原文</h3>
+        <div class="reader__meta" id="modalMeta"></div>
+      </div>
+      <div class="header__spacer"></div>
+      <button class="btn btn--ghost btn--sm" id="modalCopy">复制全文</button>
+      <button class="btn btn--ghost btn--sm" id="modalDownload" hidden>下载原件</button>
+      <button class="btn btn--ghost btn--sm" id="modalClose" aria-label="关闭">关闭</button>
+    </div>
+    <div class="reader" id="modalBody"></div>
+  </div>
+</div>
+
+<script src="scripts/main.js"></script>
+</body>
+</html>

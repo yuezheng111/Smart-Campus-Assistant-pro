@@ -1,0 +1,903 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>文件入库 · 管理台</title>
+<link rel="stylesheet" href="./styles/tokens.css" />
+<style>
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    padding: var(--space-6) var(--space-5) var(--space-8);
+    font-family: var(--font-body);
+    font-size: var(--text-base);
+    line-height: 1.6;
+    color: var(--color-text);
+    background: var(--color-bg);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .wrap { max-width: 780px; margin: 0 auto; }
+
+  .eyebrow {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--color-muted);
+    margin: 0 0 var(--space-2);
+  }
+
+  h1 {
+    font-size: var(--text-xl);
+    font-weight: 500;
+    margin: 0 0 var(--space-2);
+    letter-spacing: -0.01em;
+  }
+
+  .lede {
+    margin: 0;
+    max-width: 58ch;
+    font-size: var(--text-sm);
+    color: var(--color-muted);
+  }
+
+  .warn {
+    margin-top: var(--space-4);
+    padding: var(--space-3) var(--space-4);
+    border-left: 3px solid var(--color-accent);
+    background: var(--color-accent-soft);
+    border-radius: 0 var(--radius-md) var(--radius-md) 0;
+    font-size: var(--text-sm);
+    color: var(--color-text-soft);
+  }
+
+  form {
+    margin-top: var(--space-5);
+    padding: var(--space-5);
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-1);
+  }
+
+  .grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-4); }
+  .full { grid-column: 1 / -1; }
+
+  label {
+    display: block;
+    margin-bottom: var(--space-2);
+    font-size: var(--text-sm);
+    font-weight: 500;
+    color: var(--color-text-soft);
+  }
+  .hint { font-weight: 400; color: var(--color-muted); }
+
+  input[type="text"], input[type="date"], input[type="url"], input[type="file"] {
+    width: 100%;
+    padding: 9px 11px;
+    font-family: inherit;
+    font-size: var(--text-sm);
+    color: var(--color-text);
+    background: var(--color-bg);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    transition: border-color var(--dur-fast) var(--ease-out);
+  }
+  input[type="file"] { padding: 7px 9px; }
+  input:focus-visible {
+    outline: none;
+    border-color: var(--color-accent);
+    box-shadow: 0 0 0 3px var(--color-accent-soft);
+  }
+
+  .actions {
+    display: flex;
+    align-items: center;
+    gap: var(--space-4);
+    margin-top: var(--space-5);
+  }
+
+  button {
+    padding: 10px 24px;
+    font-family: inherit;
+    font-size: var(--text-sm);
+    font-weight: 500;
+    color: #fff;
+    background: var(--color-accent);
+    border: none;
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    transition: background var(--dur-fast) var(--ease-out);
+  }
+  button:hover:not(:disabled) { background: var(--color-accent-hover); }
+  button:disabled { opacity: 0.55; cursor: progress; }
+
+  .status { font-size: var(--text-sm); color: var(--color-muted); }
+
+  .result { display: none; margin-top: var(--space-5); }
+  .result.show { display: block; }
+
+  .card {
+    padding: var(--space-4) var(--space-5);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+  }
+  .card.ok { background: var(--status-open-bg); border-color: var(--status-open); }
+  .card.err { background: var(--color-accent-soft); border-color: var(--color-accent); }
+
+  .card h2 { margin: 0 0 var(--space-3); font-size: var(--text-md); font-weight: 500; }
+  .card.ok h2 { color: var(--status-open); }
+  .card.err h2 { color: var(--color-accent); }
+
+  dl {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: var(--space-2) var(--space-4);
+    margin: 0;
+    font-size: var(--text-sm);
+  }
+  dt { color: var(--color-muted); white-space: nowrap; }
+  dd {
+    margin: 0;
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    word-break: break-all;
+  }
+
+  .note { margin: var(--space-3) 0 0; font-size: var(--text-sm); color: var(--color-text-soft); }
+
+  footer {
+    margin-top: var(--space-6);
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    color: var(--color-muted);
+  }
+  footer a { color: var(--color-accent); }
+
+  /* ---- 文件管理 ---- */
+
+  .manage { margin-top: var(--space-8); }
+
+  .manage-head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: var(--space-3);
+    margin-bottom: var(--space-2);
+  }
+
+  .manage-head h2 {
+    margin: 0;
+    font-size: var(--text-md);
+    font-weight: 500;
+  }
+
+  .filters { display: flex; flex-wrap: wrap; gap: var(--space-2); }
+
+  button.tab {
+    padding: 5px 14px;
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    color: var(--color-muted);
+    background: transparent;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+  }
+  button.tab:hover:not(:disabled) {
+    color: var(--color-text);
+    background: transparent;
+    border-color: var(--color-border-strong, var(--color-border));
+  }
+  button.tab.on {
+    color: var(--color-accent);
+    background: var(--color-accent-soft);
+    border-color: var(--color-accent);
+  }
+
+  input[type="search"] {
+    padding: 5px 11px;
+    width: 200px;
+    font-family: inherit;
+    font-size: var(--text-xs);
+    color: var(--color-text);
+    background: var(--color-bg);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+  }
+  input[type="search"]:focus-visible {
+    outline: none;
+    border-color: var(--color-accent);
+  }
+
+  table { width: 100%; border-collapse: collapse; font-size: var(--text-sm); }
+
+  thead th {
+    padding: 0 var(--space-3) var(--space-2) 0;
+    text-align: left;
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    font-weight: 400;
+    letter-spacing: 0.06em;
+    color: var(--color-muted);
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  tbody td {
+    padding: var(--space-3) var(--space-3) var(--space-3) 0;
+    border-bottom: 1px solid var(--color-border);
+    vertical-align: middle;
+  }
+
+  .t-title { color: var(--color-text); }
+  .t-dim {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    color: var(--color-muted);
+    white-space: nowrap;
+  }
+
+  .badge {
+    display: inline-block;
+    padding: 2px 9px;
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    border-radius: 999px;
+    white-space: nowrap;
+  }
+  .badge.active { color: var(--status-open); background: var(--status-open-bg); }
+  .badge.superseded {
+    color: var(--color-muted);
+    background: var(--color-bg);
+    border: 1px solid var(--color-border);
+  }
+
+  /* 「原件缺失」不是错误，只是「这份资料取不到原文」的提示，
+     所以用琥珀色（和「报名已截止」同一族），而不是警示性的赭红。 */
+  .badge.missing {
+    color: var(--status-closed);
+    background: var(--status-closed-bg);
+    margin-left: var(--space-2);
+  }
+
+  button.mini {
+    padding: 4px 12px;
+    font-size: var(--text-xs);
+    font-weight: 400;
+    color: var(--color-muted);
+    background: transparent;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+  }
+  button.mini:hover:not(:disabled) {
+    color: var(--color-text);
+    background: transparent;
+    border-color: var(--color-accent);
+  }
+
+  .empty {
+    padding: var(--space-5) 0;
+    font-size: var(--text-sm);
+    color: var(--color-muted);
+  }
+
+  /* ---- 原件对账 ---- */
+
+  .reconcile {
+    margin-top: var(--space-7);
+    padding-top: var(--space-5);
+    border-top: 1px solid var(--color-border);
+  }
+
+  .scan-group { margin-top: var(--space-5); }
+
+  .scan-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: var(--space-3);
+    padding-bottom: var(--space-2);
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .scan-head h3 {
+    margin: 0;
+    font-size: var(--text-sm);
+    font-weight: 500;
+  }
+
+  .scan-meta {
+    display: flex;
+    align-items: baseline;
+    gap: var(--space-3);
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    color: var(--color-muted);
+  }
+
+  .scan-list {
+    margin: var(--space-2) 0 0;
+    padding: 0;
+    list-style: none;
+    font-size: var(--text-sm);
+  }
+
+  .scan-list li {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: var(--space-3);
+    padding: var(--space-2) 0;
+    border-bottom: 1px dashed var(--color-border);
+  }
+
+  .scan-list .path {
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    color: var(--color-muted);
+    word-break: break-all;
+    text-align: right;
+  }
+
+  .scan-hint {
+    margin: var(--space-2) 0 0;
+    font-size: var(--text-xs);
+    color: var(--color-muted);
+    max-width: 62ch;
+  }
+
+  @media (max-width: 560px) {
+    .grid { grid-template-columns: 1fr; }
+    input[type="search"] { width: 100%; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <p class="eyebrow">campus agent / 管理台</p>
+  <h1>文件入库</h1>
+  <p class="lede">
+    选一份学校文件，填好它的档案信息，提交即可。系统会立刻解析、切分、写入检索库，
+    学生端马上就能搜到。处理范围只有这一份，不会重算库里已有的文件。
+  </p>
+  <div class="warn">
+    这个页面没有身份校验，等同「谁打开谁就能往知识库里灌文件」。
+    请只在 127.0.0.1 本机使用，不要暴露到局域网或公网。
+  </div>
+
+  <form id="upload-form">
+    <div class="grid">
+      <div class="full">
+        <label for="file">文件 <span class="hint">· 支持 md / txt / pdf / docx</span></label>
+        <input type="file" id="file" name="file" accept=".md,.txt,.pdf,.docx" required />
+      </div>
+
+      <div class="full">
+        <label for="title">文件标题 <span class="hint">· 留空则用文件名</span></label>
+        <input type="text" id="title" name="title" placeholder="关于举办2025年校园招聘会的通知" />
+      </div>
+
+      <div>
+        <label for="doc_type">文件类型</label>
+        <input type="text" id="doc_type" name="doc_type" list="types" placeholder="其他" />
+        <datalist id="types">
+          <option value="奖学金"></option>
+          <option value="考试"></option>
+          <option value="竞赛"></option>
+          <option value="教学"></option>
+          <option value="学籍"></option>
+          <option value="活动"></option>
+          <option value="其他"></option>
+        </datalist>
+      </div>
+
+      <div>
+        <label for="college">适用学院</label>
+        <input type="text" id="college" name="college" list="colleges" placeholder="全校" />
+        <datalist id="colleges">
+          <option value="全校"></option>
+        </datalist>
+      </div>
+
+      <div>
+        <label for="department">发布部门</label>
+        <input type="text" id="department" name="department" placeholder="学生工作处" />
+      </div>
+
+      <div>
+        <label for="doc_no">发文字号</label>
+        <input type="text" id="doc_no" name="doc_no" placeholder="校学〔2025〕12号" />
+      </div>
+
+      <div>
+        <label for="publish_date">发布日期</label>
+        <input type="date" id="publish_date" name="publish_date" />
+      </div>
+
+      <div>
+        <label for="url">原文链接</label>
+        <input type="url" id="url" name="url" placeholder="https://" />
+      </div>
+    </div>
+
+    <div class="actions">
+      <button type="submit" id="submit-btn">入库</button>
+      <span class="status" id="status"></span>
+    </div>
+  </form>
+
+  <section class="result" id="result" aria-live="polite"></section>
+
+  <section class="manage">
+    <div class="manage-head">
+      <h2>文件管理</h2>
+      <div class="filters">
+        <button type="button" class="tab on" data-status="" data-missing="">全部</button>
+        <button type="button" class="tab" data-status="active" data-missing="">现行</button>
+        <button type="button" class="tab" data-status="superseded" data-missing="">已废止</button>
+        <button type="button" class="tab" data-status="" data-missing="1">原件缺失</button>
+        <input type="search" id="doc-search" placeholder="按标题 / 发文字号搜索" />
+      </div>
+    </div>
+    <p class="status" id="list-status"></p>
+    <div id="doc-list"></div>
+    <p class="note">
+      废止只是把文件标记成「不再现行」：原文和检索片段都保留，学生问起往年政策
+      时仍然答得出来，撤销废止也不会重新计算向量。
+    </p>
+  </section>
+
+  <section class="reconcile">
+    <div class="manage-head">
+      <h2>原件对账</h2>
+      <div class="filters">
+        <button type="button" class="mini" id="scan-btn">扫描差异</button>
+      </div>
+    </div>
+    <p class="status" id="scan-status">
+      比对「data/raw 目录 / 元数据表 / 检索库」三者是否一致。扫描只读，不会改动任何数据。
+    </p>
+    <div id="scan-result"></div>
+  </section>
+
+  <footer>学生端 · <a href="./index.html">返回首页</a></footer>
+</div>
+
+<script>
+  const form = document.getElementById('upload-form');
+  const fileInput = document.getElementById('file');
+  const btn = document.getElementById('submit-btn');
+  const statusEl = document.getElementById('status');
+  const resultEl = document.getElementById('result');
+
+  function showResult(kind, title, rows, note) {
+    const card = document.createElement('div');
+    card.className = 'card ' + kind;
+
+    const heading = document.createElement('h2');
+    heading.textContent = title;
+    card.appendChild(heading);
+
+    if (rows && rows.length) {
+      const list = document.createElement('dl');
+      rows.forEach(function (pair) {
+        const dt = document.createElement('dt');
+        dt.textContent = pair[0];
+        const dd = document.createElement('dd');
+        dd.textContent = pair[1];
+        list.appendChild(dt);
+        list.appendChild(dd);
+      });
+      card.appendChild(list);
+    }
+
+    if (note) {
+      const p = document.createElement('p');
+      p.className = 'note';
+      p.textContent = note;
+      card.appendChild(p);
+    }
+
+    resultEl.replaceChildren(card);
+    resultEl.classList.add('show');
+  }
+
+  form.addEventListener('submit', async function (event) {
+    event.preventDefault();
+
+    if (!fileInput.files || !fileInput.files.length) {
+      statusEl.textContent = '请先选择文件';
+      return;
+    }
+
+    const data = new FormData(form);
+    btn.disabled = true;
+    statusEl.textContent = '正在解析入库…';
+    resultEl.classList.remove('show');
+
+    try {
+      const res = await fetch('/api/admin/upload', { method: 'POST', body: data });
+      const body = await res.json().catch(function () { return {}; });
+
+      if (!res.ok || body.ok === false) {
+        showResult('err', '入库失败', [], body.detail || ('请求返回 HTTP ' + res.status));
+      } else {
+        const skipped = body['跳过数'] || 0;
+        const rows = [
+          ['文件路径', body['file_path']],
+          ['档案信息', body['sidecar']]
+        ];
+        if (skipped && !body['文档数']) {
+          rows.push(['处理结果', '内容与档案都没变，未重算向量']);
+        } else {
+          rows.push(['生成片段', body['chunk数'] + ' 个']);
+        }
+        rows.push(['检索库总量', body['向量库总数'] + ' 条']);
+        showResult('ok', skipped && !body['文档数'] ? '已是最新' : '入库完成', rows, body['note']);
+        fileInput.value = '';
+        statusEl.textContent = '';
+        loadDocuments();  // 刚上传的文件立刻出现在下面的列表里
+      }
+    } catch (err) {
+      showResult('err', '请求没有发出去', [], String(err));
+    } finally {
+      btn.disabled = false;
+      if (statusEl.textContent === '正在解析入库…') statusEl.textContent = '';
+    }
+  });
+
+  /* ---------------- 文件管理 ---------------- */
+
+  const docListEl = document.getElementById('doc-list');
+  const listStatusEl = document.getElementById('list-status');
+  const searchEl = document.getElementById('doc-search');
+  const tabs = Array.from(document.querySelectorAll('.filters .tab'));
+  let currentStatus = '';
+  let currentMissing = '';
+
+  function cell(text, className) {
+    const td = document.createElement('td');
+    if (className) td.className = className;
+    td.textContent = text === null || text === undefined || text === '' ? '—' : String(text);
+    return td;
+  }
+
+  function renderTable(rows) {
+    const table = document.createElement('table');
+
+    const thead = document.createElement('thead');
+    const headRow = document.createElement('tr');
+    ['标题', '类型', '学院', '发布日期', '状态', ''].forEach(function (name) {
+      const th = document.createElement('th');
+      th.textContent = name;
+      headRow.appendChild(th);
+    });
+    thead.appendChild(headRow);
+    table.appendChild(thead);
+
+    const tbody = document.createElement('tbody');
+    rows.forEach(function (row) {
+      const tr = document.createElement('tr');
+
+      tr.appendChild(cell(row.title, 't-title'));
+      tr.appendChild(cell(row.doc_type, 't-dim'));
+      tr.appendChild(cell(row.college, 't-dim'));
+      tr.appendChild(cell(row.publish_date ? String(row.publish_date).slice(0, 10) : '', 't-dim'));
+
+      const superseded = row.status === 'superseded';
+      // 原件缺失是一个**独立维度**：一份文件可以同时是「已废止」和「原件缺失」。
+      // 后端用单独的字段记它，前端也就要显示两个徽章，而不是二选一 ——
+      // 合成一个的话，「原件被放回来之后它原本是废止的还是现行的」就没人知道了。
+      const missing = !!row.file_missing_at;
+
+      const stateTd = document.createElement('td');
+      const badge = document.createElement('span');
+      badge.className = 'badge ' + (superseded ? 'superseded' : 'active');
+      badge.textContent = superseded ? '已废止' : '现行';
+      stateTd.appendChild(badge);
+      if (missing) {
+        const missBadge = document.createElement('span');
+        missBadge.className = 'badge missing';
+        missBadge.textContent = '原件缺失';
+        missBadge.title =
+          '原件已不在 data/raw（' + String(row.file_missing_at).slice(0, 10) + ' 标记）';
+        stateTd.appendChild(missBadge);
+      }
+      tr.appendChild(stateTd);
+
+      const actionTd = document.createElement('td');
+      if (missing) {
+        // 原件缺失时主操作是「恢复」，但前提是原件已经回到 data/raw ——
+        // 没回来就恢复的话，这份文件立刻能被检索到，点开却是 404。
+        // 后端会拒绝并说明原因，这里如实转达。
+        const back = document.createElement('button');
+        back.type = 'button';
+        back.className = 'mini';
+        back.textContent = '恢复';
+        back.title = '先把原件放回 data/raw，再点这里';
+        back.addEventListener('click', function () {
+          restoreMissing([row.id], back);
+        });
+        actionTd.appendChild(back);
+      } else {
+        const trigger = document.createElement('button');
+        trigger.type = 'button';
+        trigger.className = 'mini';
+        trigger.textContent = superseded ? '撤销废止' : '废止';
+        trigger.addEventListener('click', function () {
+          changeStatus(row.id, superseded ? 'restore' : 'supersede', trigger);
+        });
+        actionTd.appendChild(trigger);
+      }
+      tr.appendChild(actionTd);
+
+      tbody.appendChild(tr);
+    });
+    table.appendChild(tbody);
+    return table;
+  }
+
+  async function loadDocuments() {
+    const params = new URLSearchParams();
+    if (currentStatus) params.set('status', currentStatus);
+    if (currentMissing) params.set('missing', currentMissing);
+    const keyword = searchEl.value.trim();
+    if (keyword) params.set('keyword', keyword);
+
+    listStatusEl.textContent = '读取中…';
+    try {
+      const res = await fetch('/api/admin/documents?' + params.toString());
+      const body = await res.json().catch(function () { return {}; });
+      if (!res.ok) {
+        docListEl.replaceChildren();
+        listStatusEl.textContent = body.detail || ('读取失败：HTTP ' + res.status);
+        return;
+      }
+
+      const rows = body['文件清单'] || [];
+      const stats = body['状态统计'] || {};
+      listStatusEl.textContent =
+        '共 ' + rows.length + ' 份 ｜ 现行 ' + (stats.active || 0) +
+        ' ｜ 已废止 ' + (stats.superseded || 0) +
+        ' ｜ 原件缺失 ' + (body['原件缺失数'] || 0);
+
+      if (!rows.length) {
+        const empty = document.createElement('p');
+        empty.className = 'empty';
+        empty.textContent = '没有符合条件的文件。';
+        docListEl.replaceChildren(empty);
+        return;
+      }
+      docListEl.replaceChildren(renderTable(rows));
+    } catch (err) {
+      listStatusEl.textContent = '请求失败：' + String(err);
+    }
+  }
+
+  async function changeStatus(id, action, trigger) {
+    trigger.disabled = true;
+    try {
+      const res = await fetch('/api/admin/documents/' + id + '/' + action, { method: 'POST' });
+      const body = await res.json().catch(function () { return {}; });
+      if (!res.ok) {
+        listStatusEl.textContent = body.detail || ('操作失败：HTTP ' + res.status);
+      }
+    } catch (err) {
+      listStatusEl.textContent = '请求失败：' + String(err);
+    } finally {
+      trigger.disabled = false;
+      await loadDocuments();
+    }
+  }
+
+  tabs.forEach(function (tab) {
+    tab.addEventListener('click', function () {
+      tabs.forEach(function (other) { other.classList.remove('on'); });
+      tab.classList.add('on');
+      currentStatus = tab.dataset.status || '';
+      currentMissing = tab.dataset.missing || '';
+      loadDocuments();
+    });
+  });
+
+  let searchTimer = null;
+  searchEl.addEventListener('input', function () {
+    clearTimeout(searchTimer);
+    searchTimer = setTimeout(loadDocuments, 300);
+  });
+
+  /* ---------------- 原件对账 ----------------
+     归档文件时，原件有可能被人从 data/raw 里移走或删掉。这时库里仍然留着
+     它的档案和检索片段（有意为之，片段里存着正文，是一份可用的备份），
+     但默认检索会把它挡在外面 —— 否则学生点「查看原文」会撞上 404。
+
+     这一块做的是「扫描 → 报告 → 确认 → 标记」，扫描永远只读。
+     相关的完整说明在 app/ingest.py 的「原件缺失：对账与处置」那一段。 */
+
+  const scanBtn = document.getElementById('scan-btn');
+  const scanStatusEl = document.getElementById('scan-status');
+  const scanResultEl = document.getElementById('scan-result');
+
+  // 五个方向的差异，各自的含义、能不能批量处置、该怎么修，都不一样。
+  const SCAN_GROUPS = [
+    {
+      key: '待标记',
+      action: 'mark',
+      label: '全部标记为原件缺失',
+      hint: '原件已不在 data/raw。标记后它们退出检索，但档案和检索片段全部保留，随时可以恢复。'
+    },
+    {
+      key: '可恢复',
+      action: 'restore',
+      label: '全部恢复',
+      hint: '原件已经回到 data/raw，恢复后重新可检索。'
+    },
+    {
+      key: '未登记',
+      action: null,
+      label: '',
+      hint: '磁盘上有这些文件，但库里的档案表没有记录 —— 用上面的上传表单补录。'
+    },
+    {
+      key: '向量库多出',
+      action: null,
+      label: '',
+      hint: '检索库里有片段，档案表里却没有对应记录。这是上次灌库半途失败留下的痕迹，重跑一次全量重建即可消除。'
+    },
+    {
+      key: '向量库缺少',
+      action: null,
+      label: '',
+      hint: '档案表里有记录，检索库里却没有片段 —— 这些文件搜不到，重新导入一次即可。'
+    }
+  ];
+
+  function renderScan(data) {
+    scanResultEl.replaceChildren();
+
+    const stats = data['统计'] || {};
+    scanStatusEl.textContent =
+      '源目录 ' + (data['源目录'] || '') + ' ｜ ' +
+      SCAN_GROUPS.map(function (g) { return g.key + ' ' + (stats[g.key] || 0); }).join(' ｜ ');
+
+    let shown = 0;
+    SCAN_GROUPS.forEach(function (group) {
+      const items = data[group.key] || [];
+      if (!items.length) return;
+      shown += 1;
+
+      const wrap = document.createElement('div');
+      wrap.className = 'scan-group';
+
+      const head = document.createElement('div');
+      head.className = 'scan-head';
+
+      const title = document.createElement('h3');
+      title.textContent = group.key;
+      head.appendChild(title);
+
+      const meta = document.createElement('div');
+      meta.className = 'scan-meta';
+
+      const count = document.createElement('span');
+      count.textContent = items.length + ' 项';
+      meta.appendChild(count);
+
+      if (group.action) {
+        const ids = items
+          .map(function (item) { return item.id; })
+          .filter(function (id) { return id; });
+        if (ids.length) {
+          const btn = document.createElement('button');
+          btn.type = 'button';
+          btn.className = 'mini';
+          btn.textContent = group.label;
+          btn.addEventListener('click', function () {
+            applyOrphans(group.action, ids, btn);
+          });
+          meta.appendChild(btn);
+        }
+      }
+      head.appendChild(meta);
+      wrap.appendChild(head);
+
+      const list = document.createElement('ul');
+      list.className = 'scan-list';
+      items.forEach(function (item) {
+        const li = document.createElement('li');
+        const name = document.createElement('span');
+        name.textContent = item.title || item.file_path || '';
+        const path = document.createElement('span');
+        path.className = 'path';
+        path.textContent = item.file_path || '';
+        li.appendChild(name);
+        li.appendChild(path);
+        list.appendChild(li);
+      });
+      wrap.appendChild(list);
+
+      const hint = document.createElement('p');
+      hint.className = 'scan-hint';
+      hint.textContent = group.hint;
+      wrap.appendChild(hint);
+
+      scanResultEl.appendChild(wrap);
+    });
+
+    if (!shown) {
+      const empty = document.createElement('p');
+      empty.className = 'empty';
+      empty.textContent = '没有发现差异：磁盘目录、档案表、检索库三者是一致的。';
+      scanResultEl.appendChild(empty);
+    }
+  }
+
+  async function scanOrphans() {
+    scanStatusEl.textContent = '扫描中…';
+    try {
+      const res = await fetch('/api/admin/orphans');
+      const body = await res.json().catch(function () { return {}; });
+      if (!res.ok) {
+        scanResultEl.replaceChildren();
+        scanStatusEl.textContent = body.detail || ('扫描失败：HTTP ' + res.status);
+        return;
+      }
+      renderScan(body);
+    } catch (err) {
+      scanStatusEl.textContent = '请求失败：' + String(err);
+    }
+  }
+
+  async function applyOrphans(action, ids, trigger) {
+    trigger.disabled = true;
+    try {
+      const res = await fetch('/api/admin/orphans/' + action, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ ids: ids })
+      });
+      const body = await res.json().catch(function () { return {}; });
+      if (!res.ok || body.ok === false) {
+        scanStatusEl.textContent = body.detail || ('操作失败：HTTP ' + res.status);
+      }
+    } catch (err) {
+      scanStatusEl.textContent = '请求失败：' + String(err);
+    } finally {
+      trigger.disabled = false;
+      await scanOrphans();     // 重新扫描，看差异是不是消掉了
+      await loadDocuments();   // 下面的列表也跟着刷新
+    }
+  }
+
+  async function restoreMissing(ids, trigger) {
+    trigger.disabled = true;
+    try {
+      const res = await fetch('/api/admin/orphans/restore', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ ids: ids })
+      });
+      const body = await res.json().catch(function () { return {}; });
+      if (!res.ok || body.ok === false) {
+        listStatusEl.textContent = body.detail || ('恢复失败：HTTP ' + res.status);
+      } else if (body['跳过'] && body['跳过'].length) {
+        // 原件还没放回来 —— 后端会拒绝并说明原因，如实转达，不要假装成功
+        listStatusEl.textContent = body['跳过'][0]['原因'];
+      }
+    } catch (err) {
+      listStatusEl.textContent = '请求失败：' + String(err);
+    } finally {
+      trigger.disabled = false;
+      await loadDocuments();
+    }
+  }
+
+  scanBtn.addEventListener('click', scanOrphans);
+
+  loadDocuments();
+</script>
+</body>
+</html>

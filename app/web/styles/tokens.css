@@ -1,0 +1,86 @@
+/* ============================================================
+   tokens.css — 设计令牌
+   方向：Industrial / 工业实用 · 亮色基底
+   单一强调色（赭红）+ 语义状态色体系；等宽数字用于所有时间/统计字段。
+   ============================================================ */
+
+:root {
+  /* ---------- 色板：暖调纸白基底，避开纯白 ---------- */
+  --color-bg: #f1eee6;
+  --color-surface: #fbfaf6;
+  --color-surface-2: #e9e5da;
+  --color-text: #1a1815;          /* 暖调近黑，不用纯 #000 */
+  --color-text-soft: #3d382f;
+  --color-muted: #6b6459;
+  --color-border: rgba(26, 24, 21, 0.16);
+  --color-border-strong: rgba(26, 24, 21, 0.34);
+
+  /* ---------- 强调色：全局唯一，只给关键动作 ---------- */
+  --color-accent: #b8410f;
+  --color-accent-hover: #96330a;
+  --color-accent-soft: rgba(184, 65, 15, 0.1);
+
+  /* ---------- 语义状态色（承载含义，非装饰） ---------- */
+  --status-open: #15653c;         /* 正在报名 */
+  --status-open-bg: rgba(21, 101, 60, 0.12);
+  --status-soon: #1c4f86;         /* 未开始报名 */
+  --status-soon-bg: rgba(28, 79, 134, 0.12);
+  --status-closed: #7a5a17;       /* 报名已截止，待举行 */
+  --status-closed-bg: rgba(122, 90, 23, 0.13);
+  --status-done: #6b6459;         /* 已结束 */
+  --status-done-bg: rgba(107, 100, 89, 0.13);
+
+  /* ---------- 路由色（区分 Agent 走了哪条链） ---------- */
+  --route-document: #1c4f86;
+  --route-structured: #6d3a8f;
+  --route-hybrid: #b8410f;
+  --route-planning: #15653c;
+  --route-general: #6b6459;
+
+  /* ---------- 字体 ---------- */
+  --font-display: "JetBrains Mono", "Cascadia Mono", Consolas, "Microsoft YaHei UI", monospace;
+  --font-body: "IBM Plex Sans", "PingFang SC", "Microsoft YaHei", "Source Han Sans SC",
+    "Noto Sans SC", -apple-system, sans-serif;
+  --font-mono: "JetBrains Mono", "Cascadia Mono", Consolas, ui-monospace, monospace;
+
+  /* ---------- 字阶：1.25 模块化比例 ---------- */
+  --text-xs: 11px;
+  --text-sm: 12.5px;
+  --text-base: 15px;
+  --text-md: 17px;
+  --text-lg: 21px;
+  --text-xl: 26px;
+  --text-2xl: 33px;
+  --text-3xl: 41px;
+
+  /* ---------- 间距梯度 ---------- */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 40px;
+  --space-7: 64px;
+  --space-8: 96px;
+
+  /* ---------- 圆角：工业风偏克制 ---------- */
+  --radius-sm: 3px;
+  --radius-md: 6px;
+  --radius-lg: 12px;
+
+  /* ---------- 阴影：三级高度，带环境色 ---------- */
+  --shadow-1: 0 2px 6px rgba(58, 46, 30, 0.07);
+  --shadow-2: 0 8px 24px rgba(58, 46, 30, 0.1);
+  --shadow-3: 0 24px 56px rgba(58, 46, 30, 0.16);
+
+  /* ---------- 动效 ---------- */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --dur-fast: 160ms;
+  --dur-base: 320ms;
+  --dur-slow: 640ms;
+
+  /* ---------- 布局 ---------- */
+  --rail-left: 232px;
+  --rail-right: 372px;
+  --header-h: 58px;
+}

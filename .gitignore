@@ -1,0 +1,27 @@
+# ---------- Python ----------
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+
+# ---------- 本地数据 / 向量库 ----------
+var/
+*.sqlite3
+
+# ---------- 密钥 ----------
+.env
+!.env.example
+
+# ---------- 个人学习 / 本地记忆（不上传） ----------
+learn/
+.workbuddy/
+scripts/*resume*
+scripts/collect_project_stats.py
+
+# ---------- 侦察/临时 ----------
+.recon/
+
+# ---------- IDE ----------
+.idea/
+.vscode/
