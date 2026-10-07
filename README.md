@@ -4,7 +4,7 @@
 
 用自然语言检索学校文件、查询竞赛与考试信息、生成学业规划建议的校园 Agent 系统。
 
-严格按你给的架构实现：**RAG（非结构化文件）+ MySQL（结构化数据）+ Tools + LangGraph Agent**。
+**RAG（非结构化文件）+ MySQL（结构化数据）+ Tools + LangGraph Agent**。
 
 ---
 
@@ -100,9 +100,9 @@ Agent学习6/
 
 ### 0. 前置条件
 
-- Python：`D:\AgentLearnVenv`（Python 3.12.6）
-- MySQL 5.7+（本地 3306 端口，库名 `school_agent`）：连接信息请写进 `.env`，不要提交
-- API Key（机器级环境变量，已存在）：
+- Python 3.12+（本项目在 3.12.6 上验证过），建议放进虚拟环境
+- MySQL 5.7+（库名 `school_agent`）：连接信息写进 `.env`，不要提交
+- API Key（同样写进 `.env`，字段名见 `.env.example`）：
   - `DEEPSEEK_API_KEY` — 对话模型
   - `DASHSCOPE_API_KEY` — 向量模型（DeepSeek 没有 embedding 接口）
 
@@ -110,10 +110,9 @@ Agent学习6/
 
 ### 1. 初始化数据库（结构化数据）
 
-```powershell
-cd "D:\111网安学习\Agent学习6"
-D:\AgentLearnVenv\Scripts\python.exe scripts\gen_sample_docs.py   # 生成 21 份学校文件
-D:\AgentLearnVenv\Scripts\python.exe scripts\init_db.py           # 建表 + 灌竞赛/考试
+```bash
+python scripts/gen_sample_docs.py   # 生成 21 份学校文件
+python scripts/init_db.py           # 建表 + 灌竞赛/考试
 ```
 
 > ⚠️ **顺序很重要**：`init_db.py` 里的 `schema.sql` 会 `DROP TABLE document`，
@@ -121,8 +120,8 @@ D:\AgentLearnVenv\Scripts\python.exe scripts\init_db.py           # 建表 + 灌
 
 ### 2. 学校文件灌库（第一条线）
 
-```powershell
-D:\AgentLearnVenv\Scripts\python.exe run_ingest.py
+```bash
+python run_ingest.py
 ```
 
 这一步会：解析文档 → 切分（21 份 → 37 个 chunk）→ 写 MySQL 元数据表 → 写 Chroma 向量库。
@@ -130,24 +129,24 @@ D:\AgentLearnVenv\Scripts\python.exe run_ingest.py
 
 ### 3. 自检（可选但推荐）
 
-```powershell
+```bash
 # 不消耗 LLM，直接验证 7 个工具
-D:\AgentLearnVenv\Scripts\python.exe scripts\test_tools.py
+python scripts/test_tools.py
 
 # 只验证检索质量
-D:\AgentLearnVenv\Scripts\python.exe -m app.rag.retriever
+python -m app.rag.retriever
 
 # 只验证路由分类
-D:\AgentLearnVenv\Scripts\python.exe -m app.agent.router
+python -m app.agent.router
 
 # 端到端跑 5 条不同类型的提问
-D:\AgentLearnVenv\Scripts\python.exe -m app.agent.graph
+python -m app.agent.graph
 ```
 
 ### 4. 启动服务
 
-```powershell
-D:\AgentLearnVenv\Scripts\python.exe -m app.api.main
+```bash
+python -m app.api.main
 ```
 
 打开 <http://127.0.0.1:8000>。
