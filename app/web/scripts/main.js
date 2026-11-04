@@ -371,7 +371,57 @@
      对话
      ============================================================ */
 
-  const chatHistory = [];
+  /* 会话记录：存在 localStorage，刷新页面后还能接着聊。
+
+     只存「问题 + 回答 + 引用 + 校验提醒」，不存 trace 那些实现细节 ——
+     前端不该知道决策过程，存下来也没人看，还占配额。
+
+     隐私边界要说清楚：这些内容留在**本机浏览器**，服务端不留存。
+     所以换设备、换浏览器、清缓存之后就看不到了。想要跨设备延续，
+     得有服务端 session 表，那是另一件事。
+  */
+  const SESSION_KEY = 'campus_agent_session_v1';
+  const SESSION_MAX_TURNS = 3;   // 和后端 history[-6:] 对齐：3 轮 = 6 条消息
+
+  let sessionTurns = [];
+
+  /** 当前在途的 /api/chat 请求。清空对话时用它中断。 */
+  let inflight = null;
+
+  function loadSession() {
+    try {
+      const raw = localStorage.getItem(SESSION_KEY);
+      if (!raw) return [];
+      const arr = JSON.parse(raw);
+      return Array.isArray(arr) ? arr.slice(-SESSION_MAX_TURNS) : [];
+    } catch (e) {
+      return [];   // 隐私模式禁用了 localStorage，或数据损坏 → 退化成不持久
+    }
+  }
+
+  function saveSession() {
+    try {
+      localStorage.setItem(SESSION_KEY, JSON.stringify(sessionTurns));
+    } catch (e) {
+      /* 配额满或被禁用：不再持久化，但当前页面照常能聊 */
+    }
+  }
+
+  function rememberTurn(turn) {
+    sessionTurns.push(turn);
+    while (sessionTurns.length > SESSION_MAX_TURNS) sessionTurns.shift();
+    saveSession();
+  }
+
+  /** 给后端的历史，由 sessionTurns 派生 —— 避免「两份数据各自更新」不同步 */
+  function historyPayload() {
+    const out = [];
+    for (const t of sessionTurns) {
+      out.push({ role: 'user', content: t.q });
+      out.push({ role: 'assistant', content: t.a });
+    }
+    return out.slice(-6);
+  }
 
   function appendUserMsg(text) {
     const log = $('#chatLog');
@@ -397,6 +447,13 @@
     log.appendChild(el);
     log.scrollTop = log.scrollHeight;
     return el;
+  }
+
+  /** 校验提醒：回答缺依据、引用对不上、数字查无出处时挂在正文下方。
+      只在后端 verdict 判出问题时才有内容，正常情况下这一块不出现。 */
+  function caveatBlock(caveats) {
+    if (!caveats || !caveats.length) return '';
+    return `<div class="msg__caveat">${caveats.map(escapeHtml).join('；')}</div>`;
   }
 
   /** 参考资料：挂在回答正下方，点开即读原文 */
@@ -449,6 +506,42 @@
     });
   }
 
+  /** 把一份回答渲染进 assistant 气泡。
+
+      实时回答和「刷新后重放历史」共用这一条路径 —— 否则两处各写一份 HTML，
+      早晚会出现「刷新后样式不一样」这种问题。
+  */
+  function renderAssistantBody(shell, data, elapsed, restored) {
+    const sources = data.sources || [];
+    const body = $('.msg__body', shell);
+    body.innerHTML =
+      `<div class="answer">${renderMarkdown(data.answer)}</div>` +
+      caveatBlock(data.caveats) +
+      (sources.length ? refsBlock(sources) : '') +
+      `<div class="msg__foot">用时 ${elapsed}s${restored ? ' · 历史记录' : ''}</div>`;
+    bindRefs(body, sources);
+    return body;
+  }
+
+  /** 刷新后重放历史对话。历史消息同样能点开原文、看引用。 */
+  function restoreSession() {
+    if (!sessionTurns.length) return;
+    const log = $('#chatLog');
+    log.innerHTML = '';
+    for (const t of sessionTurns) {
+      appendUserMsg(t.q);
+      const shell = appendAssistantShell();
+      renderAssistantBody(
+        shell,
+        { answer: t.a, sources: t.sources || [], caveats: t.caveats || [] },
+        t.elapsed || '—',
+        true,
+      );
+    }
+    $('#chatMeta').textContent = `已恢复 ${sessionTurns.length} 轮对话`;
+    log.scrollTop = log.scrollHeight;
+  }
+
   async function sendQuestion(question) {
     const q = String(question || '').trim();
     if (!q) return;
@@ -464,31 +557,42 @@
     appendAssistantShell();
     $('#chatMeta').textContent = '正在查找…';
 
+    // 一次只允许一个在途请求。点「清空对话」时要能把它掐掉：
+    // 否则回答回来会把新一轮写进已经清空的会话里，用户会觉得「清了又冒出来」。
+    inflight?.abort();
+    inflight = new AbortController();
+
     const started = performance.now();
     try {
       const data = await api('/api/chat', {
         method: 'POST',
-        body: JSON.stringify({ question: q, history: chatHistory }),
+        body: JSON.stringify({ question: q, history: historyPayload() }),
+        signal: inflight.signal,
       });
       const elapsed = ((performance.now() - started) / 1000).toFixed(1);
 
       const shell = $('#chatLog').lastElementChild;
-      const sources = data.sources || [];
-      const body = $('.msg__body', shell);
-      body.innerHTML =
-        `<div class="answer">${renderMarkdown(data.answer)}</div>` +
-        (sources.length ? refsBlock(sources) : '') +
-        `<div class="msg__foot">用时 ${elapsed}s</div>`;
-
-      bindRefs(body, sources);
+      renderAssistantBody(shell, data, elapsed, false);
       $('#chatLog').scrollTop = $('#chatLog').scrollHeight;
       $('#chatMeta').textContent = `完成 · ${elapsed}s`;
 
-      chatHistory.push({ role: 'user', content: q });
-      chatHistory.push({ role: 'assistant', content: data.answer });
-      // 客户端只保留最近 3 轮，避免请求体无限增长
-      while (chatHistory.length > 6) chatHistory.shift();
+      // 只记成功的轮次。失败的问答不该进入历史 ——
+      // 否则下一轮会把「回答失败」当成上下文喂给模型。
+      rememberTurn({
+        q,
+        a: data.answer || '',
+        sources: (data.sources || []).map((s) => ({
+          id: s.id, ref: s.ref, title: s.title, doc_type: s.doc_type,
+          college: s.college, department: s.department,
+          publish_date: s.publish_date, snippet: s.snippet,
+        })),
+        caveats: data.caveats || [],
+        elapsed,
+        at: Date.now(),
+      });
     } catch (err) {
+      // 被「清空对话」掐掉的请求不算失败：界面已经清空了，这里什么都不该画。
+      if (err && err.name === 'AbortError') return;
       const shell = $('#chatLog').lastElementChild;
       $('.msg__body', shell).innerHTML =
         `<div class="alert"><strong>!</strong><span>回答失败：${escapeHtml(err.message)}</span></div>`;
@@ -501,6 +605,7 @@
   }
 
   function initChat() {
+    sessionTurns = loadSession();
     const composer = $('#composer');
     const send = () => sendQuestion(composer.value);
 
@@ -527,7 +632,10 @@
     });
 
     $('#clearChat').addEventListener('click', () => {
-      chatHistory.length = 0;
+      // 先掐掉在途请求，再清状态。顺序反了的话，回答回来会写回已清空的会话。
+      if (inflight) { inflight.abort(); inflight = null; }
+      sessionTurns = [];
+      try { localStorage.removeItem(SESSION_KEY); } catch (e) { /* 禁用了就无所谓 */ }
       $('#chatLog').innerHTML =
         '<p class="empty__text" style="color: var(--color-muted)">已清空。直接提问开始新的对话。</p>';
       $('#chatMeta').textContent = '就绪';
@@ -535,6 +643,10 @@
 
     $('#chatLog').innerHTML =
       '<p class="empty__text" style="color: var(--color-muted)">从上面挑一个问题，或直接在下面输入。</p>';
+
+    // 刷新后恢复上一次的对话。空态先写、恢复时覆盖 ——
+    // 顺序反了的话，没历史时会把空态冲掉。
+    restoreSession();
   }
 
   /* ============================================================

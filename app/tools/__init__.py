@@ -9,6 +9,7 @@
 """
 
 from app.tools.competition import query_competition, recommend_competition
+from app.tools.admin import ADMIN_TOOLS
 from app.tools.document import (
     get_document_detail,
     list_school_documents,
@@ -32,4 +33,5 @@ __all__ = [
     "DOC_TOOLS",
     "DATA_TOOLS",
     "ALL_TOOLS",
+    "ADMIN_TOOLS",
 ]

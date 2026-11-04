@@ -59,11 +59,33 @@ def main() -> None:
     result = ingest_paths(paths, full=True, purge=args.purge, verbose=True)
 
     if not result["文档数"]:
-        print("\n没有任何文档被处理，已中止（原有数据保持不变）。")
+        # 不能一律说「原有数据保持不变」：全量重建会先把记录统一标成「原件缺失」，
+        # 再靠真正写成功的文件把标记清回去。一份都没成功的话，标记就留着 ——
+        # 报一句"没动数据"会让人误以为可以放心不管。
+        print("\n没有任何文件入库。")
+        for label, key in (("失败", "失败明细"), ("跳过", "跳过明细")):
+            details = result.get(key) or []
+            if details:
+                print(f"  {label} {len(details)} 份，例如：{details[0][1]}")
+        print(
+            "原有记录没有被删除，但「原件缺失」标记可能已经更新；"
+            "把上面的问题处理掉再重跑本脚本即可恢复。"
+        )
         sys.exit(1)
 
+    for label, key in (("失败", "失败明细"), ("跳过", "跳过明细")):
+        details = result.get(key) or []
+        if not details:
+            continue
+        print(f"\n{label} {len(details)} 份（没进库，原因见下）：")
+        for path, reason in details:
+            print(f"  - {path} | {reason}")
+
     print("\n完成。可以运行 python -m app.rag.retriever 做一次检索自检。")
-    log.info("全量重建完成：%d 份文档 / %d 个 chunk", result["文档数"], result["chunk数"])
+    log.info(
+        "全量重建完成：%d 份文档 / %d 个 chunk（跳过 %d / 失败 %d）",
+        result["文档数"], result["chunk数"], result["跳过数"], result.get("失败数", 0),
+    )
 
 
 if __name__ == "__main__":

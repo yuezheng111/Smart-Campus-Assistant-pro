@@ -26,6 +26,8 @@ from sqlalchemy import bindparam, text
 
 from app import config, db
 from app.logging_config import get_logger
+from app.parsing.models import document_id_for
+from app.parsing.pipeline import DocumentRecord
 from app.rag import loader, splitter, vectorstore
 
 log = get_logger(__name__)
@@ -215,6 +217,49 @@ def sync_metadata(
     purge: bool = False,
     states: dict[str, dict[str, Any]] | None = None,
 ) -> int:
+    """把**老链路**（LoadedDoc）的元数据写进 MySQL。
+
+    真正的写入逻辑在 `write_records`，这里只负责把 LoadedDoc 转成统一记录。
+    两条链路共用同一张表、同一套「内容侧 / 状态侧」规则 —— 否则切换开关的
+    那一刻，库里的字段语义就会跟着变，最难查的就是这种。
+    """
+    hashes = hashes or {}
+    records = [
+        _record_from_loaded(doc, hashes.get(doc.file_path, "")) for doc in docs
+    ]
+    return write_records(records, full=full, purge=purge, states=states)
+
+
+def _record_from_loaded(doc: loader.LoadedDoc, content_hash: str) -> DocumentRecord:
+    """LoadedDoc → 统一记录。字段一一对应，不做任何"顺手补正"。"""
+    return DocumentRecord(
+        file_path=doc.file_path,
+        document_id=document_id_for(doc.file_path),
+        title=doc.title,
+        doc_no=doc.doc_no,
+        department=doc.department,
+        doc_type=doc.doc_type,
+        college=doc.college,
+        publish_date=doc.publish_date,
+        year=doc.year,
+        url=doc.url,
+        doc_family=doc.doc_family,
+        version=doc.version,
+        effective_from=doc.effective_from,
+        effective_to=doc.effective_to,
+        summary=loader.make_summary(doc),
+        content_hash=content_hash or "",
+        parse_status="completed",
+    )
+
+
+def write_records(
+    records: list[DocumentRecord],
+    *,
+    full: bool = False,
+    purge: bool = False,
+    states: dict[str, dict[str, Any]] | None = None,
+) -> int:
     """把文件元数据写进 MySQL，供前端列表和「按条件筛选」使用。
 
     full=True  整批重写，并把「这次没被处理」的记录标成原件缺失（保留，不删）
@@ -228,35 +273,34 @@ def sync_metadata(
     states 是这批文件原有的状态侧字段，由调用方在删除之前用 load_states()
     读出并传进来。没传（或库里本来就没这条记录）时按默认状态 active 处理。
     """
-    hashes = hashes or {}
     states = states or {}
     use_hash = _supports_content_hash()
     use_lifecycle = _supports_lifecycle()
 
     rows: list[dict[str, Any]] = []
-    for doc in docs:
+    for record in records:
         row: dict[str, Any] = {
-            "doc_no": doc.doc_no,
-            "title": doc.title,
-            "department": doc.department,
-            "doc_type": doc.doc_type,
-            "college": doc.college,
-            "publish_date": doc.publish_date,
-            "year": doc.year,
-            "file_path": doc.file_path,
-            "url": doc.url,
-            "summary": loader.make_summary(doc),
+            "doc_no": record.doc_no,
+            "title": record.title,
+            "department": record.department,
+            "doc_type": record.doc_type,
+            "college": record.college,
+            "publish_date": record.publish_date,
+            "year": record.year,
+            "file_path": record.file_path,
+            "url": record.url,
+            "summary": record.summary,
         }
         if use_hash:
-            row["content_hash"] = hashes.get(doc.file_path)
+            row["content_hash"] = record.content_hash or None
         if use_lifecycle:
             # 内容侧 —— 来自文件本身
-            row["doc_family"] = doc.doc_family or None
-            row["version"] = doc.version
-            row["effective_from"] = doc.effective_from
-            row["effective_to"] = doc.effective_to
+            row["doc_family"] = record.doc_family or None
+            row["version"] = record.version
+            row["effective_from"] = record.effective_from
+            row["effective_to"] = record.effective_to
             # 状态侧 —— 来自旧记录；没有旧记录才落到默认值
-            old = states.get(doc.file_path) or {}
+            old = states.get(record.file_path) or {}
             row["status"] = old.get("status") or "active"
             row["superseded_by"] = old.get("superseded_by")
             row["superseded_at"] = old.get("superseded_at")
@@ -365,6 +409,31 @@ def _missing_paths() -> list[str]:
     return [str(r["file_path"]) for r in rows if r.get("file_path")]
 
 
+def _restore_marks(paths: Iterable[str]) -> int:
+    """把「原件确实在磁盘上」的文件标记改回「原件在」。
+
+    只改 `file_missing_at`，不碰 status、不碰向量片段 —— 这和 restore_files()
+    的人工恢复做的是同一件事，区别只是这里在重建流程内部按事实自动做：
+    文件刚刚被读过，它在不在不靠猜。
+
+    为什么不能只在 MySQL 改：检索的过滤发生在 Chroma 里（取 top_k 之前），
+    所以副本也得跟着改，否则「数据库说在、检索说不在」。
+    """
+    paths = [str(p) for p in dict.fromkeys(paths or []) if p]
+    if not paths or not _supports_lifecycle():
+        return 0
+    stmt = text(
+        f"UPDATE document SET {_MISSING_COLUMN} = NULL "
+        f"WHERE file_path IN :paths AND {_MISSING_COLUMN} IS NOT NULL"
+    ).bindparams(bindparam("paths", expanding=True))
+    try:
+        with db.get_engine().begin() as conn:
+            return conn.execute(stmt, {"paths": paths}).rowcount
+    except Exception as exc:
+        log.warning("撤销原件缺失标记失败：%s", exc)
+        return 0
+
+
 def ingest_paths(
     paths: Iterable[Path],
     *,
@@ -372,15 +441,29 @@ def ingest_paths(
     purge: bool = False,
     verbose: bool = True,
 ) -> dict[str, Any]:
-    """处理指定的一批文件：解析 → 切分 → 写 MySQL → 写向量库。
+    """处理指定的一批文件：解析 → 切分 → 写向量库 → 写 MySQL。
 
-    full=True   整批重写；原件已消失的文件会被标记保留，而不是清掉
-    full=False  先按 file_path 删掉这些文件的旧片段再写（增量，幂等）
+    这是**唯一写入入口**，内部按 `config.PARSING_PIPELINE` 分派：
 
-    purge=True  真正的从零重建：元数据表与向量库一起清空重来。
-                换向量库、或怀疑库里全是脏数据时才用它 —— 它会把
-                「原件已消失」那部分留档一并丢掉，所以默认不开。
+        v2（默认）  多格式解析 + 结构感知切分 + 稳定 chunk ID（阶段六链路）
+        legacy      PDF/DOCX 抽成一个大字符串，再按 600 字切
+
+    返回的字典两条链路**键名一致**，所以调用方（上传接口、run_ingest.py）
+    不需要知道自己走的是哪条路。
     """
+    if config.PARSING_PIPELINE == "legacy":
+        return _ingest_legacy(paths, full=full, purge=purge, verbose=verbose)
+    return _ingest_v2(paths, full=full, purge=purge, verbose=verbose)
+
+
+def _ingest_legacy(
+    paths: Iterable[Path],
+    *,
+    full: bool = False,
+    purge: bool = False,
+    verbose: bool = True,
+) -> dict[str, Any]:
+    """阶段五之前的老链路。保留它唯一的理由是「能一键退回去」。"""
     if purge:
         full = True
     path_list = [Path(p) for p in paths]
@@ -496,9 +579,194 @@ def ingest_paths(
     }
 
 
+def _record_unchanged(record: DocumentRecord) -> bool:
+    """这份文件和库里已有的那份是否「完全没变化」。
+
+    比较口径与老链路一致：**内容哈希 + 内容侧元数据**，不比状态侧。
+    只比哈希会漏掉「管理员改了学院但文件字节没变」——那正是他修错的时候，
+    跳过就等于让错误一直留在库里。
+    """
+    if not _supports_content_hash() or not record.content_hash:
+        return False
+
+    use_lifecycle = _supports_lifecycle()
+    columns = [
+        "content_hash", "title", "doc_type", "college", "department",
+        "doc_no", "publish_date", "url",
+    ]
+    if use_lifecycle:
+        columns += ["doc_family", "version", "effective_from", "effective_to"]
+    row = db.fetch_one(
+        f"SELECT {', '.join(columns)} FROM document WHERE file_path = :p",
+        {"p": record.file_path},
+    )
+    if not row or str(row.get("content_hash") or "") != record.content_hash:
+        return False
+
+    def as_date(value: Any) -> str:
+        return value.isoformat() if value else ""
+
+    same = (
+        str(row.get("title") or "") == record.title
+        and str(row.get("doc_type") or "") == record.doc_type
+        and str(row.get("college") or "") == record.college
+        and str(row.get("department") or "") == record.department
+        and str(row.get("doc_no") or "") == record.doc_no
+        and str(row.get("url") or "") == record.url
+        and str(row.get("publish_date") or "") == as_date(record.publish_date)
+    )
+    if same and use_lifecycle:
+        same = (
+            str(row.get("doc_family") or "") == record.doc_family
+            and int(row.get("version") or 0) == int(record.version or 0)
+            and str(row.get("effective_from") or "") == as_date(record.effective_from)
+            and str(row.get("effective_to") or "") == as_date(record.effective_to)
+        )
+    return same
+
+
+def _ingest_v2(
+    paths: Iterable[Path],
+    *,
+    full: bool = False,
+    purge: bool = False,
+    verbose: bool = True,
+) -> dict[str, Any]:
+    """阶段六链路：解析 → 清洗 → 结构感知切分 → 向量化 → 落库。
+
+    和老链路的差别（也是它替换老链路的理由）：
+        · 表格/页码/章节路径不再丢，每个 chunk 都能追溯回原文位置
+        · 单文件失败只影响它自己，且**记下失败在哪个阶段**
+        · chunk ID 稳定（`<document_id>-c0003`），重复入库幂等、可精确下架
+
+    这里只负责"开客户端 → 干活 → **一定关掉**"。关客户端不是收尾礼节，
+    见 `ChromaChunkIndex.close()`：不关的话这次写入可能没合并进索引文件，
+    下一个进程连读都读不出来。
+    """
+    from app.parsing.index import ChromaChunkIndex
+
+    index = ChromaChunkIndex(config.COLLECTION_NAME, allow_production=True)
+    try:
+        return _run_v2(index, paths, full=full, purge=purge, verbose=verbose)
+    finally:
+        index.close()
+
+
+def _run_v2(
+    index: Any,
+    paths: Iterable[Path],
+    *,
+    full: bool,
+    purge: bool,
+    verbose: bool,
+) -> dict[str, Any]:
+    from app.parsing.pipeline import IngestOptions, IngestPipeline
+
+    if purge:
+        full = True
+    path_list = [Path(p) for p in paths]
+
+    def say(message: str) -> None:
+        if verbose:
+            print(message)
+        log.info(message)
+
+    if purge:
+        index.drop_collection()
+        with db.get_engine().begin() as conn:
+            conn.execute(text("DELETE FROM document"))
+        say("[1/4] purge：向量集合与 document 表已清空")
+    elif full and _supports_lifecycle():
+        # 先标后删：本次真正处理到的行会在写入时被「删掉重插」，自然恢复成 NULL；
+        # 没被处理到的那些留在「原件缺失」状态里（保留，不删）。
+        # 顺序不能反 —— 先删的话，这批行已经不在了，「没被处理」就判不出来。
+        with db.get_engine().begin() as conn:
+            marked = _mark_all_gone(conn, dt.date.today())
+        if marked:
+            say(f"[1/4] 全量重建：{marked} 条记录标记为原件缺失（保留，不删除）")
+
+    def read_states(file_path: str) -> dict[str, Any]:
+        return load_states([file_path]).get(file_path, {})
+
+    def write_metadata(record: DocumentRecord, states: dict[str, Any]) -> None:
+        write_records([record], states={record.file_path: states} if states else {})
+
+    options = IngestOptions(
+        workers=config.INGEST_WORKERS,
+        retries=config.INGEST_RETRIES,
+        full=full,
+        purge=purge,
+    )
+    pipeline = IngestPipeline(
+        index,
+        write_metadata,
+        read_states=read_states,
+        unchanged_check=_record_unchanged,
+        options=options,
+    )
+
+    say(f"[2/4] 解析 + 清洗 + 切分 {len(path_list)} 个文件（并发 {options.workers}）...")
+    report = pipeline.run(path_list)
+    say(f"      {report.summary_line()}")
+
+    # 「这次没入库」不等于「原件不在了」。
+    #
+    # 扫描件（跳过）和解析失败的文件，原件明明还在磁盘上 —— 我们刚刚才读过它。
+    # 但 full 的「先标后删」已经把所有行都标成原件缺失，而它们没有被重写，
+    # 那个标记就留下来了。不改回来的话，管理端的对账页面会永远把它们列在
+    # 「可恢复」里：管理员点一次恢复，下次重建又变回去，可它从来没缺过。
+    untouched: list[str] = []
+    if full and not purge:
+        untouched = [
+            o.file_path
+            for o in report.outcomes
+            if not o.ok and (config.BASE_DIR / o.file_path).is_file()
+        ]
+        restored = _restore_marks(untouched)
+        if restored:
+            say(f"      {restored} 份跳过/失败的文件原件仍在本机，标记已改回「原件在」")
+
+    # 全量重建时，原件已消失的文件的片段要**留下**，只把标记改成缺失。
+    # 不这么做的话它们会留在默认检索里 —— 学生搜得到、点开却 404。
+    if full and not purge:
+        skip = set(untouched)
+        gone = [path for path in _missing_paths() if path not in skip]
+        patched = 0
+        for path in gone:
+            patched += index.update_metadata_by_file_path(path, {"file_missing": 1})
+        if gone:
+            say(
+                f"      保留原件已消失的 {len(gone)} 份文件的片段，"
+                f"标记为缺失（{patched} 个 chunk，未删除）"
+            )
+
+    total = index.stats()["chunk数"]
+    say(f"[4/4] 向量库现有 {total} 条记录")
+
+    for outcome in report.failures():
+        say(f"      ! 失败 {outcome.file_path} | {outcome.reason}")
+    for outcome in report.skipped_files():
+        say(f"      - 跳过 {outcome.file_path} | {outcome.reason}")
+    if report.duplicates:
+        say(f"      注意：{len(report.duplicates)} 组文件内容完全相同（未自动合并）")
+
+    return {
+        "文档数": report.indexed,
+        "chunk数": report.chunks,
+        "跳过数": report.skipped,
+        "向量库总数": total,
+        "全量": full,
+        "文件": [o.file_path for o in report.outcomes if o.ok],
+        "部分完成数": report.partial,
+        "失败数": report.failed,
+        "耗时": round(report.duration, 2),
+        "跳过明细": [(o.file_path, o.reason) for o in report.skipped_files()],
+        "失败明细": [(o.file_path, o.reason) for o in report.failures()],
+        "重复内容": report.duplicates,
+    }
+
+
 VALID_STATUSES = ("active", "superseded")
-
-
 def set_status(
     doc_id: int,
     status: str,

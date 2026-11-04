@@ -30,25 +30,66 @@ def get_embeddings() -> DashScopeEmbeddings:
 
 
 def get_vectorstore() -> Chroma:
+    """取向量库单例。
+
+    两种模式（见 config.CHROMA_MODE）：
+
+    - embedded（默认）：直接开 var/chroma 目录。快，但索引是**进程内快照**，
+      别的进程写进去的数据本进程 query 看不到 —— 所以只能单 worker。
+    - server：连独立 Chroma 服务，客户端不持有索引，多 worker 共享同一份数据。
+      代价是多一个常驻进程，收益是「入库后不用重启 web 服务」。
+    """
     global _store
-    if _store is None:
-        config.CHROMA_DIR.mkdir(parents=True, exist_ok=True)
+    if _store is not None:
+        return _store
+
+    if config.chroma_is_server():
+        import chromadb
+
+        client = chromadb.HttpClient(host=config.CHROMA_HOST, port=config.CHROMA_PORT)
+        # 传 client 时 langchain 内部会 get_collection，集合不存在会直接抛错，
+        # 所以先确保它在（幂等，已存在时什么都不改）。
+        client.get_or_create_collection(config.COLLECTION_NAME)
         _store = Chroma(
             collection_name=config.COLLECTION_NAME,
             embedding_function=get_embeddings(),
-            persist_directory=str(config.CHROMA_DIR),
+            client=client,
         )
+        log.info("向量库：server 模式 %s:%s", config.CHROMA_HOST, config.CHROMA_PORT)
+        return _store
+
+    config.CHROMA_DIR.mkdir(parents=True, exist_ok=True)
+    _store = Chroma(
+        collection_name=config.COLLECTION_NAME,
+        embedding_function=get_embeddings(),
+        persist_directory=str(config.CHROMA_DIR),
+    )
+    log.info("向量库：embedded 模式 %s", config.CHROMA_DIR)
     return _store
 
 
 def reset_vectorstore() -> None:
-    """清空集合，重新灌库时用。"""
+    """清空集合，重新灌库时用。
+
+    server 模式下 `reset_collection` 需要服务端开 `--allow-reset`，
+    没开就只能删除整个集合再重建 —— 两条路都试一遍。
+    """
+    global _store
     store = get_vectorstore()
     try:
         store.reset_collection()
-    except Exception:  # 某些版本没有该方法
+        return
+    except Exception as exc:
+        log.warning("reset_collection 失败（%s），改为删除集合", exc)
+
+    try:
         store.delete_collection()
-        _store = None
+    except Exception as exc:
+        raise RuntimeError(
+            "无法清空向量库：reset 与 delete 都失败。"
+            "server 模式请确认 chroma 服务启动时带了 --allow-reset"
+        ) from exc
+    _store = None
 
 
 def add_documents(chunks: list[Document], batch_size: int = 10, verbose: bool = True) -> int:
@@ -92,11 +133,28 @@ def delete_by_file_path(file_path: str) -> int:
 
 
 def delete_many(file_paths: Iterable[str]) -> int:
-    """批量按路径清理。上传 / 重新导入一份文件时用。"""
-    total = 0
-    for file_path in dict.fromkeys(file_paths):  # 去重，避免同一路径删两次
-        total += delete_by_file_path(file_path)
-    return total
+    """批量按路径清理，**一次删除调用**搞定。
+
+    原来是逐份循环调用 delete_by_file_path。改成一次 `$in` 不是为了快，
+    是为了别把库写坏：实测（`var/_exp_chroma_churn2.py`，805 条 / 1024 维）
+    一百多次零碎删除之后，chroma 的 HNSW 索引会变成读不出来的状态，
+    换进程打开直接 `Error loading hnsw index`。老链路只是"出问题退回去"的开关，
+    而退回去的那一刻往往正是要重灌全库的时候 —— 恰恰最容易踩这个坑。
+    """
+    paths = [str(p) for p in dict.fromkeys(file_paths) if p]
+    if not paths:
+        return 0
+    store = get_vectorstore()
+    try:
+        found = store.get(where={"file_path": {"$in": paths}})
+        ids = list(found.get("ids") or [])
+    except Exception as exc:
+        log.warning("按路径批量查询旧 chunk 失败：%s", exc)
+        return 0
+    if ids:
+        store.delete(ids=ids)
+        log.info("批量清理旧 chunk %d 个（%d 份文件）", len(ids), len(paths))
+    return len(ids)
 
 
 def update_metadata_by_file_path(file_path: str, changes: dict[str, Any]) -> int:

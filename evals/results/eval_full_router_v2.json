@@ -1,0 +1,6236 @@
+{
+ "generated_at": "2026-10-30T22:10:37",
+ "layers": [
+  "router"
+ ],
+ "elapsed_sec": 85.4,
+ "summary": {
+  "n": 258,
+  "layers": {
+   "router": {
+    "n": 258,
+    "accuracy": 0.8101,
+    "p50_ms": 1222.6,
+    "p95_ms": 1647.6
+   }
+  }
+ },
+ "matrix": {
+  "document": {
+   "document": 71,
+   "structured": 10,
+   "hybrid": 19
+  },
+  "structured": {
+   "structured": 82
+  },
+  "hybrid": {
+   "hybrid": 10,
+   "document": 16
+  },
+  "planning": {
+   "planning": 25,
+   "document": 1,
+   "general": 2
+  },
+  "general": {
+   "general": 19,
+   "structured": 1,
+   "document": 2
+  }
+ },
+ "results": {
+  "D01": {
+   "router": {
+    "route": "document",
+    "correct": true,
+    "plan": {
+     "route": "document",
+     "reason": "询问国家奖学金文件里规定的奖励金额，属于查学校文件原文内容",
+     "rewritten_query": "2025年国家奖学金奖励标准 每人每年金额",
+     "doc_type": "奖学金",
+     "college": "",
+     "department": "",
+     "year": 2025,
+     "category": "",
+     "level": "",
+     "exam_category": "",
+     "keyword": "国家奖学金",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 2566.0
+   }
+  },
+  "D02": {
+   "router": {
+    "route": "document",
+    "correct": true,
+    "plan": {
+     "route": "document",
+     "reason": "问的是学校文件中规定的国家奖学金名额，属于文件内容查询",
+     "rewritten_query": "2025年国家奖学金评选通知 名额分配",
+     "doc_type": "奖学金",
+     "college": "",
+     "department": "",
+     "year": 2025,
+     "category": "",
+     "level": "",
+     "exam_category": "",
+     "keyword": "国家奖学金",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 2878.7
+   }
+  },
+  "D03": {
+   "router": {
+    "route": "document",
+    "correct": true,
+    "plan": {
+     "route": "document",
+     "reason": "询问国家奖学金名额，属于学校评选文件中的规定内容，需查文件原文",
+     "rewritten_query": "2024年国家奖学金评选名额",
+     "doc_type": "奖学金",
+     "college": "",
+     "department": "",
+     "year": 2024,
+     "category": "",
+     "level": "",
+     "exam_category": "",
+     "keyword": "国家奖学金",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 2287.8
+   }
+  },
+  "D04": {
+   "router": {
+    "route": "document",
+    "correct": true,
+    "plan": {
+     "route": "document",
+     "reason": "询问国家励志奖学金的奖励标准与名额，属于学校文件/政策规定中写明的内容，需检索原文。",
+     "rewritten_query": "国家励志奖学金 奖励标准 名额 评选办法",
+     "doc_type": "奖学金",
+     "college": "",
+     "department": "",
+     "year": 0,
+     "category": "",
+     "level": "",
+     "exam_category": "",
+     "keyword": "国家励志奖学金",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 2785.6
+   }
+  },
+  "D05": {
+   "router": {
+    "route": "document",
+    "correct": true,
+    "plan": {
+     "route": "document",
+     "reason": "询问奖学金各等级金额，属于学校文件/政策规定的内容，需查原文",
+     "rewritten_query": "校级优秀学生奖学金一等奖、二等奖、三等奖奖励金额标准",
+     "doc_type": "奖学金",
+     "college": "",
+     "department": "",
+     "year": 0,
+     "category": "",
+     "level": "",
+     "exam_category": "",
+     "keyword": "优秀学生奖学金",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 1732.6
+   }
+  },
+  "D06": {
+   "router": {
+    "route": "structured",
+    "correct": true,
+    "plan": {
+     "route": "structured",
+     "reason": "问的是考试具体日期这类结构化字段，不需要读文件原文",
+     "rewritten_query": "2025年上半年英语四级考试时间安排",
+     "doc_type": "考试",
+     "college": "",
+     "department": "",
+     "year": 2025,
+     "category": "",
+     "level": "",
+     "exam_category": "英语",
+     "keyword": "四级",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 1282.4
+   }
+  },
+  "D07": {
+   "router": {
+    "route": "document",
+    "correct": true,
+    "plan": {
+     "route": "document",
+     "reason": "询问六级报考对四级分数的条件规定，属于学校文件/政策规定内容",
+     "rewritten_query": "英语六级报考条件 四级分数要求 报名资格规定",
+     "doc_type": "考试",
+     "college": "",
+     "department": "",
+     "year": 0,
+     "category": "",
+     "level": "",
+     "exam_category": "英语",
+     "keyword": "六级",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 1263.8
+   }
+  },
+  "D08": {
+   "router": {
+    "route": "document",
+    "correct": true,
+    "plan": {
+     "route": "document",
+     "reason": "问的是学院转专业文件里规定的接收专业与人数，属于查文件原文内容",
+     "rewritten_query": "计算机学院2024年转专业接收专业及接收人数",
+     "doc_type": "学籍",
+     "college": "计算机学院",
+     "department": "",
+     "year": 2024,
+     "category": "",
+     "level": "",
+     "exam_category": "",
+     "keyword": "转专业",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 1105.0
+   }
+  },
+  "D09": {
+   "router": {
+    "route": "document",
+    "correct": true,
+    "plan": {
+     "route": "document",
+     "reason": "询问转专业政策的具体规定，答案在学校文件原文中",
+     "rewritten_query": "本科生转专业申请次数规定 学籍管理规定",
+     "doc_type": "学籍",
+     "college": "",
+     "department": "",
+     "year": 0,
+     "category": "",
+     "level": "",
+     "exam_category": "",
+     "keyword": "转专业",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 1415.6
+   }
+  },
+  "D10": {
+   "router": {
+    "route": "structured",
+    "correct": false,
+    "plan": {
+     "route": "structured",
+     "reason": "问的是蓝桥杯的赛道分类这类结构化字段，不需要读文件原文，也不涉及学生个人情况",
+     "rewritten_query": "蓝桥杯比赛分哪几个赛道",
+     "doc_type": "",
+     "college": "",
+     "department": "",
+     "year": 0,
+     "category": "计算机",
+     "level": "",
+     "exam_category": "",
+     "keyword": "蓝桥杯",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 1261.2
+   }
+  },
+  "D11": {
+   "router": {
+    "route": "structured",
+    "correct": true,
+    "plan": {
+     "route": "structured",
+     "reason": "只问竞赛的比赛时间这一结构化字段，不需要文件原文",
+     "rewritten_query": "2025年数学建模竞赛比赛时间",
+     "doc_type": "",
+     "college": "",
+     "department": "",
+     "year": 2025,
+     "category": "数学",
+     "level": "",
+     "exam_category": "",
+     "keyword": "数学建模竞赛",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 1867.4
+   }
+  },
+  "D12": {
+   "router": {
+    "route": "document",
+    "correct": true,
+    "plan": {
+     "route": "document",
+     "reason": "询问数学建模竞赛的组队人数规则，属于竞赛文件/规则中规定的内容，需要读文件原文",
+     "rewritten_query": "数学建模竞赛 组队人数 每队几人 参赛规则",
+     "doc_type": "竞赛",
+     "college": "",
+     "department": "",
+     "year": 0,
+     "category": "数学",
+     "level": "",
+     "exam_category": "",
+     "keyword": "数学建模竞赛",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 884.5
+   }
+  },
+  "D13": {
+   "router": {
+    "route": "document",
+    "correct": true,
+    "plan": {
+     "route": "document",
+     "reason": "问的是校内选拔通知文件里规定的赛道设置，属于文件原文内容",
+     "rewritten_query": "信息安全竞赛校内选拔 赛道设置",
+     "doc_type": "竞赛",
+     "college": "",
+     "department": "",
+     "year": 0,
+     "category": "",
+     "level": "",
+     "exam_category": "",
+     "keyword": "信息安全竞赛",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 1317.9
+   }
+  },
+  "D14": {
+   "router": {
+    "route": "document",
+    "correct": true,
+    "plan": {
+     "route": "document",
+     "reason": "问的是选课政策/流程规定（分几轮、时间安排），答案在学校教务文件里",
+     "rewritten_query": "本学期选课轮次安排 第一轮选课开始时间 选课通知",
+     "doc_type": "教学",
+     "college": "",
+     "department": "教务处",
+     "year": 0,
+     "category": "",
+     "level": "",
+     "exam_category": "",
+     "keyword": "选课",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 1460.1
+   }
+  },
+  "D15": {
+   "router": {
+    "route": "document",
+    "correct": true,
+    "plan": {
+     "route": "document",
+     "reason": "询问毕业设计选题的政策规定，答案在学校文件原文中，无个人情况信息。",
+     "rewritten_query": "毕业设计选题要求 规定",
+     "doc_type": "教学",
+     "college": "",
+     "department": "",
+     "year": 0,
+     "category": "",
+     "level": "",
+     "exam_category": "",
+     "keyword": "毕业设计",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 930.7
+   }
+  },
+  "D16": {
+   "router": {
+    "route": "document",
+    "correct": true,
+    "plan": {
+     "route": "document",
+     "reason": "询问综测成绩的构成与分值，属于学校文件/政策规定里写明的内容，需要文件原文。",
+     "rewritten_query": "综合素质测评成绩构成及各部分分值占比",
+     "doc_type": "规章制度",
+     "college": "",
+     "department": "",
+     "year": 0,
+     "category": "",
+     "level": "",
+     "exam_category": "",
+     "keyword": "综合素质测评",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 1601.7
+   }
+  },
+  "D17": {
+   "router": {
+    "route": "document",
+    "correct": true,
+    "plan": {
+     "route": "document",
+     "reason": "询问政策文件中对困难认定等级的规定，属于文件原文内容",
+     "rewritten_query": "家庭经济困难学生认定等级划分",
+     "doc_type": "助学金",
+     "college": "",
+     "department": "",
+     "year": 0,
+     "category": "",
+     "level": "",
+     "exam_category": "",
+     "keyword": "家庭经济困难学生认定",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 1128.0
+   }
+  },
+  "D18": {
+   "router": {
+    "route": "document",
+    "correct": true,
+    "plan": {
+     "route": "document",
+     "reason": "询问图书馆自习室开放时间调整的规定，属于查找学校通知/文件原文。",
+     "rewritten_query": "图书馆自习室开放时间调整通知",
+     "doc_type": "后勤",
+     "college": "",
+     "department": "",
+     "year": 0,
+     "category": "",
+     "level": "",
+     "exam_category": "",
+     "keyword": "图书馆自习室",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 905.2
+   }
+  },
+  "D19": {
+   "router": {
+    "route": "document",
+    "correct": true,
+    "plan": {
+     "route": "document",
+     "reason": "询问国家助学贷款额度这一政策规定，答案在学校资助政策文件原文中",
+     "rewritten_query": "国家助学贷款本科生每年最高贷款额度 资助政策规定",
+     "doc_type": "助学金",
+     "college": "",
+     "department": "",
+     "year": 0,
+     "category": "",
+     "level": "",
+     "exam_category": "",
+     "keyword": "国家助学贷款",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 1221.4
+   }
+  },
+  "D20": {
+   "router": {
+    "route": "document",
+    "correct": true,
+    "plan": {
+     "route": "document",
+     "reason": "询问推免名额数量，答案在学院推免工作文件/通知原文中，需检索文件内容",
+     "rewritten_query": "2025年计算机学院推免名额分配 推荐免试研究生名额",
+     "doc_type": "学籍",
+     "college": "计算机学院",
+     "department": "",
+     "year": 2025,
+     "category": "",
+     "level": "",
+     "exam_category": "",
+     "keyword": "推免",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 1121.2
+   }
+  },
+  "S01": {
+   "router": {
+    "route": "structured",
+    "correct": true,
+    "plan": {
+     "route": "structured",
+     "reason": "只问蓝桥杯报名时间这一结构化字段，不需要文件原文",
+     "rewritten_query": "2025年蓝桥杯报名时间",
+     "doc_type": "",
+     "college": "",
+     "department": "",
+     "year": 2025,
+     "category": "计算机",
+     "level": "",
+     "exam_category": "",
+     "keyword": "蓝桥杯",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 964.1
+   }
+  },
+  "S02": {
+   "router": {
+    "route": "structured",
+    "correct": true,
+    "plan": {
+     "route": "structured",
+     "reason": "问的是蓝桥杯历年报名时间这类结构化字段，不需要文件原文",
+     "rewritten_query": "蓝桥杯历年报名时间",
+     "doc_type": "",
+     "college": "",
+     "department": "",
+     "year": 0,
+     "category": "计算机",
+     "level": "",
+     "exam_category": "",
+     "keyword": "蓝桥杯",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 826.6
+   }
+  },
+  "S03": {
+   "router": {
+    "route": "structured",
+    "correct": true,
+    "plan": {
+     "route": "structured",
+     "reason": "问的是计算机类竞赛有哪些，属于结构化字段查询，近五年年份填0",
+     "rewritten_query": "近五年计算机类竞赛有哪些",
+     "doc_type": "",
+     "college": "",
+     "department": "",
+     "year": 0,
+     "category": "计算机",
+     "level": "",
+     "exam_category": "",
+     "keyword": "计算机竞赛",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 1038.8
+   }
+  },
+  "S04": {
+   "router": {
+    "route": "structured",
+    "correct": true,
+    "plan": {
+     "route": "structured",
+     "reason": "只问竞赛的比赛时间，属于结构化字段查询，不需要文件原文",
+     "rewritten_query": "2025年数学建模竞赛比赛时间",
+     "doc_type": "",
+     "college": "",
+     "department": "",
+     "year": 2025,
+     "category": "数学",
+     "level": "",
+     "exam_category": "",
+     "keyword": "数学建模竞赛",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 1077.0
+   }
+  },
+  "S05": {
+   "router": {
+    "route": "structured",
+    "correct": true,
+    "plan": {
+     "route": "structured",
+     "reason": "问的是英语类考试有哪些，属于考试类别/数量的结构化字段查询，不需要文件原文。",
+     "rewritten_query": "学校有哪些英语类考试",
+     "doc_type": "考试",
+     "college": "",
+     "department": "",
+     "year": 0,
+     "category": "",
+     "level": "",
+     "exam_category": "英语",
+     "keyword": "英语考试",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 1035.3
+   }
+  },
+  "S06": {
+   "router": {
+    "route": "structured",
+    "correct": true,
+    "plan": {
+     "route": "structured",
+     "reason": "问的是考试报名时间这类结构化字段，不需要读文件原文",
+     "rewritten_query": "计算机等级考试报名时间",
+     "doc_type": "考试",
+     "college": "",
+     "department": "",
+     "year": 0,
+     "category": "",
+     "level": "",
+     "exam_category": "计算机",
+     "keyword": "计算机等级考试",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 998.6
+   }
+  },
+  "S07": {
+   "router": {
+    "route": "structured",
+    "correct": true,
+    "plan": {
+     "route": "structured",
+     "reason": "只问竞赛报名时间这一结构化字段，不需要文件原文",
+     "rewritten_query": "2026年蓝桥杯报名时间",
+     "doc_type": "",
+     "college": "",
+     "department": "",
+     "year": 2026,
+     "category": "计算机",
+     "level": "",
+     "exam_category": "",
+     "keyword": "蓝桥杯",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 1194.3
+   }
+  },
+  "S08": {
+   "router": {
+    "route": "structured",
+    "correct": true,
+    "plan": {
+     "route": "structured",
+     "reason": "只问创新创业类竞赛有哪些，属于竞赛结构化字段查询，不需要文件原文也不涉及个人情况。",
+     "rewritten_query": "创新创业类竞赛有哪些",
+     "doc_type": "",
+     "college": "",
+     "department": "",
+     "year": 0,
+     "category": "创新创业",
+     "level": "",
+     "exam_category": "",
+     "keyword": "创新创业",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 841.2
+   }
+  },
+  "S09": {
+   "router": {
+    "route": "structured",
+    "correct": true,
+    "plan": {
+     "route": "structured",
+     "reason": "问的是四六级考试的次数这类结构化字段，不需要读文件原文",
+     "rewritten_query": "大学英语四级考试一年考几次 考试次数安排",
+     "doc_type": "",
+     "college": "",
+     "department": "",
+     "year": 0,
+     "category": "",
+     "level": "",
+     "exam_category": "英语",
+     "keyword": "四级",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 1222.6
+   }
+  },
+  "S10": {
+   "router": {
+    "route": "structured",
+    "correct": true,
+    "plan": {
+     "route": "structured",
+     "reason": "只问电子类竞赛有哪些，属于竞赛结构化字段查询，无需文件原文，也未涉及学生个人情况",
+     "rewritten_query": "电子类竞赛有哪些",
+     "doc_type": "",
+     "college": "",
+     "department": "",
+     "year": 0,
+     "category": "电子",
+     "level": "",
+     "exam_category": "",
+     "keyword": "电子竞赛",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 773.0
+   }
+  },
+  "H01": {
+   "router": {
+    "route": "hybrid",
+    "correct": true,
+    "plan": {
+     "route": "hybrid",
+     "reason": "既要计算机学院2025年竞赛通知原文，又要报名截止时间这类结构化字段",
+     "rewritten_query": "2025年计算机学院竞赛通知及报名截止时间",
+     "doc_type": "竞赛",
+     "college": "计算机学院",
+     "department": "",
+     "year": 2025,
+     "category": "",
+     "level": "",
+     "exam_category": "",
+     "keyword": "竞赛",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 1382.5
+   }
+  },
+  "H02": {
+   "router": {
+    "route": "hybrid",
+    "correct": true,
+    "plan": {
+     "route": "hybrid",
+     "reason": "既要转专业政策文件原文，又要计算机学院今年接收人数的结构化数据",
+     "rewritten_query": "学校转专业政策文件 计算机学院 2026年接收转专业学生人数",
+     "doc_type": "学籍",
+     "college": "计算机学院",
+     "department": "",
+     "year": 2026,
+     "category": "",
+     "level": "",
+     "exam_category": "",
+     "keyword": "转专业",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 1703.6
+   }
+  },
+  "H03": {
+   "router": {
+    "route": "hybrid",
+    "correct": true,
+    "plan": {
+     "route": "hybrid",
+     "reason": "既要国家奖学金通知原文，又要今年的名额数量这类结构化字段",
+     "rewritten_query": "国家奖学金评选通知 名额 分配",
+     "doc_type": "奖学金",
+     "college": "",
+     "department": "",
+     "year": 2026,
+     "category": "",
+     "level": "",
+     "exam_category": "",
+     "keyword": "国家奖学金",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 799.8
+   }
+  },
+  "H04": {
+   "router": {
+    "route": "hybrid",
+    "correct": true,
+    "plan": {
+     "route": "hybrid",
+     "reason": "既要找四六级报名通知原文，又要报名时间这一结构化字段",
+     "rewritten_query": "四六级报名通知及报名时间",
+     "doc_type": "考试",
+     "college": "",
+     "department": "",
+     "year": 0,
+     "category": "",
+     "level": "",
+     "exam_category": "英语",
+     "keyword": "四六级",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 1104.8
+   }
+  },
+  "H05": {
+   "router": {
+    "route": "hybrid",
+    "correct": true,
+    "plan": {
+     "route": "hybrid",
+     "reason": "既要找竞赛通知原文，又要比赛时间这类结构化字段",
+     "rewritten_query": "数学建模竞赛通知及比赛时间",
+     "doc_type": "竞赛",
+     "college": "",
+     "department": "",
+     "year": 0,
+     "category": "数学",
+     "level": "",
+     "exam_category": "",
+     "keyword": "数学建模竞赛",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 913.6
+   }
+  },
+  "H06": {
+   "router": {
+    "route": "hybrid",
+    "correct": true,
+    "plan": {
+     "route": "hybrid",
+     "reason": "既要助学贷款通知原文，又要本科生贷款额度这类结构化字段",
+     "rewritten_query": "助学贷款通知 本科生贷款额度",
+     "doc_type": "助学金",
+     "college": "",
+     "department": "",
+     "year": 0,
+     "category": "",
+     "level": "",
+     "exam_category": "",
+     "keyword": "助学贷款",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 1666.0
+   }
+  },
+  "P01": {
+   "router": {
+    "route": "planning",
+    "correct": true,
+    "plan": {
+     "route": "planning",
+     "reason": "问题包含学生年级（大二）和专业（软件工程），并询问「怎么准备」，需要结合个人情况给规划建议。",
+     "rewritten_query": "大二软件工程专业学生参加计算机类竞赛的准备建议与规划",
+     "doc_type": "",
+     "college": "",
+     "department": "",
+     "year": 0,
+     "category": "计算机",
+     "level": "",
+     "exam_category": "",
+     "keyword": "",
+     "grade": "大二",
+     "major": "软件工程",
+     "interests": "计算机竞赛",
+     "use_student_profile": false
+    },
+    "latency_ms": 1365.5
+   }
+  },
+  "P02": {
+   "router": {
+    "route": "planning",
+    "correct": true,
+    "plan": {
+     "route": "planning",
+     "reason": "问题包含年级、专业、兴趣，需要结合学生个人情况推荐竞赛",
+     "rewritten_query": "大三计算机科学与技术专业，对信息安全感兴趣，适合参加哪些竞赛",
+     "doc_type": "",
+     "college": "",
+     "department": "",
+     "year": 0,
+     "category": "计算机",
+     "level": "",
+     "exam_category": "",
+     "keyword": "信息安全",
+     "grade": "大三",
+     "major": "计算机科学与技术",
+     "interests": "信息安全",
+     "use_student_profile": false
+    },
+    "latency_ms": 1423.4
+   }
+  },
+  "P03": {
+   "router": {
+    "route": "planning",
+    "correct": true,
+    "plan": {
+     "route": "planning",
+     "reason": "问题包含学生年级（大一）和专业（数学），并询问「需要做什么准备」，属于结合个人情况的规划建议。",
+     "rewritten_query": "大一数学专业学生参加数学建模竞赛需要做哪些准备",
+     "doc_type": "",
+     "college": "",
+     "department": "",
+     "year": 0,
+     "category": "数学",
+     "level": "",
+     "exam_category": "",
+     "keyword": "数学建模",
+     "grade": "大一",
+     "major": "数学",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 1151.0
+   }
+  },
+  "P04": {
+   "router": {
+    "route": "planning",
+    "correct": true,
+    "plan": {
+     "route": "planning",
+     "reason": "问题给出学号，需要结合该学生个人画像推荐适合的竞赛，属于个性化规划。",
+     "rewritten_query": "学号20240217学生的个人情况与适合参加的竞赛推荐",
+     "doc_type": "",
+     "college": "",
+     "department": "",
+     "year": 0,
+     "category": "",
+     "level": "",
+     "exam_category": "",
+     "keyword": "竞赛",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": true
+    },
+    "latency_ms": 1353.6
+   }
+  },
+  "P05": {
+   "router": {
+    "route": "planning",
+    "correct": true,
+    "plan": {
+     "route": "planning",
+     "reason": "问题包含学生个人情况（大二）并询问保研规划建议，属于需要结合个人情况的规划类问题。",
+     "rewritten_query": "大二学生保研规划建议 保研条件与准备路径",
+     "doc_type": "",
+     "college": "",
+     "department": "",
+     "year": 0,
+     "category": "",
+     "level": "",
+     "exam_category": "",
+     "keyword": "保研",
+     "grade": "大二",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 1247.9
+   }
+  },
+  "P06": {
+   "router": {
+    "route": "planning",
+    "correct": true,
+    "plan": {
+     "route": "planning",
+     "reason": "学生描述自身成绩情况并寻求奖学金获取建议，属于结合个人情况的规划类问题",
+     "rewritten_query": "成绩一般的学生如何争取奖学金，奖学金评选条件与提升建议",
+     "doc_type": "奖学金",
+     "college": "",
+     "department": "",
+     "year": 0,
+     "category": "",
+     "level": "",
+     "exam_category": "",
+     "keyword": "奖学金",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 952.4
+   }
+  },
+  "P07": {
+   "router": {
+    "route": "planning",
+    "correct": true,
+    "plan": {
+     "route": "planning",
+     "reason": "用户要求结合自身情况做学期学习与竞赛安排规划，属于个性化规划类问题",
+     "rewritten_query": "本学期学习计划与竞赛安排规划建议",
+     "doc_type": "",
+     "college": "",
+     "department": "",
+     "year": 0,
+     "category": "",
+     "level": "",
+     "exam_category": "",
+     "keyword": "",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 1421.2
+   }
+  },
+  "P08": {
+   "router": {
+    "route": "planning",
+    "correct": true,
+    "plan": {
+     "route": "planning",
+     "reason": "问题包含学生个人情况（大二）并询问如何报名和准备，需要结合个人情况给建议规划",
+     "rewritten_query": "大二学生参加蓝桥杯的报名流程与备赛建议",
+     "doc_type": "竞赛",
+     "college": "",
+     "department": "",
+     "year": 0,
+     "category": "计算机",
+     "level": "",
+     "exam_category": "",
+     "keyword": "蓝桥杯",
+     "grade": "大二",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 1353.0
+   }
+  },
+  "G01": {
+   "router": {
+    "route": "general",
+    "correct": true,
+    "plan": {
+     "route": "general",
+     "reason": "用户只是打招呼，未涉及学校文件、竞赛考试或个人信息，属于闲聊。",
+     "rewritten_query": "你好",
+     "doc_type": "",
+     "college": "",
+     "department": "",
+     "year": 0,
+     "category": "",
+     "level": "",
+     "exam_category": "",
+     "keyword": "",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 1143.8
+   }
+  },
+  "G02": {
+   "router": {
+    "route": "general",
+    "correct": true,
+    "plan": {
+     "route": "general",
+     "reason": "用户在询问系统能力，属于闲聊/系统介绍类问题，不涉及学校文件或结构化数据检索。",
+     "rewritten_query": "你能做什么",
+     "doc_type": "",
+     "college": "",
+     "department": "",
+     "year": 0,
+     "category": "",
+     "level": "",
+     "exam_category": "",
+     "keyword": "",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 1196.1
+   }
+  },
+  "G03": {
+   "router": {
+    "route": "general",
+    "correct": true,
+    "plan": {
+     "route": "general",
+     "reason": "询问天气，与本系统校园文件/竞赛考试知识无关，属于闲聊类。",
+     "rewritten_query": "今天天气怎么样",
+     "doc_type": "",
+     "college": "",
+     "department": "",
+     "year": 0,
+     "category": "",
+     "level": "",
+     "exam_category": "",
+     "keyword": "",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 1176.3
+   }
+  },
+  "G04": {
+   "router": {
+    "route": "general",
+    "correct": true,
+    "plan": {
+     "route": "general",
+     "reason": "用户请求写一首关于春天的诗，属于闲聊/创作类，与校园文件、竞赛考试等系统知识无关。",
+     "rewritten_query": "写一首关于春天的诗",
+     "doc_type": "",
+     "college": "",
+     "department": "",
+     "year": 0,
+     "category": "",
+     "level": "",
+     "exam_category": "",
+     "keyword": "",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 1173.1
+   }
+  },
+  "G05": {
+   "router": {
+    "route": "general",
+    "correct": true,
+    "plan": {
+     "route": "general",
+     "reason": "询问校长姓名属于学校基本常识/闲聊，不属于文件检索、结构化字段或个人规划范畴。",
+     "rewritten_query": "学校校长是谁",
+     "doc_type": "",
+     "college": "",
+     "department": "",
+     "year": 0,
+     "category": "",
+     "level": "",
+     "exam_category": "",
+     "keyword": "校长",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 1531.6
+   }
+  },
+  "G06": {
+   "router": {
+    "route": "structured",
+    "correct": false,
+    "plan": {
+     "route": "structured",
+     "reason": "问的是毕业生人数这类统计数值，属于结构化字段查询，不需要读文件原文，也不涉及学生个人情况",
+     "rewritten_query": "2025年学校毕业生人数统计",
+     "doc_type": "",
+     "college": "",
+     "department": "",
+     "year": 2025,
+     "category": "",
+     "level": "",
+     "exam_category": "",
+     "keyword": "毕业生",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 1283.0
+   }
+  },
+  "B001": {
+   "router": {
+    "route": "document",
+    "correct": true,
+    "plan": {
+     "route": "document",
+     "reason": "询问国家奖学金申请所需材料，属于学校文件/政策规定内容，需读文件原文。",
+     "rewritten_query": "2026年国家奖学金申请材料要求 评选通知",
+     "doc_type": "奖学金",
+     "college": "",
+     "department": "",
+     "year": 2026,
+     "category": "",
+     "level": "",
+     "exam_category": "",
+     "keyword": "国家奖学金",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 1259.0
+   }
+  },
+  "B002": {
+   "router": {
+    "route": "document",
+    "correct": true,
+    "plan": {
+     "route": "document",
+     "reason": "询问奖学金申请所需材料，属于学校文件/政策规定内容，需检索原文。",
+     "rewritten_query": "2026年国家励志奖学金申请材料要求",
+     "doc_type": "奖学金",
+     "college": "",
+     "department": "",
+     "year": 2026,
+     "category": "",
+     "level": "",
+     "exam_category": "",
+     "keyword": "国家励志奖学金",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 1465.8
+   }
+  },
+  "B003": {
+   "router": {
+    "route": "document",
+    "correct": true,
+    "plan": {
+     "route": "document",
+     "reason": "询问国家助学金申请所需材料，属于政策文件规定内容，需查文件原文。",
+     "rewritten_query": "2026年国家助学金申请需要提交的材料清单",
+     "doc_type": "助学金",
+     "college": "",
+     "department": "",
+     "year": 2026,
+     "category": "",
+     "level": "",
+     "exam_category": "",
+     "keyword": "国家助学金",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 1111.3
+   }
+  },
+  "B004": {
+   "router": {
+    "route": "document",
+    "correct": true,
+    "plan": {
+     "route": "document",
+     "reason": "询问奖学金申请所需材料，属于学校文件/政策规定内容，需检索原文。",
+     "rewritten_query": "2025年校级优秀学生奖学金申请材料要求",
+     "doc_type": "奖学金",
+     "college": "",
+     "department": "",
+     "year": 2025,
+     "category": "",
+     "level": "",
+     "exam_category": "",
+     "keyword": "优秀学生奖学金",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 1268.9
+   }
+  },
+  "B005": {
+   "router": {
+    "route": "document",
+    "correct": true,
+    "plan": {
+     "route": "document",
+     "reason": "询问某份奖学金文件里规定的申请材料，属于文件原文内容",
+     "rewritten_query": "2025年华为企业奖学金申请需要提交的材料清单",
+     "doc_type": "奖学金",
+     "college": "",
+     "department": "",
+     "year": 2025,
+     "category": "",
+     "level": "",
+     "exam_category": "",
+     "keyword": "华为企业奖学金",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 1161.4
+   }
+  },
+  "B006": {
+   "router": {
+    "route": "document",
+    "correct": true,
+    "plan": {
+     "route": "document",
+     "reason": "询问家庭经济困难学生认定需要提交的材料，属于政策文件规定的办理要求，需查文件原文。",
+     "rewritten_query": "2026年家庭经济困难学生认定申请所需提交材料",
+     "doc_type": "助学金",
+     "college": "",
+     "department": "",
+     "year": 2026,
+     "category": "",
+     "level": "",
+     "exam_category": "",
+     "keyword": "家庭经济困难学生认定",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 1627.1
+   }
+  },
+  "B007": {
+   "router": {
+    "route": "document",
+    "correct": true,
+    "plan": {
+     "route": "document",
+     "reason": "询问助学贷款申请所需材料，属于学校文件/政策规定里写的内容，只需文件原文。",
+     "rewritten_query": "2026年生源地信用助学贷款申请所需材料",
+     "doc_type": "助学金",
+     "college": "",
+     "department": "",
+     "year": 2026,
+     "category": "",
+     "level": "",
+     "exam_category": "",
+     "keyword": "生源地信用助学贷款",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 1349.8
+   }
+  },
+  "B008": {
+   "router": {
+    "route": "document",
+    "correct": true,
+    "plan": {
+     "route": "document",
+     "reason": "询问勤工助学岗位申请所需材料，属于学校文件/政策规定内容，需读原文。",
+     "rewritten_query": "2025年勤工助学岗位申请需要提交的材料",
+     "doc_type": "助学金",
+     "college": "",
+     "department": "",
+     "year": 2025,
+     "category": "",
+     "level": "",
+     "exam_category": "",
+     "keyword": "勤工助学",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 1412.8
+   }
+  },
+  "B009": {
+   "router": {
+    "route": "document",
+    "correct": true,
+    "plan": {
+     "route": "document",
+     "reason": "询问学费减免申请所需材料，属于学校文件/政策规定内容，需检索原文。",
+     "rewritten_query": "2025年学费减免申请所需材料",
+     "doc_type": "助学金",
+     "college": "",
+     "department": "",
+     "year": 2025,
+     "category": "",
+     "level": "",
+     "exam_category": "",
+     "keyword": "学费减免",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 1061.6
+   }
+  },
+  "B010": {
+   "router": {
+    "route": "document",
+    "correct": true,
+    "plan": {
+     "route": "document",
+     "reason": "询问申请临时困难补助需要提交的材料，属于学校文件/政策规定的内容，需检索原文。",
+     "rewritten_query": "2025年临时困难补助申请所需提交材料",
+     "doc_type": "助学金",
+     "college": "",
+     "department": "",
+     "year": 2025,
+     "category": "",
+     "level": "",
+     "exam_category": "",
+     "keyword": "临时困难补助",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 1360.3
+   }
+  },
+  "B011": {
+   "router": {
+    "route": "document",
+    "correct": true,
+    "plan": {
+     "route": "document",
+     "reason": "询问某项政策办理需要提交的材料，答案在学校文件原文中",
+     "rewritten_query": "2026年基层就业学费补偿贷款代偿申请所需提交材料",
+     "doc_type": "助学金",
+     "college": "",
+     "department": "",
+     "year": 2026,
+     "category": "",
+     "level": "",
+     "exam_category": "",
+     "keyword": "基层就业学费补偿贷款代偿",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 1291.8
+   }
+  },
+  "B012": {
+   "router": {
+    "route": "document",
+    "correct": true,
+    "plan": {
+     "route": "document",
+     "reason": "询问某份通知里规定的申请材料清单，属于文件原文内容。",
+     "rewritten_query": "2025年资助育人主题活动申请需要提交的材料",
+     "doc_type": "活动",
+     "college": "",
+     "department": "",
+     "year": 2025,
+     "category": "",
+     "level": "",
+     "exam_category": "",
+     "keyword": "资助育人主题活动",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 994.5
+   }
+  },
+  "B013": {
+   "router": {
+    "route": "hybrid",
+    "correct": false,
+    "plan": {
+     "route": "hybrid",
+     "reason": "既问报名流程（需文件原文），又问准考证打印时间（结构化字段）",
+     "rewritten_query": "2026年上半年全国大学英语四、六级考试报名流程及准考证打印时间",
+     "doc_type": "考试",
+     "college": "",
+     "department": "",
+     "year": 2026,
+     "category": "",
+     "level": "",
+     "exam_category": "英语",
+     "keyword": "四六级",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 1137.1
+   }
+  },
+  "B014": {
+   "router": {
+    "route": "hybrid",
+    "correct": false,
+    "plan": {
+     "route": "hybrid",
+     "reason": "既需要四六级考试通知文件中的报名流程原文，又需要准考证打印时间这类结构化时间字段",
+     "rewritten_query": "2025年下半年全国大学英语四、六级考试报名流程及准考证打印时间",
+     "doc_type": "考试",
+     "college": "",
+     "department": "",
+     "year": 2025,
+     "category": "",
+     "level": "",
+     "exam_category": "英语",
+     "keyword": "四六级",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 1388.3
+   }
+  },
+  "B015": {
+   "router": {
+    "route": "hybrid",
+    "correct": false,
+    "plan": {
+     "route": "hybrid",
+     "reason": "既需要考试通知文件里的报名流程原文，又需要准考证打印时间这类结构化字段",
+     "rewritten_query": "2025年9月全国计算机等级考试报名流程及准考证打印时间通知",
+     "doc_type": "考试",
+     "college": "",
+     "department": "",
+     "year": 2025,
+     "category": "",
+     "level": "",
+     "exam_category": "计算机",
+     "keyword": "全国计算机等级考试",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 996.4
+   }
+  },
+  "B016": {
+   "router": {
+    "route": "hybrid",
+    "correct": false,
+    "plan": {
+     "route": "hybrid",
+     "reason": "既问报名流程（需文件原文），又问准考证打印时间（结构化字段）",
+     "rewritten_query": "2025年普通话水平测试报名流程及准考证打印时间",
+     "doc_type": "考试",
+     "college": "",
+     "department": "",
+     "year": 2025,
+     "category": "",
+     "level": "",
+     "exam_category": "其他",
+     "keyword": "普通话水平测试",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 1329.1
+   }
+  },
+  "B017": {
+   "router": {
+    "route": "hybrid",
+    "correct": false,
+    "plan": {
+     "route": "hybrid",
+     "reason": "既问报名流程（需文件原文），又问准考证打印时间（结构化时间字段）",
+     "rewritten_query": "2025年下半年中小学教师资格考试笔试报名流程及准考证打印时间",
+     "doc_type": "考试",
+     "college": "",
+     "department": "",
+     "year": 2025,
+     "category": "",
+     "level": "",
+     "exam_category": "职业资格",
+     "keyword": "教师资格考试",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 1493.4
+   }
+  },
+  "B018": {
+   "router": {
+    "route": "hybrid",
+    "correct": false,
+    "plan": {
+     "route": "hybrid",
+     "reason": "既问报名流程（需文件原文规定），又问准考证打印时间（结构化时间字段）",
+     "rewritten_query": "2025—2026学年第一学期期中考试报名流程及准考证打印时间",
+     "doc_type": "考试",
+     "college": "",
+     "department": "",
+     "year": 2025,
+     "category": "",
+     "level": "",
+     "exam_category": "学业",
+     "keyword": "期中考试",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 1345.5
+   }
+  },
+  "B019": {
+   "router": {
+    "route": "hybrid",
+    "correct": false,
+    "plan": {
+     "route": "hybrid",
+     "reason": "既问期末考试报名流程（需文件原文），又问准考证打印时间（结构化字段）",
+     "rewritten_query": "2025—2026学年第一学期期末考试报名流程及准考证打印时间",
+     "doc_type": "考试",
+     "college": "",
+     "department": "",
+     "year": 2025,
+     "category": "",
+     "level": "",
+     "exam_category": "学业",
+     "keyword": "期末考试",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 1214.9
+   }
+  },
+  "B020": {
+   "router": {
+    "route": "hybrid",
+    "correct": false,
+    "plan": {
+     "route": "hybrid",
+     "reason": "既问补考重修报名流程（需文件原文），又问准考证打印时间（结构化字段）",
+     "rewritten_query": "2026年春季学期补考与重修报名流程及准考证打印时间",
+     "doc_type": "考试",
+     "college": "",
+     "department": "",
+     "year": 2026,
+     "category": "",
+     "level": "",
+     "exam_category": "学业",
+     "keyword": "补考重修",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 1036.9
+   }
+  },
+  "B021": {
+   "router": {
+    "route": "hybrid",
+    "correct": false,
+    "plan": {
+     "route": "hybrid",
+     "reason": "既需要考试通知文件里的报名流程原文，又需要准考证打印时间这类结构化字段",
+     "rewritten_query": "2025年成人学士学位外语水平考试报名流程及准考证打印时间",
+     "doc_type": "考试",
+     "college": "",
+     "department": "",
+     "year": 2025,
+     "category": "",
+     "level": "",
+     "exam_category": "英语",
+     "keyword": "成人学士学位外语水平考试",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 1322.2
+   }
+  },
+  "B022": {
+   "router": {
+    "route": "hybrid",
+    "correct": false,
+    "plan": {
+     "route": "hybrid",
+     "reason": "既问报名流程（需读通知原文），又问准考证打印时间（结构化时间字段）",
+     "rewritten_query": "2026年全国硕士研究生招生考试报名信息确认的报名流程及准考证打印时间",
+     "doc_type": "考试",
+     "college": "",
+     "department": "",
+     "year": 2026,
+     "category": "",
+     "level": "",
+     "exam_category": "学业",
+     "keyword": "硕士研究生招生考试",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 1134.9
+   }
+  },
+  "B023": {
+   "router": {
+    "route": "structured",
+    "correct": false,
+    "plan": {
+     "route": "structured",
+     "reason": "问的是蓝桥杯赛程安排和省赛时间，属于竞赛时间等结构化字段，不需要文件原文",
+     "rewritten_query": "第十七届蓝桥杯全国软件和信息技术专业人才大赛 赛程安排 省赛时间",
+     "doc_type": "",
+     "college": "",
+     "department": "",
+     "year": 0,
+     "category": "计算机",
+     "level": "",
+     "exam_category": "",
+     "keyword": "蓝桥杯",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 1008.8
+   }
+  },
+  "B024": {
+   "router": {
+    "route": "hybrid",
+    "correct": false,
+    "plan": {
+     "route": "hybrid",
+     "reason": "既问赛程安排（需查通知文件原文），又问省赛时间（结构化时间字段）",
+     "rewritten_query": "ACM-ICPC 国际大学生程序设计竞赛校内选拔赛赛程安排及省赛时间",
+     "doc_type": "竞赛",
+     "college": "",
+     "department": "",
+     "year": 0,
+     "category": "计算机",
+     "level": "",
+     "exam_category": "",
+     "keyword": "ACM-ICPC",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 867.5
+   }
+  },
+  "B025": {
+   "router": {
+    "route": "structured",
+    "correct": false,
+    "plan": {
+     "route": "structured",
+     "reason": "问的是挑战杯赛程时间节点（省赛时间），属于竞赛结构化字段，不需要文件原文",
+     "rewritten_query": "挑战杯全国大学生课外学术科技作品竞赛 赛程安排 省赛时间",
+     "doc_type": "",
+     "college": "",
+     "department": "",
+     "year": 0,
+     "category": "创新创业",
+     "level": "国家级",
+     "exam_category": "",
+     "keyword": "挑战杯",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 1337.1
+   }
+  },
+  "B026": {
+   "router": {
+    "route": "hybrid",
+    "correct": false,
+    "plan": {
+     "route": "hybrid",
+     "reason": "既需要大创项目的文件原文（赛程安排），又需要结构化的省赛时间字段",
+     "rewritten_query": "大学生创新创业训练计划项目 赛程安排 省赛时间",
+     "doc_type": "竞赛",
+     "college": "",
+     "department": "",
+     "year": 0,
+     "category": "创新创业",
+     "level": "",
+     "exam_category": "",
+     "keyword": "大学生创新创业训练计划",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 968.9
+   }
+  },
+  "B027": {
+   "router": {
+    "route": "structured",
+    "correct": false,
+    "plan": {
+     "route": "structured",
+     "reason": "问的是竞赛赛程时间安排（省赛时间），属于结构化字段，不需要文件原文",
+     "rewritten_query": "全国大学生电子设计竞赛 赛程安排 省赛时间",
+     "doc_type": "",
+     "college": "",
+     "department": "",
+     "year": 0,
+     "category": "电子",
+     "level": "",
+     "exam_category": "",
+     "keyword": "全国大学生电子设计竞赛",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 953.5
+   }
+  },
+  "B028": {
+   "router": {
+    "route": "structured",
+    "correct": false,
+    "plan": {
+     "route": "structured",
+     "reason": "问的是竞赛赛程时间安排（省赛时间等）结构化字段，不需要文件原文",
+     "rewritten_query": "中国大学生计算机设计大赛 赛程安排 省赛时间",
+     "doc_type": "",
+     "college": "",
+     "department": "",
+     "year": 0,
+     "category": "计算机",
+     "level": "",
+     "exam_category": "",
+     "keyword": "中国大学生计算机设计大赛",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 1062.3
+   }
+  },
+  "B029": {
+   "router": {
+    "route": "hybrid",
+    "correct": false,
+    "plan": {
+     "route": "hybrid",
+     "reason": "既问赛程安排（需文件原文说明），又问省赛时间（结构化字段），故为 hybrid",
+     "rewritten_query": "中国国际大学生创新大赛 赛程安排 省赛时间",
+     "doc_type": "竞赛",
+     "college": "",
+     "department": "",
+     "year": 0,
+     "category": "创新创业",
+     "level": "",
+     "exam_category": "",
+     "keyword": "中国国际大学生创新大赛",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 1298.2
+   }
+  },
+  "B030": {
+   "router": {
+    "route": "structured",
+    "correct": false,
+    "plan": {
+     "route": "structured",
+     "reason": "问的是竞赛赛程时间安排（省赛时间），属于结构化字段查询，不需要文件原文",
+     "rewritten_query": "全国大学生英语竞赛 赛程安排 省赛时间",
+     "doc_type": "",
+     "college": "",
+     "department": "",
+     "year": 0,
+     "category": "英语",
+     "level": "",
+     "exam_category": "",
+     "keyword": "全国大学生英语竞赛",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 1310.1
+   }
+  },
+  "B031": {
+   "router": {
+    "route": "structured",
+    "correct": false,
+    "plan": {
+     "route": "structured",
+     "reason": "问的是竞赛赛程/省赛时间这类结构化字段，不需要读文件原文，也未涉及学生个人情况",
+     "rewritten_query": "全国大学生数学竞赛 赛程安排 省赛时间",
+     "doc_type": "",
+     "college": "",
+     "department": "",
+     "year": 0,
+     "category": "数学",
+     "level": "",
+     "exam_category": "",
+     "keyword": "全国大学生数学竞赛",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 1366.4
+   }
+  },
+  "B032": {
+   "router": {
+    "route": "structured",
+    "correct": false,
+    "plan": {
+     "route": "structured",
+     "reason": "问的是竞赛赛程时间安排这类结构化字段，不需要读文件原文，也不涉及学生个人情况",
+     "rewritten_query": "美国大学生数学建模竞赛 MCM/ICM 赛程安排 报名时间 比赛时间 省赛时间",
+     "doc_type": "",
+     "college": "",
+     "department": "",
+     "year": 0,
+     "category": "数学",
+     "level": "",
+     "exam_category": "",
+     "keyword": "美国大学生数学建模竞赛",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 1122.8
+   }
+  },
+  "B033": {
+   "router": {
+    "route": "document",
+    "correct": true,
+    "plan": {
+     "route": "document",
+     "reason": "询问图书馆借阅规则调整的办理方式与地点，属于学校文件/政策规定类问题，需要文件原文。",
+     "rewritten_query": "图书馆图书借阅规则调整 办理流程 办理地点",
+     "doc_type": "规章制度",
+     "college": "",
+     "department": "",
+     "year": 0,
+     "category": "",
+     "level": "",
+     "exam_category": "",
+     "keyword": "图书馆 图书借阅",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 1172.0
+   }
+  },
+  "B034": {
+   "router": {
+    "route": "document",
+    "correct": true,
+    "plan": {
+     "route": "document",
+     "reason": "询问食堂营业时间调整的办理方式与地点，属于后勤类政策/流程，需要查学校文件原文",
+     "rewritten_query": "学生食堂营业时间调整 办理流程 办理地点 后勤",
+     "doc_type": "后勤",
+     "college": "",
+     "department": "",
+     "year": 0,
+     "category": "",
+     "level": "",
+     "exam_category": "",
+     "keyword": "食堂营业时间调整",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 1303.5
+   }
+  },
+  "B035": {
+   "router": {
+    "route": "document",
+    "correct": true,
+    "plan": {
+     "route": "document",
+     "reason": "询问宿舍热水供应时间调整的办理方式与地点，属于后勤类政策/流程文件内容，需查文件原文。",
+     "rewritten_query": "学生宿舍热水供应时间调整 办理流程 办理地点 后勤",
+     "doc_type": "后勤",
+     "college": "",
+     "department": "",
+     "year": 0,
+     "category": "",
+     "level": "",
+     "exam_category": "",
+     "keyword": "宿舍热水供应",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 994.3
+   }
+  },
+  "B036": {
+   "router": {
+    "route": "document",
+    "correct": true,
+    "plan": {
+     "route": "document",
+     "reason": "询问校园卡办理与补办的具体流程和地点，属于学校文件/规定里写明的办理流程，需要文件原文。",
+     "rewritten_query": "校园卡办理与补办流程及办理地点",
+     "doc_type": "后勤",
+     "college": "",
+     "department": "",
+     "year": 0,
+     "category": "",
+     "level": "",
+     "exam_category": "",
+     "keyword": "校园卡",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 1162.5
+   }
+  },
+  "B037": {
+   "router": {
+    "route": "document",
+    "correct": true,
+    "plan": {
+     "route": "document",
+     "reason": "询问校医院门诊时间调整的办理方式与地点，属于学校文件/通知中规定的办理流程，需检索原文。",
+     "rewritten_query": "校医院门诊时间调整 办理流程 办理地点 通知",
+     "doc_type": "后勤",
+     "college": "",
+     "department": "",
+     "year": 0,
+     "category": "",
+     "level": "",
+     "exam_category": "",
+     "keyword": "校医院 门诊时间",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 1268.8
+   }
+  },
+  "B038": {
+   "router": {
+    "route": "document",
+    "correct": true,
+    "plan": {
+     "route": "document",
+     "reason": "询问校园网核心设备升级的办理方式与地点，属于学校通知/文件中的办理流程类问题，无需个人情况或结构化字段。",
+     "rewritten_query": "校园网核心设备升级 办理流程 办理地点 通知",
+     "doc_type": "后勤",
+     "college": "",
+     "department": "",
+     "year": 0,
+     "category": "",
+     "level": "",
+     "exam_category": "",
+     "keyword": "校园网核心设备升级",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 1379.7
+   }
+  },
+  "B039": {
+   "router": {
+    "route": "document",
+    "correct": true,
+    "plan": {
+     "route": "document",
+     "reason": "询问校园快递服务点搬迁的办理方式与地点，属于学校后勤通知/规定类文件内容",
+     "rewritten_query": "校园快递服务点搬迁通知 办理地点 办理流程",
+     "doc_type": "后勤",
+     "college": "",
+     "department": "",
+     "year": 0,
+     "category": "",
+     "level": "",
+     "exam_category": "",
+     "keyword": "快递服务点",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 996.7
+   }
+  },
+  "B040": {
+   "router": {
+    "route": "document",
+    "correct": true,
+    "plan": {
+     "route": "document",
+     "reason": "询问宿舍报修办理流程与地点，属于学校文件/规定中写明的办事流程，只需文件原文。",
+     "rewritten_query": "学生宿舍报修流程 办理地点 后勤维修规定",
+     "doc_type": "后勤",
+     "college": "",
+     "department": "",
+     "year": 0,
+     "category": "",
+     "level": "",
+     "exam_category": "",
+     "keyword": "宿舍报修",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 1407.8
+   }
+  },
+  "B041": {
+   "router": {
+    "route": "document",
+    "correct": true,
+    "plan": {
+     "route": "document",
+     "reason": "问的是体育场馆开放安排与办理地点，属于学校文件/规定里写的内容，需要查原文。",
+     "rewritten_query": "体育场馆开放安排 办理流程 办理地点",
+     "doc_type": "后勤",
+     "college": "",
+     "department": "",
+     "year": 0,
+     "category": "",
+     "level": "",
+     "exam_category": "",
+     "keyword": "体育场馆",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 1026.9
+   }
+  },
+  "B042": {
+   "router": {
+    "route": "document",
+    "correct": true,
+    "plan": {
+     "route": "document",
+     "reason": "询问校车时刻表调整的办理方式与地点，属于学校文件/政策规定的原文查询。",
+     "rewritten_query": "校车运行时刻表调整 办理流程 办理地点 规定",
+     "doc_type": "后勤",
+     "college": "",
+     "department": "",
+     "year": 0,
+     "category": "",
+     "level": "",
+     "exam_category": "",
+     "keyword": "校车",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 1647.6
+   }
+  },
+  "B043": {
+   "router": {
+    "route": "document",
+    "correct": true,
+    "plan": {
+     "route": "document",
+     "reason": "询问某份活动通知的具体内容与举办地点，属于查找文件原文",
+     "rewritten_query": "第十二届校园歌手大赛 活动内容 举办地点 通知",
+     "doc_type": "活动",
+     "college": "",
+     "department": "",
+     "year": 0,
+     "category": "",
+     "level": "",
+     "exam_category": "",
+     "keyword": "校园歌手大赛",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 1227.1
+   }
+  },
+  "B044": {
+   "router": {
+    "route": "document",
+    "correct": true,
+    "plan": {
+     "route": "document",
+     "reason": "询问运动会通知的具体内容与举办地点，属于查找学校文件原文",
+     "rewritten_query": "2025年秋季田径运动会通知 活动内容 举办地点",
+     "doc_type": "活动",
+     "college": "",
+     "department": "",
+     "year": 2025,
+     "category": "",
+     "level": "",
+     "exam_category": "",
+     "keyword": "秋季田径运动会",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 1193.7
+   }
+  },
+  "B045": {
+   "router": {
+    "route": "document",
+    "correct": true,
+    "plan": {
+     "route": "document",
+     "reason": "问的是2025年志愿服务月活动的具体内容和举办地点，属于某份学校通知文件里写了什么，需要读文件原文。",
+     "rewritten_query": "2025年志愿服务月活动内容及举办地点通知",
+     "doc_type": "活动",
+     "college": "",
+     "department": "",
+     "year": 2025,
+     "category": "",
+     "level": "",
+     "exam_category": "",
+     "keyword": "志愿服务月",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 1177.1
+   }
+  },
+  "B046": {
+   "router": {
+    "route": "document",
+    "correct": true,
+    "plan": {
+     "route": "document",
+     "reason": "问的是某份活动通知里写了什么内容、在哪办，属于查文件原文。",
+     "rewritten_query": "2025年心理健康教育月活动内容及举办地点通知",
+     "doc_type": "活动",
+     "college": "",
+     "department": "",
+     "year": 2025,
+     "category": "",
+     "level": "",
+     "exam_category": "",
+     "keyword": "心理健康教育月",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 1287.8
+   }
+  },
+  "B047": {
+   "router": {
+    "route": "document",
+    "correct": true,
+    "plan": {
+     "route": "document",
+     "reason": "询问2025年社团招新的具体内容与地点，属于查找学校通知/活动文件原文。",
+     "rewritten_query": "2025年学生社团招新活动通知 招新内容 举办地点",
+     "doc_type": "活动",
+     "college": "",
+     "department": "",
+     "year": 2025,
+     "category": "",
+     "level": "",
+     "exam_category": "",
+     "keyword": "社团招新",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 1131.0
+   }
+  },
+  "B048": {
+   "router": {
+    "route": "document",
+    "correct": true,
+    "plan": {
+     "route": "document",
+     "reason": "问的是2025年学术活动月的具体内容与举办地点，属于某份学校通知/文件里写了什么，需要文件原文。",
+     "rewritten_query": "2025年学术活动月活动内容 举办地点 安排通知",
+     "doc_type": "活动",
+     "college": "",
+     "department": "",
+     "year": 2025,
+     "category": "",
+     "level": "",
+     "exam_category": "",
+     "keyword": "学术活动月",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 1279.4
+   }
+  },
+  "B049": {
+   "router": {
+    "route": "document",
+    "correct": true,
+    "plan": {
+     "route": "document",
+     "reason": "询问校园读书节的活动内容与举办地点，属于查找学校活动通知文件原文。",
+     "rewritten_query": "第八届校园读书节活动内容 举办地点 活动安排通知",
+     "doc_type": "活动",
+     "college": "",
+     "department": "",
+     "year": 0,
+     "category": "",
+     "level": "",
+     "exam_category": "",
+     "keyword": "校园读书节",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 1239.0
+   }
+  },
+  "B050": {
+   "router": {
+    "route": "document",
+    "correct": true,
+    "plan": {
+     "route": "document",
+     "reason": "询问毕业生晚会的具体内容与举办地点，属于查找学校活动通知/文件原文。",
+     "rewritten_query": "2026届毕业生晚会 活动内容 举办地点 通知",
+     "doc_type": "活动",
+     "college": "",
+     "department": "",
+     "year": 2026,
+     "category": "",
+     "level": "",
+     "exam_category": "",
+     "keyword": "毕业生晚会",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 945.8
+   }
+  },
+  "B051": {
+   "router": {
+    "route": "document",
+    "correct": true,
+    "plan": {
+     "route": "document",
+     "reason": "询问选课的具体要求，答案在教务文件/通知原文中，属于政策规定类问题。",
+     "rewritten_query": "2025-2026学年第二学期选课要求 学生选课规定",
+     "doc_type": "教学",
+     "college": "",
+     "department": "",
+     "year": 2025,
+     "category": "",
+     "level": "",
+     "exam_category": "",
+     "keyword": "选课",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 1284.3
+   }
+  },
+  "B052": {
+   "router": {
+    "route": "document",
+    "correct": true,
+    "plan": {
+     "route": "document",
+     "reason": "询问学校文件中关于人才培养方案修订的具体规定，属于政策文件原文查询。",
+     "rewritten_query": "2025—2026学年人才培养方案修订 学生具体要求",
+     "doc_type": "教学",
+     "college": "",
+     "department": "",
+     "year": 2025,
+     "category": "",
+     "level": "",
+     "exam_category": "",
+     "keyword": "人才培养方案",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 1250.4
+   }
+  },
+  "B053": {
+   "router": {
+    "route": "document",
+    "correct": true,
+    "plan": {
+     "route": "document",
+     "reason": "询问某学年毕业实习安排文件中的具体要求，属于查文件原文内容",
+     "rewritten_query": "2025—2026学年毕业实习安排的具体要求",
+     "doc_type": "教学",
+     "college": "",
+     "department": "",
+     "year": 2025,
+     "category": "",
+     "level": "",
+     "exam_category": "",
+     "keyword": "毕业实习",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 1386.2
+   }
+  },
+  "B054": {
+   "router": {
+    "route": "document",
+    "correct": true,
+    "plan": {
+     "route": "document",
+     "reason": "询问学校文件中关于毕业论文答辩的具体要求，属于查文件原文",
+     "rewritten_query": "2025-2026学年毕业论文（设计）答辩对学生具体要求",
+     "doc_type": "教学",
+     "college": "",
+     "department": "",
+     "year": 2025,
+     "category": "",
+     "level": "",
+     "exam_category": "",
+     "keyword": "毕业论文",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 1026.2
+   }
+  },
+  "B055": {
+   "router": {
+    "route": "document",
+    "correct": true,
+    "plan": {
+     "route": "document",
+     "reason": "询问评教工作通知中对学生的具体要求，属于学校文件原文内容",
+     "rewritten_query": "2025—2026学年第一学期学生网上评教 学生要求",
+     "doc_type": "教学",
+     "college": "",
+     "department": "",
+     "year": 2025,
+     "category": "",
+     "level": "",
+     "exam_category": "",
+     "keyword": "网上评教",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 1218.3
+   }
+  },
+  "B056": {
+   "router": {
+    "route": "document",
+    "correct": true,
+    "plan": {
+     "route": "document",
+     "reason": "询问辅修专业与双学位报名的具体条件要求，属于学校文件/政策规定内容，需读原文。",
+     "rewritten_query": "2025—2026学年辅修专业与双学位报名要求 申请条件",
+     "doc_type": "学籍",
+     "college": "",
+     "department": "",
+     "year": 2025,
+     "category": "",
+     "level": "",
+     "exam_category": "",
+     "keyword": "辅修专业 双学位",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 1151.2
+   }
+  },
+  "B057": {
+   "router": {
+    "route": "document",
+    "correct": true,
+    "plan": {
+     "route": "document",
+     "reason": "询问转专业政策的具体要求，答案在学校文件原文中，属于政策规定类问题。",
+     "rewritten_query": "2025—2026学年本科生转专业的具体要求 申请条件",
+     "doc_type": "学籍",
+     "college": "",
+     "department": "",
+     "year": 2025,
+     "category": "",
+     "level": "",
+     "exam_category": "",
+     "keyword": "转专业",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 1309.6
+   }
+  },
+  "B058": {
+   "router": {
+    "route": "document",
+    "correct": true,
+    "plan": {
+     "route": "document",
+     "reason": "询问某份教学检查文件中对学生的具体要求，属于查找学校文件原文内容",
+     "rewritten_query": "2025—2026学年第一学期期中教学检查 学生 具体要求",
+     "doc_type": "教学",
+     "college": "",
+     "department": "",
+     "year": 2025,
+     "category": "",
+     "level": "",
+     "exam_category": "",
+     "keyword": "期中教学检查",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 1241.1
+   }
+  },
+  "B059": {
+   "router": {
+    "route": "document",
+    "correct": true,
+    "plan": {
+     "route": "document",
+     "reason": "询问教材征订通知中对学生的具体要求，属于查找学校文件中的规定内容。",
+     "rewritten_query": "2025—2026学年第二学期教材征订 学生 具体要求",
+     "doc_type": "教学",
+     "college": "",
+     "department": "",
+     "year": 2025,
+     "category": "",
+     "level": "",
+     "exam_category": "",
+     "keyword": "教材征订",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 1236.2
+   }
+  },
+  "B060": {
+   "router": {
+    "route": "document",
+    "correct": true,
+    "plan": {
+     "route": "document",
+     "reason": "问的是某份教学安排文件里对学生的具体要求，属于文件原文查询。",
+     "rewritten_query": "2025—2026学年第一学期实验课安排调整 学生具体要求",
+     "doc_type": "教学",
+     "college": "",
+     "department": "",
+     "year": 2025,
+     "category": "",
+     "level": "",
+     "exam_category": "",
+     "keyword": "实验课安排调整",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 1137.0
+   }
+  },
+  "B061": {
+   "router": {
+    "route": "document",
+    "correct": true,
+    "plan": {
+     "route": "document",
+     "reason": "询问某份教学安排文件里对学生的具体要求，属于查文件原文",
+     "rewritten_query": "2025—2026学年小学期课程安排 学生要求",
+     "doc_type": "教学",
+     "college": "",
+     "department": "",
+     "year": 2025,
+     "category": "",
+     "level": "",
+     "exam_category": "",
+     "keyword": "小学期",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 1442.9
+   }
+  },
+  "B062": {
+   "router": {
+    "route": "document",
+    "correct": true,
+    "plan": {
+     "route": "document",
+     "reason": "询问学校文件中关于学业预警的具体规定要求，属于政策原文查询",
+     "rewritten_query": "2025—2026学年第一学期学业预警的具体要求 规定",
+     "doc_type": "学籍",
+     "college": "",
+     "department": "",
+     "year": 2025,
+     "category": "",
+     "level": "",
+     "exam_category": "",
+     "keyword": "学业预警",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 1352.9
+   }
+  },
+  "B063": {
+   "router": {
+    "route": "document",
+    "correct": true,
+    "plan": {
+     "route": "document",
+     "reason": "询问规章制度文件的具体条款内容（施行时间、解释部门），属于查找学校文件原文。",
+     "rewritten_query": "XX大学学生违纪处分规定 施行时间 负责解释部门",
+     "doc_type": "规章制度",
+     "college": "",
+     "department": "",
+     "year": 0,
+     "category": "",
+     "level": "",
+     "exam_category": "",
+     "keyword": "学生违纪处分规定",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 1218.8
+   }
+  },
+  "B064": {
+   "router": {
+    "route": "document",
+    "correct": true,
+    "plan": {
+     "route": "document",
+     "reason": "询问某份规章制度的施行时间与解释部门，答案在文件原文中",
+     "rewritten_query": "XX大学学生宿舍管理规定 施行时间 解释部门",
+     "doc_type": "规章制度",
+     "college": "",
+     "department": "",
+     "year": 0,
+     "category": "",
+     "level": "",
+     "exam_category": "",
+     "keyword": "学生宿舍管理规定",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 1194.2
+   }
+  },
+  "B065": {
+   "router": {
+    "route": "document",
+    "correct": true,
+    "plan": {
+     "route": "document",
+     "reason": "询问某份规章制度的施行时间与解释部门，答案在文件原文中",
+     "rewritten_query": "XX大学学术不端行为处理办法 施行日期 负责解释的部门",
+     "doc_type": "规章制度",
+     "college": "",
+     "department": "",
+     "year": 0,
+     "category": "",
+     "level": "",
+     "exam_category": "",
+     "keyword": "学术不端行为处理办法",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 1368.0
+   }
+  },
+  "B066": {
+   "router": {
+    "route": "document",
+    "correct": true,
+    "plan": {
+     "route": "document",
+     "reason": "询问某份规章文件的施行时间与解释部门，属于文件原文内容查询",
+     "rewritten_query": "XX大学考场纪律规定 施行日期 负责解释部门",
+     "doc_type": "规章制度",
+     "college": "",
+     "department": "",
+     "year": 0,
+     "category": "",
+     "level": "",
+     "exam_category": "",
+     "keyword": "考场纪律规定",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 1269.5
+   }
+  },
+  "B067": {
+   "router": {
+    "route": "document",
+    "correct": true,
+    "plan": {
+     "route": "document",
+     "reason": "询问某份规章制度的施行时间与解释部门，答案在文件原文中",
+     "rewritten_query": "XX大学学生申诉处理办法 施行日期 负责解释部门",
+     "doc_type": "规章制度",
+     "college": "",
+     "department": "",
+     "year": 0,
+     "category": "",
+     "level": "",
+     "exam_category": "",
+     "keyword": "学生申诉处理办法",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 1405.5
+   }
+  },
+  "B068": {
+   "router": {
+    "route": "document",
+    "correct": true,
+    "plan": {
+     "route": "document",
+     "reason": "询问某份校内规章制度的施行时间与解释部门，答案在文件原文中",
+     "rewritten_query": "XX大学校园交通安全管理办法 施行日期 负责解释部门",
+     "doc_type": "规章制度",
+     "college": "",
+     "department": "",
+     "year": 0,
+     "category": "",
+     "level": "",
+     "exam_category": "",
+     "keyword": "校园交通安全管理办法",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 1249.5
+   }
+  },
+  "B069": {
+   "router": {
+    "route": "document",
+    "correct": true,
+    "plan": {
+     "route": "document",
+     "reason": "询问招聘会对参会学生的具体要求，属于学校通知文件中的规定内容，需读文件原文。",
+     "rewritten_query": "2026届毕业生秋季校园招聘会 参会学生要求",
+     "doc_type": "活动",
+     "college": "",
+     "department": "",
+     "year": 2026,
+     "category": "",
+     "level": "",
+     "exam_category": "",
+     "keyword": "秋季校园招聘会",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 1073.9
+   }
+  },
+  "B070": {
+   "router": {
+    "route": "document",
+    "correct": true,
+    "plan": {
+     "route": "document",
+     "reason": "询问学校文件中关于就业协议书签订对参会学生的具体要求，属于政策规定原文查询",
+     "rewritten_query": "2026届毕业生就业协议书签订对参会学生的要求",
+     "doc_type": "规章制度",
+     "college": "",
+     "department": "",
+     "year": 2026,
+     "category": "",
+     "level": "",
+     "exam_category": "",
+     "keyword": "就业协议书",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 1814.1
+   }
+  },
+  "B071": {
+   "router": {
+    "route": "document",
+    "correct": true,
+    "plan": {
+     "route": "document",
+     "reason": "询问毕业生档案转递相关会议对参会学生的具体要求，属于学校文件/通知中的规定内容，需要读原文。",
+     "rewritten_query": "2026届毕业生档案转递 参会学生要求",
+     "doc_type": "规章制度",
+     "college": "",
+     "department": "",
+     "year": 2026,
+     "category": "",
+     "level": "",
+     "exam_category": "",
+     "keyword": "毕业生档案转递",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 1227.2
+   }
+  },
+  "B072": {
+   "router": {
+    "route": "document",
+    "correct": true,
+    "plan": {
+     "route": "document",
+     "reason": "询问政策文件中对申报学生的条件要求，属于查文件原文",
+     "rewritten_query": "高校毕业生就业见习补贴申报 参会学生 要求 条件",
+     "doc_type": "规章制度",
+     "college": "",
+     "department": "",
+     "year": 0,
+     "category": "",
+     "level": "",
+     "exam_category": "",
+     "keyword": "就业见习补贴",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 1485.0
+   }
+  },
+  "B073": {
+   "router": {
+    "route": "document",
+    "correct": true,
+    "plan": {
+     "route": "document",
+     "reason": "询问某份通知中对参会学生的具体要求，属于查文件原文内容",
+     "rewritten_query": "2025年秋季简历门诊 参会学生要求",
+     "doc_type": "活动",
+     "college": "",
+     "department": "",
+     "year": 2025,
+     "category": "",
+     "level": "",
+     "exam_category": "",
+     "keyword": "简历门诊",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 1163.6
+   }
+  },
+  "B074": {
+   "router": {
+    "route": "document",
+    "correct": true,
+    "plan": {
+     "route": "document",
+     "reason": "询问某份通知中对参会学生的报名要求，属于文件原文内容",
+     "rewritten_query": "2026年基层就业项目报名通知 参会学生要求",
+     "doc_type": "活动",
+     "college": "",
+     "department": "",
+     "year": 2026,
+     "category": "",
+     "level": "",
+     "exam_category": "",
+     "keyword": "基层就业项目",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 1167.3
+   }
+  },
+  "B075": {
+   "router": {
+    "route": "hybrid",
+    "correct": false,
+    "plan": {
+     "route": "hybrid",
+     "reason": "既问交换生项目的申请条件（需读文件原文），又问名额数量（结构化字段），故为 hybrid。",
+     "rewritten_query": "2026年秋季学期交换生项目申请条件及名额",
+     "doc_type": "教学",
+     "college": "",
+     "department": "",
+     "year": 2026,
+     "category": "",
+     "level": "",
+     "exam_category": "",
+     "keyword": "交换生",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 1452.6
+   }
+  },
+  "B076": {
+   "router": {
+    "route": "hybrid",
+    "correct": false,
+    "plan": {
+     "route": "hybrid",
+     "reason": "既问申请条件（需读项目通知原文），又问名额数量（结构化字段），故为 hybrid。",
+     "rewritten_query": "2026年暑期海外研修项目申请条件及名额",
+     "doc_type": "活动",
+     "college": "",
+     "department": "",
+     "year": 2026,
+     "category": "",
+     "level": "",
+     "exam_category": "",
+     "keyword": "暑期海外研修",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 1314.1
+   }
+  },
+  "B077": {
+   "router": {
+    "route": "hybrid",
+    "correct": false,
+    "plan": {
+     "route": "hybrid",
+     "reason": "既需要交流生项目通知文件中的申请条件原文，又需要名额这类结构化字段",
+     "rewritten_query": "2026年港澳台地区交流生项目申请条件及名额",
+     "doc_type": "教学",
+     "college": "",
+     "department": "",
+     "year": 2026,
+     "category": "",
+     "level": "",
+     "exam_category": "",
+     "keyword": "港澳台交流生",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 1230.7
+   }
+  },
+  "B078": {
+   "router": {
+    "route": "hybrid",
+    "correct": false,
+    "plan": {
+     "route": "hybrid",
+     "reason": "既问申请条件（需读项目通知原文），又问名额数量（结构化字段），故为 hybrid。",
+     "rewritten_query": "国际组织实习项目申请条件及名额",
+     "doc_type": "活动",
+     "college": "",
+     "department": "",
+     "year": 0,
+     "category": "",
+     "level": "",
+     "exam_category": "",
+     "keyword": "国际组织实习",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 897.8
+   }
+  },
+  "B079": {
+   "router": {
+    "route": "hybrid",
+    "correct": false,
+    "plan": {
+     "route": "hybrid",
+     "reason": "既问申请条件（需读通知原文），又问名额数量（结构化字段），故为 hybrid。",
+     "rewritten_query": "2025年雅思托福备考培训班的申请条件与名额",
+     "doc_type": "活动",
+     "college": "",
+     "department": "",
+     "year": 2025,
+     "category": "",
+     "level": "",
+     "exam_category": "英语",
+     "keyword": "雅思托福备考培训班",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 1172.5
+   }
+  },
+  "B080": {
+   "router": {
+    "route": "hybrid",
+    "correct": false,
+    "plan": {
+     "route": "hybrid",
+     "reason": "既问申请条件（需读通知原文），又问名额数量（结构化字段）",
+     "rewritten_query": "2026年秋季学期留学生接待志愿者申请条件及名额",
+     "doc_type": "活动",
+     "college": "",
+     "department": "",
+     "year": 2026,
+     "category": "",
+     "level": "",
+     "exam_category": "",
+     "keyword": "留学生接待志愿者",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 1257.6
+   }
+  },
+  "S101": {
+   "router": {
+    "route": "structured",
+    "correct": true,
+    "plan": {
+     "route": "structured",
+     "reason": "只问挑战杯报名时间这一结构化字段，不需要文件原文",
+     "rewritten_query": "2024年挑战杯竞赛报名开始时间",
+     "doc_type": "竞赛",
+     "college": "",
+     "department": "",
+     "year": 2024,
+     "category": "",
+     "level": "",
+     "exam_category": "",
+     "keyword": "挑战杯",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 1304.2
+   }
+  },
+  "S102": {
+   "router": {
+    "route": "structured",
+    "correct": true,
+    "plan": {
+     "route": "structured",
+     "reason": "只问挑战杯报名时间这一结构化字段，不需要文件原文",
+     "rewritten_query": "2025年挑战杯竞赛报名开始时间",
+     "doc_type": "竞赛",
+     "college": "",
+     "department": "",
+     "year": 2025,
+     "category": "",
+     "level": "",
+     "exam_category": "",
+     "keyword": "挑战杯",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 1086.2
+   }
+  },
+  "S103": {
+   "router": {
+    "route": "structured",
+    "correct": true,
+    "plan": {
+     "route": "structured",
+     "reason": "只问挑战杯报名时间这一结构化字段，不需要文件原文",
+     "rewritten_query": "2026年挑战杯竞赛报名开始时间",
+     "doc_type": "竞赛",
+     "college": "",
+     "department": "",
+     "year": 2026,
+     "category": "",
+     "level": "",
+     "exam_category": "",
+     "keyword": "挑战杯",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 958.3
+   }
+  },
+  "S104": {
+   "router": {
+    "route": "structured",
+    "correct": true,
+    "plan": {
+     "route": "structured",
+     "reason": "问的是具体竞赛的报名时间，属于结构化字段查询，不需要文件原文",
+     "rewritten_query": "2024年互联网+大学生创新创业大赛报名开始时间",
+     "doc_type": "",
+     "college": "",
+     "department": "",
+     "year": 2024,
+     "category": "创新创业",
+     "level": "",
+     "exam_category": "",
+     "keyword": "互联网+大学生创新创业大赛",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 1140.7
+   }
+  },
+  "S105": {
+   "router": {
+    "route": "structured",
+    "correct": true,
+    "plan": {
+     "route": "structured",
+     "reason": "只问竞赛报名时间这一结构化字段，不需要文件原文",
+     "rewritten_query": "2025年互联网+大学生创新创业大赛报名开始时间",
+     "doc_type": "",
+     "college": "",
+     "department": "",
+     "year": 2025,
+     "category": "创新创业",
+     "level": "",
+     "exam_category": "",
+     "keyword": "互联网+大学生创新创业大赛",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 976.8
+   }
+  },
+  "S106": {
+   "router": {
+    "route": "structured",
+    "correct": true,
+    "plan": {
+     "route": "structured",
+     "reason": "只问竞赛报名时间这一结构化字段，不需要文件原文",
+     "rewritten_query": "2026年互联网+大学生创新创业大赛报名开始时间",
+     "doc_type": "",
+     "college": "",
+     "department": "",
+     "year": 2026,
+     "category": "创新创业",
+     "level": "",
+     "exam_category": "",
+     "keyword": "互联网+大学生创新创业大赛",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 1130.2
+   }
+  },
+  "S107": {
+   "router": {
+    "route": "structured",
+    "correct": true,
+    "plan": {
+     "route": "structured",
+     "reason": "只问竞赛报名时间这一结构化字段，不需要文件原文",
+     "rewritten_query": "2024年CCPC程序设计竞赛报名时间",
+     "doc_type": "",
+     "college": "",
+     "department": "",
+     "year": 2024,
+     "category": "计算机",
+     "level": "",
+     "exam_category": "",
+     "keyword": "CCPC",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 1206.3
+   }
+  },
+  "S108": {
+   "router": {
+    "route": "structured",
+    "correct": true,
+    "plan": {
+     "route": "structured",
+     "reason": "只问竞赛报名时间这一结构化字段，不需要文件原文",
+     "rewritten_query": "2025年CCPC程序设计竞赛报名时间",
+     "doc_type": "",
+     "college": "",
+     "department": "",
+     "year": 2025,
+     "category": "计算机",
+     "level": "",
+     "exam_category": "",
+     "keyword": "CCPC程序设计竞赛",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 1791.9
+   }
+  },
+  "S109": {
+   "router": {
+    "route": "structured",
+    "correct": true,
+    "plan": {
+     "route": "structured",
+     "reason": "只问竞赛报名时间这一结构化字段，不需要文件原文",
+     "rewritten_query": "2026年CCPC程序设计竞赛报名时间",
+     "doc_type": "",
+     "college": "",
+     "department": "",
+     "year": 2026,
+     "category": "计算机",
+     "level": "",
+     "exam_category": "",
+     "keyword": "CCPC",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 1712.2
+   }
+  },
+  "S110": {
+   "router": {
+    "route": "structured",
+    "correct": true,
+    "plan": {
+     "route": "structured",
+     "reason": "问的是竞赛报名时间这类结构化字段，不需要文件原文",
+     "rewritten_query": "2024年计算机设计大赛报名开始时间",
+     "doc_type": "",
+     "college": "",
+     "department": "",
+     "year": 2024,
+     "category": "计算机",
+     "level": "",
+     "exam_category": "",
+     "keyword": "计算机设计大赛",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 1429.3
+   }
+  },
+  "S111": {
+   "router": {
+    "route": "structured",
+    "correct": true,
+    "plan": {
+     "route": "structured",
+     "reason": "只问竞赛报名时间这一结构化字段，不需要文件原文",
+     "rewritten_query": "2025年计算机设计大赛报名开始时间",
+     "doc_type": "",
+     "college": "",
+     "department": "",
+     "year": 2025,
+     "category": "计算机",
+     "level": "",
+     "exam_category": "",
+     "keyword": "计算机设计大赛",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 1243.7
+   }
+  },
+  "S112": {
+   "router": {
+    "route": "structured",
+    "correct": true,
+    "plan": {
+     "route": "structured",
+     "reason": "只问竞赛报名时间这一结构化字段，不需要文件原文",
+     "rewritten_query": "2026年计算机设计大赛报名开始时间",
+     "doc_type": "",
+     "college": "",
+     "department": "",
+     "year": 2026,
+     "category": "计算机",
+     "level": "",
+     "exam_category": "",
+     "keyword": "计算机设计大赛",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 1250.9
+   }
+  },
+  "S113": {
+   "router": {
+    "route": "structured",
+    "correct": true,
+    "plan": {
+     "route": "structured",
+     "reason": "只问竞赛报名时间这一结构化字段，不需要文件原文",
+     "rewritten_query": "2024年团体程序设计天梯赛报名时间",
+     "doc_type": "",
+     "college": "",
+     "department": "",
+     "year": 2024,
+     "category": "计算机",
+     "level": "",
+     "exam_category": "",
+     "keyword": "团体程序设计天梯赛",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 952.5
+   }
+  },
+  "S114": {
+   "router": {
+    "route": "structured",
+    "correct": true,
+    "plan": {
+     "route": "structured",
+     "reason": "只问竞赛报名时间这一结构化字段，不需要文件原文",
+     "rewritten_query": "2025年团体程序设计天梯赛报名时间",
+     "doc_type": "",
+     "college": "",
+     "department": "",
+     "year": 2025,
+     "category": "计算机",
+     "level": "",
+     "exam_category": "",
+     "keyword": "团体程序设计天梯赛",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 1106.3
+   }
+  },
+  "S115": {
+   "router": {
+    "route": "structured",
+    "correct": true,
+    "plan": {
+     "route": "structured",
+     "reason": "只问竞赛报名时间这一结构化字段，不需要文件原文",
+     "rewritten_query": "2026年团体程序设计天梯赛报名时间",
+     "doc_type": "",
+     "college": "",
+     "department": "",
+     "year": 2026,
+     "category": "计算机",
+     "level": "",
+     "exam_category": "",
+     "keyword": "团体程序设计天梯赛",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 1310.6
+   }
+  },
+  "S116": {
+   "router": {
+    "route": "structured",
+    "correct": true,
+    "plan": {
+     "route": "structured",
+     "reason": "只问竞赛报名时间这一结构化字段，不需要文件原文",
+     "rewritten_query": "2024年信息安全竞赛报名开始时间",
+     "doc_type": "",
+     "college": "",
+     "department": "",
+     "year": 2024,
+     "category": "计算机",
+     "level": "",
+     "exam_category": "",
+     "keyword": "信息安全竞赛",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 1005.7
+   }
+  },
+  "S117": {
+   "router": {
+    "route": "structured",
+    "correct": true,
+    "plan": {
+     "route": "structured",
+     "reason": "只问竞赛报名时间这一结构化字段，不需要文件原文",
+     "rewritten_query": "2025年信息安全竞赛报名开始时间",
+     "doc_type": "",
+     "college": "",
+     "department": "",
+     "year": 2025,
+     "category": "计算机",
+     "level": "",
+     "exam_category": "",
+     "keyword": "信息安全竞赛",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 922.3
+   }
+  },
+  "S118": {
+   "router": {
+    "route": "structured",
+    "correct": true,
+    "plan": {
+     "route": "structured",
+     "reason": "只问竞赛报名时间这一结构化字段，不需要文件原文，也不涉及学生个人情况",
+     "rewritten_query": "2026年信息安全竞赛报名开始时间",
+     "doc_type": "",
+     "college": "",
+     "department": "",
+     "year": 2026,
+     "category": "计算机",
+     "level": "",
+     "exam_category": "",
+     "keyword": "信息安全竞赛",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 1092.2
+   }
+  },
+  "S119": {
+   "router": {
+    "route": "structured",
+    "correct": true,
+    "plan": {
+     "route": "structured",
+     "reason": "只问竞赛报名时间这一结构化字段，不需要文件原文",
+     "rewritten_query": "2024年数学建模竞赛报名开始时间",
+     "doc_type": "",
+     "college": "",
+     "department": "",
+     "year": 2024,
+     "category": "数学",
+     "level": "",
+     "exam_category": "",
+     "keyword": "数学建模竞赛",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 994.9
+   }
+  },
+  "S120": {
+   "router": {
+    "route": "structured",
+    "correct": true,
+    "plan": {
+     "route": "structured",
+     "reason": "只问竞赛报名时间这一结构化字段，不需要文件原文",
+     "rewritten_query": "2025年数学建模竞赛报名开始时间",
+     "doc_type": "",
+     "college": "",
+     "department": "",
+     "year": 2025,
+     "category": "数学",
+     "level": "",
+     "exam_category": "",
+     "keyword": "数学建模竞赛",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 1090.7
+   }
+  },
+  "S121": {
+   "router": {
+    "route": "structured",
+    "correct": true,
+    "plan": {
+     "route": "structured",
+     "reason": "只问竞赛报名时间这一结构化字段，不需要文件原文，也不涉及学生个人情况",
+     "rewritten_query": "2026年数学建模竞赛报名开始时间",
+     "doc_type": "",
+     "college": "",
+     "department": "",
+     "year": 2026,
+     "category": "数学",
+     "level": "",
+     "exam_category": "",
+     "keyword": "数学建模竞赛",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 1094.6
+   }
+  },
+  "S122": {
+   "router": {
+    "route": "structured",
+    "correct": true,
+    "plan": {
+     "route": "structured",
+     "reason": "只问数学竞赛的报名时间，属于结构化字段查询，不需要文件原文",
+     "rewritten_query": "2024年数学竞赛报名时间",
+     "doc_type": "",
+     "college": "",
+     "department": "",
+     "year": 2024,
+     "category": "数学",
+     "level": "",
+     "exam_category": "",
+     "keyword": "数学竞赛",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 1243.8
+   }
+  },
+  "S123": {
+   "router": {
+    "route": "structured",
+    "correct": true,
+    "plan": {
+     "route": "structured",
+     "reason": "只问数学竞赛的报名时间，属于结构化字段查询，不需要文件原文",
+     "rewritten_query": "2025年数学竞赛报名开始时间",
+     "doc_type": "",
+     "college": "",
+     "department": "",
+     "year": 2025,
+     "category": "数学",
+     "level": "",
+     "exam_category": "",
+     "keyword": "数学竞赛",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 1264.6
+   }
+  },
+  "S124": {
+   "router": {
+    "route": "structured",
+    "correct": true,
+    "plan": {
+     "route": "structured",
+     "reason": "只问竞赛报名时间这一结构化字段，不需要文件原文",
+     "rewritten_query": "2026年数学竞赛报名开始时间",
+     "doc_type": "",
+     "college": "",
+     "department": "",
+     "year": 2026,
+     "category": "数学",
+     "level": "",
+     "exam_category": "",
+     "keyword": "数学竞赛",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 972.4
+   }
+  },
+  "S125": {
+   "router": {
+    "route": "structured",
+    "correct": true,
+    "plan": {
+     "route": "structured",
+     "reason": "只问竞赛报名时间这一结构化字段，不需要文件原文",
+     "rewritten_query": "2024年电子设计竞赛报名开始时间",
+     "doc_type": "",
+     "college": "",
+     "department": "",
+     "year": 2024,
+     "category": "电子",
+     "level": "",
+     "exam_category": "",
+     "keyword": "电子设计竞赛",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 1318.2
+   }
+  },
+  "S126": {
+   "router": {
+    "route": "structured",
+    "correct": true,
+    "plan": {
+     "route": "structured",
+     "reason": "只问竞赛报名时间这一结构化字段，不需要文件原文，也未涉及学生个人情况",
+     "rewritten_query": "2025年电子设计竞赛报名开始时间",
+     "doc_type": "",
+     "college": "",
+     "department": "",
+     "year": 2025,
+     "category": "电子",
+     "level": "",
+     "exam_category": "",
+     "keyword": "电子设计竞赛",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 979.9
+   }
+  },
+  "S127": {
+   "router": {
+    "route": "structured",
+    "correct": true,
+    "plan": {
+     "route": "structured",
+     "reason": "只问竞赛报名时间这一结构化字段，不需要文件原文，也不涉及学生个人情况",
+     "rewritten_query": "2026年电子设计竞赛报名时间",
+     "doc_type": "",
+     "college": "",
+     "department": "",
+     "year": 2026,
+     "category": "电子",
+     "level": "",
+     "exam_category": "",
+     "keyword": "电子设计竞赛",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 1198.4
+   }
+  },
+  "S128": {
+   "router": {
+    "route": "structured",
+    "correct": true,
+    "plan": {
+     "route": "structured",
+     "reason": "问的是竞赛报名时间这类结构化字段，不需要文件原文",
+     "rewritten_query": "2024年大学生英语竞赛报名时间",
+     "doc_type": "",
+     "college": "",
+     "department": "",
+     "year": 2024,
+     "category": "英语",
+     "level": "",
+     "exam_category": "",
+     "keyword": "大学生英语竞赛",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 1188.8
+   }
+  },
+  "S129": {
+   "router": {
+    "route": "structured",
+    "correct": true,
+    "plan": {
+     "route": "structured",
+     "reason": "问的是竞赛报名时间这类结构化字段，不需要读文件原文",
+     "rewritten_query": "2025年大学生英语竞赛报名时间",
+     "doc_type": "竞赛",
+     "college": "",
+     "department": "",
+     "year": 2025,
+     "category": "英语",
+     "level": "",
+     "exam_category": "",
+     "keyword": "大学生英语竞赛",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 1201.2
+   }
+  },
+  "S130": {
+   "router": {
+    "route": "structured",
+    "correct": true,
+    "plan": {
+     "route": "structured",
+     "reason": "问的是竞赛报名时间这类结构化字段，不需要文件原文",
+     "rewritten_query": "2026年大学生英语竞赛报名时间",
+     "doc_type": "",
+     "college": "",
+     "department": "",
+     "year": 2026,
+     "category": "英语",
+     "level": "",
+     "exam_category": "",
+     "keyword": "大学生英语竞赛",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 1129.0
+   }
+  },
+  "S131": {
+   "router": {
+    "route": "structured",
+    "correct": true,
+    "plan": {
+     "route": "structured",
+     "reason": "只问竞赛报名时间这一结构化字段，不需要文件原文",
+     "rewritten_query": "2024年英语演讲大赛报名开始时间",
+     "doc_type": "",
+     "college": "",
+     "department": "",
+     "year": 2024,
+     "category": "英语",
+     "level": "",
+     "exam_category": "",
+     "keyword": "英语演讲大赛",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 1009.7
+   }
+  },
+  "S132": {
+   "router": {
+    "route": "structured",
+    "correct": true,
+    "plan": {
+     "route": "structured",
+     "reason": "只问竞赛报名时间这一结构化字段，不需要文件原文",
+     "rewritten_query": "2025年英语演讲大赛报名开始时间",
+     "doc_type": "",
+     "college": "",
+     "department": "",
+     "year": 2025,
+     "category": "英语",
+     "level": "",
+     "exam_category": "",
+     "keyword": "英语演讲大赛",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 1220.1
+   }
+  },
+  "S133": {
+   "router": {
+    "route": "structured",
+    "correct": true,
+    "plan": {
+     "route": "structured",
+     "reason": "只问竞赛报名时间这一结构化字段，不需要文件原文",
+     "rewritten_query": "2026年英语演讲大赛报名开始时间",
+     "doc_type": "",
+     "college": "",
+     "department": "",
+     "year": 2026,
+     "category": "英语",
+     "level": "",
+     "exam_category": "",
+     "keyword": "英语演讲大赛",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 1176.3
+   }
+  },
+  "S134": {
+   "router": {
+    "route": "structured",
+    "correct": true,
+    "plan": {
+     "route": "structured",
+     "reason": "只问蓝桥杯2024年的报名时间，属于竞赛结构化字段查询，不需要文件原文",
+     "rewritten_query": "2024年蓝桥杯竞赛报名开始时间",
+     "doc_type": "竞赛",
+     "college": "",
+     "department": "",
+     "year": 2024,
+     "category": "计算机",
+     "level": "",
+     "exam_category": "",
+     "keyword": "蓝桥杯",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 1185.3
+   }
+  },
+  "S135": {
+   "router": {
+    "route": "structured",
+    "correct": true,
+    "plan": {
+     "route": "structured",
+     "reason": "问的是蓝桥杯报名时间这一结构化字段，不需要文件原文",
+     "rewritten_query": "2025年蓝桥杯报名时间",
+     "doc_type": "",
+     "college": "",
+     "department": "",
+     "year": 2025,
+     "category": "计算机",
+     "level": "",
+     "exam_category": "",
+     "keyword": "蓝桥杯",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 1038.7
+   }
+  },
+  "S136": {
+   "router": {
+    "route": "structured",
+    "correct": true,
+    "plan": {
+     "route": "structured",
+     "reason": "只问蓝桥杯报名时间这一结构化字段，不需要文件原文",
+     "rewritten_query": "2026年蓝桥杯报名时间",
+     "doc_type": "",
+     "college": "",
+     "department": "",
+     "year": 2026,
+     "category": "计算机",
+     "level": "",
+     "exam_category": "",
+     "keyword": "蓝桥杯",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 1070.9
+   }
+  },
+  "S137": {
+   "router": {
+    "route": "structured",
+    "correct": true,
+    "plan": {
+     "route": "structured",
+     "reason": "问的是竞赛的具体考试时间，属于结构化字段，不需要读文件原文",
+     "rewritten_query": "2024年大学生英语竞赛初赛考试时间",
+     "doc_type": "",
+     "college": "",
+     "department": "",
+     "year": 2024,
+     "category": "英语",
+     "level": "",
+     "exam_category": "",
+     "keyword": "大学生英语竞赛",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 1297.1
+   }
+  },
+  "S138": {
+   "router": {
+    "route": "structured",
+    "correct": true,
+    "plan": {
+     "route": "structured",
+     "reason": "问的是竞赛的具体考试时间，属于结构化字段查询，不需要文件原文",
+     "rewritten_query": "2025年大学生英语竞赛初赛考试时间",
+     "doc_type": "竞赛",
+     "college": "",
+     "department": "",
+     "year": 2025,
+     "category": "英语",
+     "level": "",
+     "exam_category": "",
+     "keyword": "大学生英语竞赛",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 1267.0
+   }
+  },
+  "S139": {
+   "router": {
+    "route": "structured",
+    "correct": true,
+    "plan": {
+     "route": "structured",
+     "reason": "问的是竞赛的具体考试时间，属于结构化字段，不需要读文件原文",
+     "rewritten_query": "2026年大学生英语竞赛初赛考试时间",
+     "doc_type": "",
+     "college": "",
+     "department": "",
+     "year": 2026,
+     "category": "英语",
+     "level": "",
+     "exam_category": "",
+     "keyword": "大学生英语竞赛",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 1221.3
+   }
+  },
+  "S140": {
+   "router": {
+    "route": "structured",
+    "correct": true,
+    "plan": {
+     "route": "structured",
+     "reason": "只问考试时间这一结构化字段，不需要文件原文",
+     "rewritten_query": "2024年大学英语六级考试时间安排",
+     "doc_type": "",
+     "college": "",
+     "department": "",
+     "year": 2024,
+     "category": "",
+     "level": "",
+     "exam_category": "英语",
+     "keyword": "六级",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 1122.6
+   }
+  },
+  "S141": {
+   "router": {
+    "route": "structured",
+    "correct": true,
+    "plan": {
+     "route": "structured",
+     "reason": "问的是考试时间这类结构化字段，不需要读文件原文",
+     "rewritten_query": "2024年大学英语六级考试时间安排",
+     "doc_type": "考试",
+     "college": "",
+     "department": "",
+     "year": 2024,
+     "category": "",
+     "level": "",
+     "exam_category": "英语",
+     "keyword": "六级",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 1358.0
+   }
+  },
+  "S142": {
+   "router": {
+    "route": "structured",
+    "correct": true,
+    "plan": {
+     "route": "structured",
+     "reason": "问的是六级考试时间这一结构化字段，不需要读文件原文",
+     "rewritten_query": "2025年大学英语六级考试时间安排",
+     "doc_type": "考试",
+     "college": "",
+     "department": "",
+     "year": 2025,
+     "category": "",
+     "level": "",
+     "exam_category": "英语",
+     "keyword": "六级",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 1073.1
+   }
+  },
+  "S143": {
+   "router": {
+    "route": "structured",
+    "correct": true,
+    "plan": {
+     "route": "structured",
+     "reason": "问的是考试时间这一结构化字段，不需要读文件原文",
+     "rewritten_query": "2025年大学英语六级考试时间安排",
+     "doc_type": "考试",
+     "college": "",
+     "department": "",
+     "year": 2025,
+     "category": "",
+     "level": "",
+     "exam_category": "英语",
+     "keyword": "六级",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 1384.7
+   }
+  },
+  "S144": {
+   "router": {
+    "route": "structured",
+    "correct": true,
+    "plan": {
+     "route": "structured",
+     "reason": "问的是考试时间这一结构化字段，不需要读文件原文",
+     "rewritten_query": "2026年大学英语六级考试时间安排",
+     "doc_type": "",
+     "college": "",
+     "department": "",
+     "year": 2026,
+     "category": "",
+     "level": "",
+     "exam_category": "英语",
+     "keyword": "六级",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 1248.6
+   }
+  },
+  "S145": {
+   "router": {
+    "route": "structured",
+    "correct": true,
+    "plan": {
+     "route": "structured",
+     "reason": "问的是考试时间这类结构化字段，不需要读文件原文",
+     "rewritten_query": "2026年大学英语六级考试时间安排",
+     "doc_type": "考试",
+     "college": "",
+     "department": "",
+     "year": 2026,
+     "category": "",
+     "level": "",
+     "exam_category": "英语",
+     "keyword": "六级",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 1262.3
+   }
+  },
+  "S146": {
+   "router": {
+    "route": "structured",
+    "correct": true,
+    "plan": {
+     "route": "structured",
+     "reason": "问的是四级考试时间这一结构化字段，不需要文件原文",
+     "rewritten_query": "2024年大学英语四级考试时间安排",
+     "doc_type": "考试",
+     "college": "",
+     "department": "",
+     "year": 2024,
+     "category": "",
+     "level": "",
+     "exam_category": "英语",
+     "keyword": "四级",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 1224.8
+   }
+  },
+  "S147": {
+   "router": {
+    "route": "structured",
+    "correct": true,
+    "plan": {
+     "route": "structured",
+     "reason": "问的是四级考试的具体时间，属于考试结构化字段，不需要读文件原文",
+     "rewritten_query": "2024年大学英语四级考试时间安排",
+     "doc_type": "",
+     "college": "",
+     "department": "",
+     "year": 2024,
+     "category": "",
+     "level": "",
+     "exam_category": "英语",
+     "keyword": "四级",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 1114.4
+   }
+  },
+  "S148": {
+   "router": {
+    "route": "structured",
+    "correct": true,
+    "plan": {
+     "route": "structured",
+     "reason": "问的是四级考试时间这一结构化字段，不需要文件原文",
+     "rewritten_query": "2025年大学英语四级考试时间安排",
+     "doc_type": "考试",
+     "college": "",
+     "department": "",
+     "year": 2025,
+     "category": "",
+     "level": "",
+     "exam_category": "英语",
+     "keyword": "四级",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 1092.4
+   }
+  },
+  "S149": {
+   "router": {
+    "route": "structured",
+    "correct": true,
+    "plan": {
+     "route": "structured",
+     "reason": "问的是四级考试的具体时间，属于考试结构化字段，不需要读文件原文",
+     "rewritten_query": "2025年大学英语四级考试时间安排",
+     "doc_type": "考试",
+     "college": "",
+     "department": "",
+     "year": 2025,
+     "category": "",
+     "level": "",
+     "exam_category": "英语",
+     "keyword": "四级",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 1268.9
+   }
+  },
+  "S150": {
+   "router": {
+    "route": "structured",
+    "correct": true,
+    "plan": {
+     "route": "structured",
+     "reason": "问的是四级考试时间这一结构化字段，不需要读文件原文",
+     "rewritten_query": "2026年大学英语四级考试时间安排",
+     "doc_type": "",
+     "college": "",
+     "department": "",
+     "year": 2026,
+     "category": "",
+     "level": "",
+     "exam_category": "英语",
+     "keyword": "四级",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 1254.7
+   }
+  },
+  "S151": {
+   "router": {
+    "route": "structured",
+    "correct": true,
+    "plan": {
+     "route": "structured",
+     "reason": "问的是四级考试时间这一结构化字段，不需要文件原文，也不涉及学生个人情况",
+     "rewritten_query": "2026年大学英语四级考试时间安排",
+     "doc_type": "",
+     "college": "",
+     "department": "",
+     "year": 2026,
+     "category": "",
+     "level": "",
+     "exam_category": "英语",
+     "keyword": "四级",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 1305.2
+   }
+  },
+  "S152": {
+   "router": {
+    "route": "structured",
+    "correct": true,
+    "plan": {
+     "route": "structured",
+     "reason": "问的是考试时间这一结构化字段，不需要读文件原文",
+     "rewritten_query": "2024年硕士研究生招生考试初试考试时间",
+     "doc_type": "考试",
+     "college": "",
+     "department": "",
+     "year": 2024,
+     "category": "",
+     "level": "",
+     "exam_category": "学业",
+     "keyword": "硕士研究生招生考试",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 1114.9
+   }
+  },
+  "S153": {
+   "router": {
+    "route": "structured",
+    "correct": true,
+    "plan": {
+     "route": "structured",
+     "reason": "问的是考试时间这类结构化字段，不需要读文件原文",
+     "rewritten_query": "2025年硕士研究生招生考试初试考试时间",
+     "doc_type": "考试",
+     "college": "",
+     "department": "",
+     "year": 2025,
+     "category": "",
+     "level": "",
+     "exam_category": "学业",
+     "keyword": "硕士研究生招生考试",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 1261.2
+   }
+  },
+  "S154": {
+   "router": {
+    "route": "structured",
+    "correct": true,
+    "plan": {
+     "route": "structured",
+     "reason": "问的是考试时间这一结构化字段，不需要读文件原文",
+     "rewritten_query": "2026年硕士研究生招生考试初试考试时间",
+     "doc_type": "考试",
+     "college": "",
+     "department": "",
+     "year": 2026,
+     "category": "",
+     "level": "",
+     "exam_category": "学业",
+     "keyword": "硕士研究生招生考试",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 1189.4
+   }
+  },
+  "S155": {
+   "router": {
+    "route": "structured",
+    "correct": true,
+    "plan": {
+     "route": "structured",
+     "reason": "问的是计算机二级考试的时间，属于考试类结构化字段，不需要读文件原文",
+     "rewritten_query": "2024年计算机二级考试时间安排",
+     "doc_type": "",
+     "college": "",
+     "department": "",
+     "year": 2024,
+     "category": "",
+     "level": "",
+     "exam_category": "计算机",
+     "keyword": "计算机二级",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 1110.0
+   }
+  },
+  "S156": {
+   "router": {
+    "route": "structured",
+    "correct": true,
+    "plan": {
+     "route": "structured",
+     "reason": "问的是计算机二级考试的时间，属于考试结构化字段，不需要文件原文",
+     "rewritten_query": "2024年计算机二级考试时间安排",
+     "doc_type": "",
+     "college": "",
+     "department": "",
+     "year": 2024,
+     "category": "",
+     "level": "",
+     "exam_category": "计算机",
+     "keyword": "计算机二级",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 1220.0
+   }
+  },
+  "S157": {
+   "router": {
+    "route": "structured",
+    "correct": true,
+    "plan": {
+     "route": "structured",
+     "reason": "问的是计算机二级考试的时间，属于考试结构化字段，不需要读文件原文",
+     "rewritten_query": "2025年计算机二级考试时间安排",
+     "doc_type": "",
+     "college": "",
+     "department": "",
+     "year": 2025,
+     "category": "",
+     "level": "",
+     "exam_category": "计算机",
+     "keyword": "计算机二级",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 1142.6
+   }
+  },
+  "S158": {
+   "router": {
+    "route": "structured",
+    "correct": true,
+    "plan": {
+     "route": "structured",
+     "reason": "问的是计算机二级考试的时间，属于考试结构化字段，不需要读文件原文",
+     "rewritten_query": "2025年计算机二级考试时间安排",
+     "doc_type": "",
+     "college": "",
+     "department": "",
+     "year": 2025,
+     "category": "",
+     "level": "",
+     "exam_category": "计算机",
+     "keyword": "计算机二级",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 1215.9
+   }
+  },
+  "S159": {
+   "router": {
+    "route": "structured",
+    "correct": true,
+    "plan": {
+     "route": "structured",
+     "reason": "问的是计算机二级考试的考试时间，属于考试类结构化字段，不需要读文件原文。",
+     "rewritten_query": "2026年计算机二级考试时间安排",
+     "doc_type": "考试",
+     "college": "",
+     "department": "",
+     "year": 2026,
+     "category": "",
+     "level": "",
+     "exam_category": "计算机",
+     "keyword": "计算机二级",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 1350.7
+   }
+  },
+  "S160": {
+   "router": {
+    "route": "structured",
+    "correct": true,
+    "plan": {
+     "route": "structured",
+     "reason": "问的是计算机二级考试的时间，属于考试结构化字段，不需要文件原文",
+     "rewritten_query": "2026年计算机二级考试时间安排",
+     "doc_type": "",
+     "college": "",
+     "department": "",
+     "year": 2026,
+     "category": "",
+     "level": "",
+     "exam_category": "计算机",
+     "keyword": "计算机二级",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 1198.7
+   }
+  },
+  "S161": {
+   "router": {
+    "route": "structured",
+    "correct": true,
+    "plan": {
+     "route": "structured",
+     "reason": "问的是普通话水平测试的考试时间，属于考试结构化字段，不需要读文件原文",
+     "rewritten_query": "2024年普通话水平测试考试时间安排",
+     "doc_type": "考试",
+     "college": "",
+     "department": "",
+     "year": 2024,
+     "category": "",
+     "level": "",
+     "exam_category": "职业资格",
+     "keyword": "普通话水平测试",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 969.4
+   }
+  },
+  "S162": {
+   "router": {
+    "route": "structured",
+    "correct": true,
+    "plan": {
+     "route": "structured",
+     "reason": "问的是普通话水平测试的考试时间，属于考试结构化字段，不需要读文件原文",
+     "rewritten_query": "2024年普通话水平测试考试时间安排",
+     "doc_type": "考试",
+     "college": "",
+     "department": "",
+     "year": 2024,
+     "category": "",
+     "level": "",
+     "exam_category": "职业资格",
+     "keyword": "普通话水平测试",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 1370.9
+   }
+  },
+  "S163": {
+   "router": {
+    "route": "structured",
+    "correct": true,
+    "plan": {
+     "route": "structured",
+     "reason": "问的是普通话水平测试的考试时间，属于考试结构化字段，不需要读文件原文",
+     "rewritten_query": "2025年普通话水平测试考试时间安排",
+     "doc_type": "考试",
+     "college": "",
+     "department": "",
+     "year": 2025,
+     "category": "",
+     "level": "",
+     "exam_category": "其他",
+     "keyword": "普通话水平测试",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 1337.9
+   }
+  },
+  "S164": {
+   "router": {
+    "route": "structured",
+    "correct": true,
+    "plan": {
+     "route": "structured",
+     "reason": "问的是普通话水平测试的考试时间，属于考试结构化字段，不需要读文件原文",
+     "rewritten_query": "2025年普通话水平测试考试时间安排",
+     "doc_type": "考试",
+     "college": "",
+     "department": "",
+     "year": 2025,
+     "category": "",
+     "level": "",
+     "exam_category": "职业资格",
+     "keyword": "普通话水平测试",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 1056.1
+   }
+  },
+  "S165": {
+   "router": {
+    "route": "structured",
+    "correct": true,
+    "plan": {
+     "route": "structured",
+     "reason": "问的是普通话水平测试的考试时间，属于考试结构化字段，不需要读文件原文",
+     "rewritten_query": "2026年普通话水平测试考试时间安排",
+     "doc_type": "",
+     "college": "",
+     "department": "",
+     "year": 2026,
+     "category": "",
+     "level": "",
+     "exam_category": "职业资格",
+     "keyword": "普通话水平测试",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 1303.2
+   }
+  },
+  "S166": {
+   "router": {
+    "route": "structured",
+    "correct": true,
+    "plan": {
+     "route": "structured",
+     "reason": "问的是普通话水平测试的考试时间，属于考试结构化字段，不需要读文件原文",
+     "rewritten_query": "2026年普通话水平测试考试时间安排",
+     "doc_type": "",
+     "college": "",
+     "department": "",
+     "year": 2026,
+     "category": "",
+     "level": "",
+     "exam_category": "其他",
+     "keyword": "普通话水平测试",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 1152.9
+   }
+  },
+  "S167": {
+   "router": {
+    "route": "structured",
+    "correct": true,
+    "plan": {
+     "route": "structured",
+     "reason": "问的是软考中级的具体考试时间，属于考试结构化字段查询，不需要文件原文。",
+     "rewritten_query": "2024年软考中级考试时间安排",
+     "doc_type": "考试",
+     "college": "",
+     "department": "",
+     "year": 2024,
+     "category": "",
+     "level": "",
+     "exam_category": "计算机",
+     "keyword": "软考",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 1193.1
+   }
+  },
+  "S168": {
+   "router": {
+    "route": "structured",
+    "correct": true,
+    "plan": {
+     "route": "structured",
+     "reason": "问的是软考中级的具体考试时间，属于考试结构化字段查询，不需要文件原文",
+     "rewritten_query": "2024年软考中级考试时间安排",
+     "doc_type": "考试",
+     "college": "",
+     "department": "",
+     "year": 2024,
+     "category": "",
+     "level": "",
+     "exam_category": "计算机",
+     "keyword": "软考",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 1231.7
+   }
+  },
+  "S169": {
+   "router": {
+    "route": "structured",
+    "correct": true,
+    "plan": {
+     "route": "structured",
+     "reason": "问的是软考中级的具体考试时间，属于考试结构化字段，不需要文件原文",
+     "rewritten_query": "2025年软考中级考试时间安排",
+     "doc_type": "",
+     "college": "",
+     "department": "",
+     "year": 2025,
+     "category": "",
+     "level": "",
+     "exam_category": "计算机",
+     "keyword": "软考",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 1017.7
+   }
+  },
+  "S170": {
+   "router": {
+    "route": "structured",
+    "correct": true,
+    "plan": {
+     "route": "structured",
+     "reason": "问的是软考中级的具体考试时间，属于考试结构化字段，不需要文件原文",
+     "rewritten_query": "2025年软考中级考试时间安排",
+     "doc_type": "",
+     "college": "",
+     "department": "",
+     "year": 2025,
+     "category": "",
+     "level": "",
+     "exam_category": "计算机",
+     "keyword": "软考",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 1162.5
+   }
+  },
+  "S171": {
+   "router": {
+    "route": "structured",
+    "correct": true,
+    "plan": {
+     "route": "structured",
+     "reason": "问的是软考中级的具体考试时间，属于考试结构化字段查询，不需要文件原文。",
+     "rewritten_query": "2026年软考中级考试时间安排",
+     "doc_type": "",
+     "college": "",
+     "department": "",
+     "year": 2026,
+     "category": "",
+     "level": "",
+     "exam_category": "计算机",
+     "keyword": "软考",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 1344.9
+   }
+  },
+  "S172": {
+   "router": {
+    "route": "structured",
+    "correct": true,
+    "plan": {
+     "route": "structured",
+     "reason": "问的是软考中级的具体考试时间，属于考试结构化字段查询，不需要文件原文。",
+     "rewritten_query": "2026年软考中级考试时间安排",
+     "doc_type": "",
+     "college": "",
+     "department": "",
+     "year": 2026,
+     "category": "",
+     "level": "",
+     "exam_category": "计算机",
+     "keyword": "软考",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 1424.1
+   }
+  },
+  "H101": {
+   "router": {
+    "route": "document",
+    "correct": false,
+    "plan": {
+     "route": "document",
+     "reason": "用户要查找指定通知文件并询问其中的材料要求，答案完全来自文件原文，无需结构化字段。",
+     "rewritten_query": "关于做好2026年国家奖学金评选工作的通知 申请材料要求",
+     "doc_type": "奖学金",
+     "college": "",
+     "department": "",
+     "year": 2026,
+     "category": "",
+     "level": "",
+     "exam_category": "",
+     "keyword": "国家奖学金",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 1530.9
+   }
+  },
+  "H102": {
+   "router": {
+    "route": "document",
+    "correct": false,
+    "plan": {
+     "route": "document",
+     "reason": "用户要的是指定通知文件的内容（申请材料清单），属于文件原文类问题，无需结构化字段或个性化规划。",
+     "rewritten_query": "关于做好2026年国家励志奖学金评审工作的通知 申请材料",
+     "doc_type": "奖学金",
+     "college": "",
+     "department": "",
+     "year": 2026,
+     "category": "",
+     "level": "",
+     "exam_category": "",
+     "keyword": "国家励志奖学金",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 1470.9
+   }
+  },
+  "H103": {
+   "router": {
+    "route": "document",
+    "correct": false,
+    "plan": {
+     "route": "document",
+     "reason": "用户要找指定通知文件并询问其中的申请材料要求，答案完全来自文件原文，无需结构化字段。",
+     "rewritten_query": "关于做好2026年国家助学金评审工作的通知 申请国家助学金需要提交的材料",
+     "doc_type": "助学金",
+     "college": "",
+     "department": "",
+     "year": 2026,
+     "category": "",
+     "level": "",
+     "exam_category": "",
+     "keyword": "国家助学金",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 1347.7
+   }
+  },
+  "H104": {
+   "router": {
+    "route": "document",
+    "correct": false,
+    "plan": {
+     "route": "document",
+     "reason": "用户要找指定通知文件并询问其中规定的申请材料，答案完全来自文件原文，无需结构化字段。",
+     "rewritten_query": "关于2025年校级优秀学生奖学金评定工作的通知 申请材料",
+     "doc_type": "奖学金",
+     "college": "",
+     "department": "",
+     "year": 2025,
+     "category": "",
+     "level": "",
+     "exam_category": "",
+     "keyword": "优秀学生奖学金",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 1108.6
+   }
+  },
+  "H105": {
+   "router": {
+    "route": "document",
+    "correct": false,
+    "plan": {
+     "route": "document",
+     "reason": "用户要的是指定通知文件原文，并询问该文件规定的申请材料，属于文件内容问答，不涉及结构化字段统计。",
+     "rewritten_query": "关于2025年华为企业奖学金评选的通知 申请材料要求",
+     "doc_type": "奖学金",
+     "college": "",
+     "department": "",
+     "year": 2025,
+     "category": "",
+     "level": "",
+     "exam_category": "",
+     "keyword": "华为企业奖学金",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 1426.4
+   }
+  },
+  "H106": {
+   "router": {
+    "route": "document",
+    "correct": false,
+    "plan": {
+     "route": "document",
+     "reason": "用户要找指定通知文件并询问其中的申请材料要求，答案完全来自文件原文，无需结构化字段。",
+     "rewritten_query": "关于开展2026年家庭经济困难学生认定工作的通知 申请材料",
+     "doc_type": "助学金",
+     "college": "",
+     "department": "",
+     "year": 2026,
+     "category": "",
+     "level": "",
+     "exam_category": "",
+     "keyword": "家庭经济困难学生认定",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 1300.6
+   }
+  },
+  "H107": {
+   "router": {
+    "route": "document",
+    "correct": false,
+    "plan": {
+     "route": "document",
+     "reason": "用户要指定通知原文并询问申请材料要求，答案都在文件内容里，属于文件检索。",
+     "rewritten_query": "关于做好2026年生源地信用助学贷款申请工作的通知 申请材料",
+     "doc_type": "助学金",
+     "college": "",
+     "department": "",
+     "year": 2026,
+     "category": "",
+     "level": "",
+     "exam_category": "",
+     "keyword": "生源地信用助学贷款",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 1161.6
+   }
+  },
+  "H108": {
+   "router": {
+    "route": "document",
+    "correct": false,
+    "plan": {
+     "route": "document",
+     "reason": "用户要指定通知原文，并询问申请材料要求，均属文件内容，不需要结构化字段或个性化规划。",
+     "rewritten_query": "关于2025年秋季学期勤工助学岗位招聘的通知 申请勤工助学岗位需要提交的材料",
+     "doc_type": "助学金",
+     "college": "",
+     "department": "",
+     "year": 2025,
+     "category": "",
+     "level": "",
+     "exam_category": "",
+     "keyword": "勤工助学",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 1498.6
+   }
+  },
+  "H109": {
+   "router": {
+    "route": "document",
+    "correct": false,
+    "plan": {
+     "route": "document",
+     "reason": "用户要找指定通知文件并询问其中的申请材料要求，答案完全来自文件原文，无需结构化字段。",
+     "rewritten_query": "关于开展2025年学费减免工作的通知 申请学费减免需要提交的材料",
+     "doc_type": "助学金",
+     "college": "",
+     "department": "",
+     "year": 2025,
+     "category": "",
+     "level": "",
+     "exam_category": "",
+     "keyword": "学费减免",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 1362.3
+   }
+  },
+  "H110": {
+   "router": {
+    "route": "document",
+    "correct": false,
+    "plan": {
+     "route": "document",
+     "reason": "用户要的是指定通知文件原文，并询问该文件里规定的申请材料，属于文件内容问答，不涉及结构化字段检索。",
+     "rewritten_query": "关于发放2025年临时困难补助的通知 申请临时困难补助需要提交的材料",
+     "doc_type": "助学金",
+     "college": "",
+     "department": "",
+     "year": 2025,
+     "category": "",
+     "level": "",
+     "exam_category": "",
+     "keyword": "临时困难补助",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 1088.6
+   }
+  },
+  "H111": {
+   "router": {
+    "route": "document",
+    "correct": false,
+    "plan": {
+     "route": "document",
+     "reason": "用户要指定文件原文并询问其中规定的申请材料，属于文件内容查询，无需结构化字段或个性化规划。",
+     "rewritten_query": "关于做好2026年基层就业学费补偿贷款代偿工作的通知 申请材料",
+     "doc_type": "助学金",
+     "college": "",
+     "department": "",
+     "year": 2026,
+     "category": "",
+     "level": "",
+     "exam_category": "",
+     "keyword": "基层就业学费补偿贷款代偿",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 1301.0
+   }
+  },
+  "H112": {
+   "router": {
+    "route": "document",
+    "correct": false,
+    "plan": {
+     "route": "document",
+     "reason": "用户要找指定通知文件并询问其中规定的申请材料，答案完全来自文件原文，无需结构化字段。",
+     "rewritten_query": "关于举办2025年资助育人主题活动的通知 申请材料要求",
+     "doc_type": "活动",
+     "college": "",
+     "department": "",
+     "year": 2025,
+     "category": "",
+     "level": "",
+     "exam_category": "",
+     "keyword": "资助育人主题活动",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 1849.1
+   }
+  },
+  "H113": {
+   "router": {
+    "route": "document",
+    "correct": false,
+    "plan": {
+     "route": "document",
+     "reason": "用户要指定通知原文，并询问其中的报名流程与准考证打印时间，答案都在文件里，属于文件原文检索。",
+     "rewritten_query": "关于2026年上半年全国大学英语四、六级考试报名工作的通知 报名流程 准考证打印时间",
+     "doc_type": "考试",
+     "college": "",
+     "department": "",
+     "year": 2026,
+     "category": "",
+     "level": "",
+     "exam_category": "英语",
+     "keyword": "四六级",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 1453.4
+   }
+  },
+  "H114": {
+   "router": {
+    "route": "document",
+    "correct": false,
+    "plan": {
+     "route": "document",
+     "reason": "用户要找指定通知文件，并询问该文件中的报名流程与准考证打印时间，答案均在文件原文中，无需结构化字段。",
+     "rewritten_query": "关于2025年下半年全国大学英语四、六级考试报名工作的通知 报名流程 准考证打印时间",
+     "doc_type": "考试",
+     "college": "",
+     "department": "",
+     "year": 2025,
+     "category": "",
+     "level": "",
+     "exam_category": "英语",
+     "keyword": "四六级",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 1288.3
+   }
+  },
+  "H115": {
+   "router": {
+    "route": "hybrid",
+    "correct": true,
+    "plan": {
+     "route": "hybrid",
+     "reason": "既要找指定通知文件原文，又要回答报名流程和准考证打印时间等具体信息",
+     "rewritten_query": "2025年9月全国计算机等级考试报名工作的通知 报名流程 准考证打印时间",
+     "doc_type": "考试",
+     "college": "",
+     "department": "",
+     "year": 2025,
+     "category": "",
+     "level": "",
+     "exam_category": "计算机",
+     "keyword": "全国计算机等级考试",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 1408.6
+   }
+  },
+  "H116": {
+   "router": {
+    "route": "document",
+    "correct": false,
+    "plan": {
+     "route": "document",
+     "reason": "用户要找指定通知原文，并询问该通知中的报名流程与准考证打印时间，均属文件内容，无需结构化字段检索。",
+     "rewritten_query": "关于2025年普通话水平测试报名工作的通知 报名流程 准考证打印时间",
+     "doc_type": "考试",
+     "college": "",
+     "department": "",
+     "year": 2025,
+     "category": "",
+     "level": "",
+     "exam_category": "其他",
+     "keyword": "普通话水平测试",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 1079.9
+   }
+  },
+  "H117": {
+   "router": {
+    "route": "hybrid",
+    "correct": true,
+    "plan": {
+     "route": "hybrid",
+     "reason": "既要找指定通知文件原文，又要回答报名流程和准考证打印时间等具体信息",
+     "rewritten_query": "2025年下半年中小学教师资格考试笔试报名工作的通知 报名流程 准考证打印时间",
+     "doc_type": "考试",
+     "college": "",
+     "department": "",
+     "year": 2025,
+     "category": "",
+     "level": "",
+     "exam_category": "职业资格",
+     "keyword": "教师资格考试",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 1332.9
+   }
+  },
+  "H118": {
+   "router": {
+    "route": "hybrid",
+    "correct": true,
+    "plan": {
+     "route": "hybrid",
+     "reason": "既要找指定通知原文，又要回答报名流程和准考证打印时间等具体安排，需文件原文+结构化字段",
+     "rewritten_query": "2025—2026学年第一学期期中考试安排通知 报名流程 准考证打印时间",
+     "doc_type": "考试",
+     "college": "",
+     "department": "",
+     "year": 2025,
+     "category": "",
+     "level": "",
+     "exam_category": "学业",
+     "keyword": "期中考试",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 1624.6
+   }
+  },
+  "H119": {
+   "router": {
+    "route": "hybrid",
+    "correct": true,
+    "plan": {
+     "route": "hybrid",
+     "reason": "既要找指定通知原文，又要回答报名流程和准考证打印时间等具体安排，需文件原文+结构化字段",
+     "rewritten_query": "关于2025—2026学年第一学期期末考试安排的通知 报名流程 准考证打印时间",
+     "doc_type": "考试",
+     "college": "",
+     "department": "",
+     "year": 2025,
+     "category": "",
+     "level": "",
+     "exam_category": "学业",
+     "keyword": "期末考试",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 1349.2
+   }
+  },
+  "H120": {
+   "router": {
+    "route": "document",
+    "correct": false,
+    "plan": {
+     "route": "document",
+     "reason": "用户要找指定通知原文，并询问其中的报名流程与准考证打印时间，答案都在该文件里，属于文件原文检索。",
+     "rewritten_query": "关于2026年春季学期补考与重修报名工作的通知 报名流程 准考证打印时间",
+     "doc_type": "考试",
+     "college": "",
+     "department": "",
+     "year": 2026,
+     "category": "",
+     "level": "",
+     "exam_category": "学业",
+     "keyword": "补考与重修",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 1293.7
+   }
+  },
+  "P101": {
+   "router": {
+    "route": "planning",
+    "correct": true,
+    "plan": {
+     "route": "planning",
+     "reason": "问题包含学生年级（大二）和专业（软件工程），并询问「怎么准备」，需要结合个人情况给规划建议。",
+     "rewritten_query": "大二软件工程专业学生参加蓝桥杯的备赛规划与准备建议",
+     "doc_type": "竞赛",
+     "college": "",
+     "department": "",
+     "year": 0,
+     "category": "计算机",
+     "level": "",
+     "exam_category": "",
+     "keyword": "蓝桥杯",
+     "grade": "大二",
+     "major": "软件工程",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 1525.0
+   }
+  },
+  "P102": {
+   "router": {
+    "route": "planning",
+    "correct": true,
+    "plan": {
+     "route": "planning",
+     "reason": "问题包含学生年级（大一）和兴趣方向（人工智能），并询问四年规划，属于需要结合个人情况的规划类问题。",
+     "rewritten_query": "大一学生，对人工智能感兴趣，大学四年学习与竞赛规划建议",
+     "doc_type": "",
+     "college": "",
+     "department": "",
+     "year": 0,
+     "category": "",
+     "level": "",
+     "exam_category": "",
+     "keyword": "",
+     "grade": "大一",
+     "major": "",
+     "interests": "人工智能",
+     "use_student_profile": false
+    },
+    "latency_ms": 1353.2
+   }
+  },
+  "P103": {
+   "router": {
+    "route": "planning",
+    "correct": true,
+    "plan": {
+     "route": "planning",
+     "reason": "问题包含学生个人情况（大二）并寻求保研准备建议，属于需要结合个人情况的规划类问题。",
+     "rewritten_query": "大二学生保研准备中绩点与竞赛如何平衡的建议",
+     "doc_type": "",
+     "college": "",
+     "department": "",
+     "year": 0,
+     "category": "",
+     "level": "",
+     "exam_category": "",
+     "keyword": "保研",
+     "grade": "大二",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 1289.5
+   }
+  },
+  "P104": {
+   "router": {
+    "route": "planning",
+    "correct": true,
+    "plan": {
+     "route": "planning",
+     "reason": "问题包含学生个人情况（大三）并询问如何准备实习，属于需要结合个人情况给建议的规划类问题。",
+     "rewritten_query": "大三学生找实习的准备方向与建议",
+     "doc_type": "",
+     "college": "",
+     "department": "",
+     "year": 0,
+     "category": "",
+     "level": "",
+     "exam_category": "",
+     "keyword": "",
+     "grade": "大三",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 1133.0
+   }
+  },
+  "P105": {
+   "router": {
+    "route": "planning",
+    "correct": true,
+    "plan": {
+     "route": "planning",
+     "reason": "学生描述了自己的成绩情况并寻求奖学金申请建议，属于结合个人情况的规划类问题",
+     "rewritten_query": "成绩中等的学生申请奖学金的建议与可申请奖学金类型",
+     "doc_type": "奖学金",
+     "college": "",
+     "department": "",
+     "year": 0,
+     "category": "",
+     "level": "",
+     "exam_category": "",
+     "keyword": "奖学金",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 1201.4
+   }
+  },
+  "P106": {
+   "router": {
+    "route": "planning",
+    "correct": true,
+    "plan": {
+     "route": "planning",
+     "reason": "问题包含学生自身情况（数学基础一般）并寻求备赛建议，属于个性化规划类",
+     "rewritten_query": "数学基础一般的学生参加数学建模竞赛需要补充哪些知识和内容",
+     "doc_type": "",
+     "college": "",
+     "department": "",
+     "year": 0,
+     "category": "数学",
+     "level": "",
+     "exam_category": "",
+     "keyword": "数学建模竞赛",
+     "grade": "",
+     "major": "",
+     "interests": "数学建模",
+     "use_student_profile": false
+    },
+    "latency_ms": 1244.9
+   }
+  },
+  "P107": {
+   "router": {
+    "route": "planning",
+    "correct": true,
+    "plan": {
+     "route": "planning",
+     "reason": "学生询问跨专业考研到计算机的准备建议，需要结合个人情况给出规划，属于规划类问题。",
+     "rewritten_query": "跨专业考研计算机专业备考准备建议与规划",
+     "doc_type": "考试",
+     "college": "",
+     "department": "",
+     "year": 0,
+     "category": "",
+     "level": "",
+     "exam_category": "学业",
+     "keyword": "考研",
+     "grade": "",
+     "major": "",
+     "interests": "计算机",
+     "use_student_profile": false
+    },
+    "latency_ms": 1689.1
+   }
+  },
+  "P108": {
+   "router": {
+    "route": "planning",
+    "correct": true,
+    "plan": {
+     "route": "planning",
+     "reason": "问题包含学生个人情况（大一）并寻求「怎么联系老师」的行动建议，属于结合个人情况的规划类问题。",
+     "rewritten_query": "大一学生加入实验室联系老师的途径和建议",
+     "doc_type": "",
+     "college": "",
+     "department": "",
+     "year": 0,
+     "category": "",
+     "level": "",
+     "exam_category": "",
+     "keyword": "实验室",
+     "grade": "大一",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 1022.6
+   }
+  },
+  "P109": {
+   "router": {
+    "route": "document",
+    "correct": false,
+    "plan": {
+     "route": "document",
+     "reason": "问的是出国交换需要准备什么，属于学校交换项目政策/办理流程类文件内容，未提及个人年级专业等画像信息。",
+     "rewritten_query": "出国交换项目申请条件与准备材料流程",
+     "doc_type": "教学",
+     "college": "",
+     "department": "",
+     "year": 0,
+     "category": "",
+     "level": "",
+     "exam_category": "",
+     "keyword": "出国交换",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 1093.9
+   }
+  },
+  "P110": {
+   "router": {
+    "route": "planning",
+    "correct": true,
+    "plan": {
+     "route": "planning",
+     "reason": "问题包含学生个人情况（大四）并寻求方向选择建议，属于需要结合个人情况的规划类问题",
+     "rewritten_query": "大四学生就业与考研方向选择建议",
+     "doc_type": "",
+     "college": "",
+     "department": "",
+     "year": 0,
+     "category": "",
+     "level": "",
+     "exam_category": "",
+     "keyword": "",
+     "grade": "大四",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 1521.1
+   }
+  },
+  "P111": {
+   "router": {
+    "route": "planning",
+    "correct": true,
+    "plan": {
+     "route": "planning",
+     "reason": "学生询问自己该参加什么、如何起步，需要结合个人情况给建议，属于规划类。",
+     "rewritten_query": "创新创业类竞赛如何入门，没有项目想法时如何选题和准备",
+     "doc_type": "",
+     "college": "",
+     "department": "",
+     "year": 0,
+     "category": "创新创业",
+     "level": "",
+     "exam_category": "",
+     "keyword": "",
+     "grade": "",
+     "major": "",
+     "interests": "创新创业",
+     "use_student_profile": false
+    },
+    "latency_ms": 1268.4
+   }
+  },
+  "P112": {
+   "router": {
+    "route": "planning",
+    "correct": true,
+    "plan": {
+     "route": "planning",
+     "reason": "学生说明自身英语基础差，要求给出四六级复习计划，属于结合个人情况的规划建议",
+     "rewritten_query": "英语基础薄弱的学生如何安排四六级复习计划",
+     "doc_type": "",
+     "college": "",
+     "department": "",
+     "year": 0,
+     "category": "",
+     "level": "",
+     "exam_category": "英语",
+     "keyword": "四六级",
+     "grade": "",
+     "major": "",
+     "interests": "英语",
+     "use_student_profile": false
+    },
+    "latency_ms": 1099.7
+   }
+  },
+  "P113": {
+   "router": {
+    "route": "general",
+    "correct": false,
+    "plan": {
+     "route": "general",
+     "reason": "问题问的是前端开发的学习路径，属于通用职业/技能学习建议，不涉及本校文件、竞赛考试结构化字段，也未提及学生年级专业等个人情况。",
+     "rewritten_query": "前端开发 大学期间 学习路线 需要掌握的知识与技能",
+     "doc_type": "",
+     "college": "",
+     "department": "",
+     "year": 0,
+     "category": "",
+     "level": "",
+     "exam_category": "",
+     "keyword": "",
+     "grade": "",
+     "major": "",
+     "interests": "前端开发",
+     "use_student_profile": false
+    },
+    "latency_ms": 1488.7
+   }
+  },
+  "P114": {
+   "router": {
+    "route": "planning",
+    "correct": true,
+    "plan": {
+     "route": "planning",
+     "reason": "学生询问在校期间为考公务员需要做哪些准备，属于结合个人情况的规划类问题，需要给出建议。",
+     "rewritten_query": "在校期间准备公务员考试需要做哪些准备和规划",
+     "doc_type": "",
+     "college": "",
+     "department": "",
+     "year": 0,
+     "category": "",
+     "level": "",
+     "exam_category": "",
+     "keyword": "公务员",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 963.5
+   }
+  },
+  "P115": {
+   "router": {
+    "route": "planning",
+    "correct": true,
+    "plan": {
+     "route": "planning",
+     "reason": "问题包含学生个人专业情况并询问转行规划建议，属于结合个人情况的规划类问题",
+     "rewritten_query": "信息管理专业学生转行数据分析的学习与职业规划建议",
+     "doc_type": "",
+     "college": "",
+     "department": "",
+     "year": 0,
+     "category": "",
+     "level": "",
+     "exam_category": "",
+     "keyword": "",
+     "grade": "",
+     "major": "信息管理",
+     "interests": "数据分析",
+     "use_student_profile": false
+    },
+    "latency_ms": 1017.0
+   }
+  },
+  "P116": {
+   "router": {
+    "route": "planning",
+    "correct": true,
+    "plan": {
+     "route": "planning",
+     "reason": "问题包含学生自身专业情况（计算机专业）并询问自己能否参加电子设计竞赛，需要结合个人情况给建议",
+     "rewritten_query": "计算机专业学生能否参加电子设计竞赛，参赛资格与专业限制",
+     "doc_type": "竞赛",
+     "college": "",
+     "department": "",
+     "year": 0,
+     "category": "电子",
+     "level": "",
+     "exam_category": "",
+     "keyword": "电子设计竞赛",
+     "grade": "",
+     "major": "计算机",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 1440.1
+   }
+  },
+  "P117": {
+   "router": {
+    "route": "planning",
+    "correct": true,
+    "plan": {
+     "route": "planning",
+     "reason": "问题包含学生个人情况（大二）并询问「值不值得」「怎么安排时间」，属于需要结合个人情况给建议与规划。",
+     "rewritten_query": "大二学生辅修金融专业的价值与时间安排建议",
+     "doc_type": "学籍",
+     "college": "",
+     "department": "",
+     "year": 0,
+     "category": "",
+     "level": "",
+     "exam_category": "",
+     "keyword": "辅修",
+     "grade": "大二",
+     "major": "金融",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 1318.5
+   }
+  },
+  "P118": {
+   "router": {
+    "route": "planning",
+    "correct": true,
+    "plan": {
+     "route": "planning",
+     "reason": "学生询问「我」在大学期间如何开始发论文，属于需要结合个人情况给出的学习/科研规划建议，非具体文件或结构化字段查询。",
+     "rewritten_query": "大学生如何开始科研并发表论文的路径与准备建议",
+     "doc_type": "",
+     "college": "",
+     "department": "",
+     "year": 0,
+     "category": "",
+     "level": "",
+     "exam_category": "",
+     "keyword": "",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 1350.8
+   }
+  },
+  "P119": {
+   "router": {
+    "route": "general",
+    "correct": false,
+    "plan": {
+     "route": "general",
+     "reason": "问题只涉及个人性格与表达能力的泛化建议，未涉及学校文件、竞赛考试结构化字段或具体学生画像信息，属于与本系统知识无关的闲聊/通用咨询。",
+     "rewritten_query": "性格内向如何锻炼表达能力",
+     "doc_type": "",
+     "college": "",
+     "department": "",
+     "year": 0,
+     "category": "",
+     "level": "",
+     "exam_category": "",
+     "keyword": "",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 1360.1
+   }
+  },
+  "P120": {
+   "router": {
+    "route": "planning",
+    "correct": true,
+    "plan": {
+     "route": "planning",
+     "reason": "学生询问在校期间为创业应做哪些积累，属于结合个人发展目标给建议/规划，非具体文件或结构化字段查询。",
+     "rewritten_query": "在校期间为毕业后创业应积累的能力、经历与可参与创新创业类竞赛和活动",
+     "doc_type": "",
+     "college": "",
+     "department": "",
+     "year": 0,
+     "category": "创新创业",
+     "level": "",
+     "exam_category": "",
+     "keyword": "",
+     "grade": "",
+     "major": "",
+     "interests": "创业,创新创业",
+     "use_student_profile": false
+    },
+    "latency_ms": 1230.0
+   }
+  },
+  "G101": {
+   "router": {
+    "route": "general",
+    "correct": true,
+    "plan": {
+     "route": "general",
+     "reason": "用户只是打招呼，未涉及学校文件、竞赛考试或个人信息。",
+     "rewritten_query": "你好",
+     "doc_type": "",
+     "college": "",
+     "department": "",
+     "year": 0,
+     "category": "",
+     "level": "",
+     "exam_category": "",
+     "keyword": "",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 837.5
+   }
+  },
+  "G102": {
+   "router": {
+    "route": "general",
+    "correct": true,
+    "plan": {
+     "route": "general",
+     "reason": "用户在询问助手的功能范围，属于闲聊/系统介绍类问题，不涉及学校文件或结构化数据检索。",
+     "rewritten_query": "你能做什么",
+     "doc_type": "",
+     "college": "",
+     "department": "",
+     "year": 0,
+     "category": "",
+     "level": "",
+     "exam_category": "",
+     "keyword": "",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 876.7
+   }
+  },
+  "G103": {
+   "router": {
+    "route": "general",
+    "correct": true,
+    "plan": {
+     "route": "general",
+     "reason": "用户请求写一首关于春天的诗，属于闲聊创作，与校园文件、竞赛考试等系统知识无关。",
+     "rewritten_query": "写一首关于春天的诗",
+     "doc_type": "",
+     "college": "",
+     "department": "",
+     "year": 0,
+     "category": "",
+     "level": "",
+     "exam_category": "",
+     "keyword": "",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 949.9
+   }
+  },
+  "G104": {
+   "router": {
+    "route": "general",
+    "correct": true,
+    "plan": {
+     "route": "general",
+     "reason": "用户要求讲笑话，属于闲聊，与校园文件、竞赛考试等知识无关。",
+     "rewritten_query": "讲个笑话",
+     "doc_type": "",
+     "college": "",
+     "department": "",
+     "year": 0,
+     "category": "",
+     "level": "",
+     "exam_category": "",
+     "keyword": "",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 857.3
+   }
+  },
+  "G105": {
+   "router": {
+    "route": "general",
+    "correct": true,
+    "plan": {
+     "route": "general",
+     "reason": "用户只是道谢，属于闲聊，不涉及学校文件或结构化数据检索。",
+     "rewritten_query": "谢谢",
+     "doc_type": "",
+     "college": "",
+     "department": "",
+     "year": 0,
+     "category": "",
+     "level": "",
+     "exam_category": "",
+     "keyword": "",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 1388.4
+   }
+  },
+  "G106": {
+   "router": {
+    "route": "general",
+    "correct": true,
+    "plan": {
+     "route": "general",
+     "reason": "询问系统开发者身份，属于闲聊/与校园知识库无关的问题",
+     "rewritten_query": "你是谁开发的",
+     "doc_type": "",
+     "college": "",
+     "department": "",
+     "year": 0,
+     "category": "",
+     "level": "",
+     "exam_category": "",
+     "keyword": "",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 1069.5
+   }
+  },
+  "G107": {
+   "router": {
+    "route": "general",
+    "correct": true,
+    "plan": {
+     "route": "general",
+     "reason": "询问天气，与本系统校园文件/竞赛考试知识无关，属于闲聊类问题。",
+     "rewritten_query": "今天天气怎么样",
+     "doc_type": "",
+     "college": "",
+     "department": "",
+     "year": 0,
+     "category": "",
+     "level": "",
+     "exam_category": "",
+     "keyword": "",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 910.5
+   }
+  },
+  "G108": {
+   "router": {
+    "route": "general",
+    "correct": true,
+    "plan": {
+     "route": "general",
+     "reason": "问的是学校在校学生总数这类统计概况，既非某份文件原文，也非竞赛/考试结构化字段，也不涉及学生个人情况，属于本系统知识范围外的通用问题。",
+     "rewritten_query": "学校在校学生人数",
+     "doc_type": "",
+     "college": "",
+     "department": "",
+     "year": 0,
+     "category": "",
+     "level": "",
+     "exam_category": "",
+     "keyword": "",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 985.3
+   }
+  },
+  "G109": {
+   "router": {
+    "route": "general",
+    "correct": true,
+    "plan": {
+     "route": "general",
+     "reason": "询问校长姓名属于学校基本常识/闲聊，不属于文件检索、结构化竞赛考试字段或个人规划范畴。",
+     "rewritten_query": "学校校长是谁",
+     "doc_type": "",
+     "college": "",
+     "department": "",
+     "year": 0,
+     "category": "",
+     "level": "",
+     "exam_category": "",
+     "keyword": "",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 719.3
+   }
+  },
+  "G110": {
+   "router": {
+    "route": "general",
+    "correct": true,
+    "plan": {
+     "route": "general",
+     "reason": "询问学校年度预算金额，属于学校财务信息，不属于本系统覆盖的通知/政策文件、竞赛考试结构化字段或个人规划范畴。",
+     "rewritten_query": "学校今年预算",
+     "doc_type": "",
+     "college": "",
+     "department": "",
+     "year": 2026,
+     "category": "",
+     "level": "",
+     "exam_category": "",
+     "keyword": "",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 887.6
+   }
+  },
+  "G111": {
+   "router": {
+    "route": "general",
+    "correct": true,
+    "plan": {
+     "route": "general",
+     "reason": "询问学校校区数量，属于学校基本概况，不属于文件检索、结构化竞赛考试字段或个人规划范畴",
+     "rewritten_query": "学校有几个校区",
+     "doc_type": "",
+     "college": "",
+     "department": "",
+     "year": 0,
+     "category": "",
+     "level": "",
+     "exam_category": "",
+     "keyword": "",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 879.1
+   }
+  },
+  "G112": {
+   "router": {
+    "route": "general",
+    "correct": true,
+    "plan": {
+     "route": "general",
+     "reason": "询问食堂营业额属于经营数据，不属于学校文件、竞赛考试或学生个人规划范畴，与本系统知识无关",
+     "rewritten_query": "食堂一天的营业额是多少",
+     "doc_type": "",
+     "college": "",
+     "department": "",
+     "year": 0,
+     "category": "",
+     "level": "",
+     "exam_category": "",
+     "keyword": "",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 1175.1
+   }
+  },
+  "G113": {
+   "router": {
+    "route": "document",
+    "correct": false,
+    "plan": {
+     "route": "document",
+     "reason": "询问宿舍熄灯时间，属于学校后勤管理规定类文件内容，需要查文件原文",
+     "rewritten_query": "宿舍晚上熄灯时间规定",
+     "doc_type": "后勤",
+     "college": "",
+     "department": "",
+     "year": 0,
+     "category": "",
+     "level": "",
+     "exam_category": "",
+     "keyword": "熄灯",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 1243.4
+   }
+  },
+  "G114": {
+   "router": {
+    "route": "general",
+    "correct": true,
+    "plan": {
+     "route": "general",
+     "reason": "询问学校教授人数，属于学校概况统计，既非文件原文检索也非竞赛/考试结构化字段，超出本系统知识范围",
+     "rewritten_query": "学校教授人数",
+     "doc_type": "",
+     "college": "",
+     "department": "",
+     "year": 0,
+     "category": "",
+     "level": "",
+     "exam_category": "",
+     "keyword": "教授",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 983.8
+   }
+  },
+  "G115": {
+   "router": {
+    "route": "general",
+    "correct": true,
+    "plan": {
+     "route": "general",
+     "reason": "问的是图书馆藏书数量这类事实性数据，既不是学校文件原文，也不是竞赛/考试结构化字段，也不涉及学生个人情况，超出本系统知识范围。",
+     "rewritten_query": "图书馆藏书数量",
+     "doc_type": "",
+     "college": "",
+     "department": "",
+     "year": 0,
+     "category": "",
+     "level": "",
+     "exam_category": "",
+     "keyword": "",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 1134.5
+   }
+  },
+  "G116": {
+   "router": {
+    "route": "document",
+    "correct": false,
+    "plan": {
+     "route": "document",
+     "reason": "问的是学校某份统计/就业质量报告里写的就业率数据，属于查文件原文内容",
+     "rewritten_query": "2025年学校毕业生就业率 就业质量报告",
+     "doc_type": "",
+     "college": "",
+     "department": "",
+     "year": 2025,
+     "category": "",
+     "level": "",
+     "exam_category": "",
+     "keyword": "就业率",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 1388.4
+   }
+  }
+ }
+}

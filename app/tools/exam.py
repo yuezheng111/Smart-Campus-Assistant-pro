@@ -13,7 +13,7 @@ import json
 from langchain_core.tools import tool
 
 from app import db
-from app.tools.common import grade_like, window_status
+from app.tools.common import ENUM_WHITELIST, grade_like, normalize_enum, window_status
 
 # 学生口语 → 库里真实存在的名称片段。
 # 学生会说「四六级」，但数据库里存的是「全国大学英语四级考试（CET-4）」，
@@ -65,6 +65,10 @@ def query_exam(
     """
     today = dt.date.today()
     expanded = _expand_keyword(keyword)
+    # 考试的 category 和竞赛的 category 不是同一套枚举，必须显式指定白名单
+    category, cat_note = normalize_enum(
+        "category", category, allowed=ENUM_WHITELIST["exam_category"]
+    )
     conditions: list[tuple[str, str, object]] = [
         ("category", "=", category),
         ("year", "=", int(year) if year else None),
@@ -106,8 +110,14 @@ def query_exam(
             }
         )
 
-    return json.dumps(
-        {"今天日期": today.isoformat(), "数量": len(items), "考试列表": items},
-        ensure_ascii=False,
-        default=str,
-    )
+    payload: dict[str, object] = {
+        "今天日期": today.isoformat(),
+        "数量": len(items),
+        "考试列表": items,
+    }
+    if cat_note:
+        payload["参数调整"] = [cat_note]
+        payload["说明"] = "类别条件未被采用，结果是放宽类别后查到的"
+    elif not items:
+        payload["说明"] = "按当前条件确实没有记录，可以换个关键词或去掉部分条件"
+    return json.dumps(payload, ensure_ascii=False, default=str)

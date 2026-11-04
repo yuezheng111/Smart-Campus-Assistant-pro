@@ -1475,6 +1475,19 @@
   font-variant-numeric: tabular-nums;
 }
 
+/* 校验提醒：回答有依据问题时挂在正文下方。
+   刻意做得比正文小、比错误淡 —— 它是提示，不是报错，不能抢走答案的注意力。 */
+.msg__caveat {
+  margin-top: var(--space-3);
+  padding: 8px var(--space-3);
+  border-left: 2px solid var(--color-accent);
+  background: var(--color-accent-soft);
+  border-radius: 0 4px 4px 0;
+  font-size: var(--text-xs);
+  line-height: 1.6;
+  color: var(--color-text-soft);
+}
+
 .doc-card--static {
   cursor: default;
 }

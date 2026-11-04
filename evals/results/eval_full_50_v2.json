@@ -1,0 +1,3152 @@
+{
+ "generated_at": "2026-10-19T20:41:18",
+ "layers": [
+  "retrieval",
+  "router",
+  "e2e"
+ ],
+ "elapsed_sec": 136.7,
+ "summary": {
+  "n": 50,
+  "layers": {
+   "retrieval": {
+    "n": 26,
+    "hit@5": 1.0,
+    "mrr": 0.9615,
+    "p50_ms": 168.3,
+    "p95_ms": 787.9
+   },
+   "router": {
+    "n": 50,
+    "accuracy": 0.94,
+    "p50_ms": 1092.3,
+    "p95_ms": 2488.1
+   },
+   "e2e": {
+    "n": 50,
+    "route_accuracy": 0.96,
+    "retrieval_hit": 0.8846,
+    "doc_n": 26,
+    "fact_pass_rate": 0.9318,
+    "fact_coverage": 0.9107,
+    "fact_n": 44,
+    "citation_rate": 0.8846,
+    "tool_ok_rate": 1.0,
+    "refusal_ok_rate": 1.0,
+    "p50_ms": 5008.0,
+    "p95_ms": 12644.0,
+    "data_conflicts": 2
+   }
+  }
+ },
+ "matrix": {
+  "document": {
+   "document": 16,
+   "structured": 3,
+   "hybrid": 1
+  },
+  "structured": {
+   "structured": 10
+  },
+  "hybrid": {
+   "hybrid": 6
+  },
+  "planning": {
+   "planning": 8
+  },
+  "general": {
+   "general": 5,
+   "document": 1
+  }
+ },
+ "results": {
+  "D01": {
+   "retrieval": {
+    "top_titles": [
+     "关于做好2025年国家奖学金评选工作的通知",
+     "关于做好2024年国家奖学金评选工作的通知",
+     "关于做好2024年国家励志奖学金评审工作的通知",
+     "关于2025年春季学期国家助学贷款申请与续贷工作的通知",
+     "关于开展2024—2025学年家庭经济困难学生认定工作的通知"
+    ],
+    "hit": true,
+    "rank": 1,
+    "candidates": 12,
+    "latency_ms": 1517.3,
+    "fallback": false
+   },
+   "router": {
+    "route": "document",
+    "correct": true,
+    "plan": {
+     "route": "document",
+     "reason": "询问国家奖学金文件里规定的奖励金额，属于政策文件原文内容",
+     "rewritten_query": "2025年国家奖学金奖励标准 每人每年金额",
+     "doc_type": "奖学金",
+     "college": "",
+     "department": "",
+     "year": 2025,
+     "category": "",
+     "level": "",
+     "exam_category": "",
+     "keyword": "国家奖学金",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 2514.6
+   },
+   "e2e": {
+    "route": "document",
+    "correct_route": true,
+    "answer": "2025 年国家奖学金的奖励标准为**每人每年 8000 元** [资料1]。\n\n补充说明：该通知由学生工作处 2025 年 9 月 12 日发布，其中还提到 2025 年上级下达我校名额 45 名，比去年增加 3 名 [资料1]。",
+    "answer_chars": 116,
+    "sources": [
+     "关于做好2025年国家奖学金评选工作的通知"
+    ],
+    "retrieval_hit": true,
+    "retrieval_rank": 1,
+    "tools": [],
+    "tool_ok": null,
+    "facts_matched": 1,
+    "facts_total": 1,
+    "facts_hit": [
+     "8000"
+    ],
+    "facts_miss": [],
+    "citation": true,
+    "refusal_ok": null,
+    "latency_ms": 2855.7
+   }
+  },
+  "D02": {
+   "retrieval": {
+    "top_titles": [
+     "关于做好2025年国家奖学金评选工作的通知",
+     "关于做好2024年国家奖学金评选工作的通知",
+     "关于做好2024年国家励志奖学金评审工作的通知",
+     "关于2025年春季学期国家助学贷款申请与续贷工作的通知",
+     "计算机学院2025年推荐优秀应届本科毕业生免试攻读研究生工作细则"
+    ],
+    "hit": true,
+    "rank": 1,
+    "candidates": 12,
+    "latency_ms": 787.9,
+    "fallback": false
+   },
+   "router": {
+    "route": "document",
+    "correct": true,
+    "plan": {
+     "route": "document",
+     "reason": "询问国家奖学金名额分配，答案在学校评选通知/政策文件里，属于文件原文类问题",
+     "rewritten_query": "2025年国家奖学金名额分配 评选通知",
+     "doc_type": "奖学金",
+     "college": "",
+     "department": "",
+     "year": 2025,
+     "category": "",
+     "level": "",
+     "exam_category": "",
+     "keyword": "国家奖学金",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 2703.7
+   },
+   "e2e": {
+    "route": "document",
+    "correct_route": true,
+    "answer": "**2025 年国家奖学金名额：45 名**\n\n根据学校《关于做好2025年国家奖学金评选工作的通知》，2025 年上级下达我校名额 45 名，比去年增加 3 名，新增名额重点向国家一流本科专业建设点倾斜 [资料1]。奖励标准为每人每年 8000 元 [资料1]。\n\n**补充提醒（关于时间）**\n\n该通知发布于 2025 年 9 月 12 日，其中规定的申请时间为 9 月 15 日—9 月 21 日，学院初评为 9 月 22 日—9 月 30 日，校级评审答辩为 10 月 9 日，全校公示为 10 月 10 日—10 月 16 日 [资料1]。按今天（2026 年 10 月 19 日）来看，这是上一年度的评选安排，相关时间窗口均已过去。资料未给出当前（2026 年度）的报名状态和名额，请以学生工作处官网或最新通知为准。\n\n如果你想了解 2026 年度的评选安排，建议直接联系学生工作处张老师（电话：020-8888xxxx）[资料1]，或关注学校官网通知。",
+    "answer_chars": 433,
+    "sources": [
+     "关于做好2025年国家奖学金评选工作的通知"
+    ],
+    "retrieval_hit": true,
+    "retrieval_rank": 1,
+    "tools": [],
+    "tool_ok": null,
+    "facts_matched": 1,
+    "facts_total": 1,
+    "facts_hit": [
+     "45"
+    ],
+    "facts_miss": [],
+    "citation": true,
+    "refusal_ok": null,
+    "latency_ms": 3752.9
+   }
+  },
+  "D03": {
+   "retrieval": {
+    "top_titles": [
+     "关于做好2024年国家奖学金评选工作的通知",
+     "关于做好2025年国家奖学金评选工作的通知",
+     "关于做好2024年国家励志奖学金评审工作的通知",
+     "关于2023—2024学年校级优秀学生奖学金评定工作的通知",
+     "关于开展2024—2025学年家庭经济困难学生认定工作的通知"
+    ],
+    "hit": true,
+    "rank": 1,
+    "candidates": 12,
+    "latency_ms": 140.8,
+    "fallback": false
+   },
+   "router": {
+    "route": "document",
+    "correct": true,
+    "plan": {
+     "route": "document",
+     "reason": "询问国家奖学金名额，属于学校文件/政策中规定的内容，需查文件原文",
+     "rewritten_query": "2024年国家奖学金评选名额分配",
+     "doc_type": "奖学金",
+     "college": "",
+     "department": "",
+     "year": 2024,
+     "category": "",
+     "level": "",
+     "exam_category": "",
+     "keyword": "国家奖学金",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 2488.1
+   },
+   "e2e": {
+    "route": "document",
+    "correct_route": true,
+    "answer": "2024 年国家奖学金上级下达我校的名额为 **42 名**，按各学院二年级以上（含二年级）在校生人数比例分配，具体名额见附件 1 [资料1]。\n\n补充说明：\n- 奖励标准为每人每年 8000 元，一次性发放 [资料1]。\n- 该文件发布于 2024 年 9 月 15 日，其中规定的申请时间为 9 月 16 日—9 月 22 日，属于 2024 年的时间安排，现已过期。资料未给出当前（2026 年）的报名状态，请以官网或最新通知为准。\n\n另外，同一年度的国家励志奖学金名额为 320 名，标准为每人每年 5000 元 [资料2]；两者同一学年不可兼得 [资料1][资料2]。",
+    "answer_chars": 289,
+    "sources": [
+     "关于做好2024年国家奖学金评选工作的通知",
+     "关于做好2024年国家励志奖学金评审工作的通知"
+    ],
+    "retrieval_hit": true,
+    "retrieval_rank": 1,
+    "tools": [],
+    "tool_ok": null,
+    "facts_matched": 1,
+    "facts_total": 1,
+    "facts_hit": [
+     "42"
+    ],
+    "facts_miss": [],
+    "citation": true,
+    "refusal_ok": null,
+    "latency_ms": 2861.1
+   }
+  },
+  "D04": {
+   "retrieval": {
+    "top_titles": [
+     "关于做好2024年国家励志奖学金评审工作的通知",
+     "关于做好2024年国家奖学金评选工作的通知",
+     "关于做好2025年国家奖学金评选工作的通知",
+     "关于2023—2024学年校级优秀学生奖学金评定工作的通知",
+     "关于开展2024—2025学年家庭经济困难学生认定工作的通知"
+    ],
+    "hit": true,
+    "rank": 1,
+    "candidates": 13,
+    "latency_ms": 166.1,
+    "fallback": false
+   },
+   "router": {
+    "route": "document",
+    "correct": true,
+    "plan": {
+     "route": "document",
+     "reason": "询问国家励志奖学金的奖励标准与名额，属于学校文件/政策规定内容，需读文件原文",
+     "rewritten_query": "国家励志奖学金 奖励标准 名额 评选办法",
+     "doc_type": "奖学金",
+     "college": "",
+     "department": "",
+     "year": 0,
+     "category": "",
+     "level": "",
+     "exam_category": "",
+     "keyword": "国家励志奖学金",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 1249.0
+   },
+   "e2e": {
+    "route": "document",
+    "correct_route": true,
+    "answer": "## 国家励志奖学金：奖励标准与名额\n\n根据学校《关于做好2024年国家励志奖学金评审工作的通知》：\n\n**一、奖励标准**\n- 每人每年 **5000 元**，一次性发放 [资料1]。\n\n**二、名额**\n- 2024 年我校名额 **320 名** [资料1]。\n\n**三、奖励对象**\n- 品学兼优、家庭经济困难的全日制本科在校生（二年级以上，含二年级）[资料1]。\n\n**四、需要注意的两点**\n1. 上述标准和名额出自 **2024 年** 的评审通知，2025 年及以后的名额是否调整，资料中未提及，建议以学生工作处最新通知为准。\n2. 国家励志奖学金与国家奖学金 **同一学年不可兼得**；已获得国家奖学金的学生不再参与本轮评审 [资料1]。\n\n如果你还想了解申请条件（如家庭经济困难认定等级、成绩排名要求）或评审时间安排，可以继续问我。",
+    "answer_chars": 376,
+    "sources": [
+     "关于做好2024年国家励志奖学金评审工作的通知",
+     "关于做好2024年国家奖学金评选工作的通知",
+     "关于做好2025年国家奖学金评选工作的通知",
+     "关于2023—2024学年校级优秀学生奖学金评定工作的通知"
+    ],
+    "retrieval_hit": true,
+    "retrieval_rank": 1,
+    "tools": [],
+    "tool_ok": null,
+    "facts_matched": 2,
+    "facts_total": 2,
+    "facts_hit": [
+     "5000",
+     "320"
+    ],
+    "facts_miss": [],
+    "citation": true,
+    "refusal_ok": null,
+    "latency_ms": 2715.1
+   }
+  },
+  "D05": {
+   "retrieval": {
+    "top_titles": [
+     "关于2023—2024学年校级优秀学生奖学金评定工作的通知",
+     "关于开展2024—2025学年家庭经济困难学生认定工作的通知",
+     "关于做好2024年国家奖学金评选工作的通知",
+     "关于做好2024年国家励志奖学金评审工作的通知",
+     "关于做好2025年国家奖学金评选工作的通知"
+    ],
+    "hit": true,
+    "rank": 1,
+    "candidates": 13,
+    "latency_ms": 157.7,
+    "fallback": false
+   },
+   "router": {
+    "route": "document",
+    "correct": true,
+    "plan": {
+     "route": "document",
+     "reason": "询问奖学金各等级金额，属于学校文件/政策规定的内容，需要读原文",
+     "rewritten_query": "校级优秀学生奖学金一等奖、二等奖、三等奖奖励金额标准",
+     "doc_type": "奖学金",
+     "college": "",
+     "department": "",
+     "year": 0,
+     "category": "",
+     "level": "",
+     "exam_category": "",
+     "keyword": "优秀学生奖学金",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 1381.5
+   },
+   "e2e": {
+    "route": "document",
+    "correct_route": true,
+    "answer": "校级优秀学生奖学金各等级金额如下（依据 2023—2024 学年评定通知）：\n\n- **一等奖学金**：每人每年 **2000 元**，评定比例 5% [资料1]\n- **二等奖学金**：每人每年 **1200 元**，评定比例 10% [资料1]\n- **三等奖学金**：每人每年 **800 元**，评定比例 15% [资料1]\n\n另外，同一文件还设有单项奖学金（社会实践、科技创新、文体活动、志愿服务各设若干名），每人 500 元 [资料1]。\n\n**需要注意的两点：**\n\n1. 上述标准出自 2023 年 10 月 8 日发布的评定通知，对应的是 2023—2024 学年 [资料1]。资料中没有给出当前学年的评定通知，因此**无法确认本学年金额是否调整**，请以学生工作处最新通知为准。\n2. 该通知的时间安排（10 月 9 日—10 月 31 日）属于 2023 年，早已结束，不是当前正在进行的报名窗口 [资料1]。\n\n如果你还想了解评定依据（综合素质测评的构成比例）或转专业、休学复学等特殊情况的处理方式，可以继续问我。",
+    "answer_chars": 469,
+    "sources": [
+     "关于2023—2024学年校级优秀学生奖学金评定工作的通知",
+     "关于做好2024年国家奖学金评选工作的通知",
+     "关于做好2024年国家励志奖学金评审工作的通知",
+     "关于做好2025年国家奖学金评选工作的通知"
+    ],
+    "retrieval_hit": true,
+    "retrieval_rank": 1,
+    "tools": [],
+    "tool_ok": null,
+    "facts_matched": 3,
+    "facts_total": 3,
+    "facts_hit": [
+     "2000",
+     "1200",
+     "800"
+    ],
+    "facts_miss": [],
+    "citation": true,
+    "refusal_ok": null,
+    "latency_ms": 2914.3
+   }
+  },
+  "D06": {
+   "retrieval": {
+    "top_titles": [
+     "关于2025年上半年全国大学英语四、六级考试报名工作的通知",
+     "关于2024年上半年全国大学英语四、六级考试报名工作的通知",
+     "关于2024年下半年全国大学英语四、六级考试报名工作的通知",
+     "关于2024—2025学年第二学期选课工作的通知",
+     "关于组织参加2025年全国大学生数学建模竞赛的通知"
+    ],
+    "hit": true,
+    "rank": 1,
+    "candidates": 13,
+    "latency_ms": 150.8,
+    "fallback": false
+   },
+   "router": {
+    "route": "structured",
+    "correct": true,
+    "plan": {
+     "route": "structured",
+     "reason": "问的是考试具体日期这类结构化字段，不需要读文件原文",
+     "rewritten_query": "2025年上半年英语四级考试时间安排",
+     "doc_type": "考试",
+     "college": "",
+     "department": "",
+     "year": 2025,
+     "category": "",
+     "level": "",
+     "exam_category": "英语",
+     "keyword": "四级",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 1158.8
+   },
+   "e2e": {
+    "route": "structured",
+    "correct_route": true,
+    "answer": "2025 年上半年全国大学英语四级考试（CET-4）的考试日期是 **2025 年 6 月 16 日**。\n\n相关安排一并说明：\n\n- **报名时间**：2025 年 3 月 22 日至 2025 年 4 月 11 日\n- **报名费**：30—50 元\n- **面向年级**：本科 / 研究生\n- **当前阶段**：已结束（该场次报名与考试均已过去）\n\n另外两点供参考：\n\n- 报考六级需先通过四级；四级成绩 **425 分及以上**视为通过。\n- 2025 年下半年场次考试日期为 2025 年 12 月 12 日，报名时间为 2025 年 9 月 18 日至 2025 年 10 月 8 日，该场次同样已结束。\n\n如果你关心的是**下一次**（2026 年下半年或之后）的考试安排，目前未检索到相关内容，请以学校教务部门或官网最新通知为准。",
+    "answer_chars": 373,
+    "sources": [],
+    "retrieval_hit": false,
+    "retrieval_rank": null,
+    "tools": [
+     "query_exam"
+    ],
+    "tool_ok": null,
+    "facts_matched": 0,
+    "facts_total": 1,
+    "facts_hit": [],
+    "facts_miss": [],
+    "citation": false,
+    "refusal_ok": null,
+    "latency_ms": 4264.8
+   }
+  },
+  "D07": {
+   "retrieval": {
+    "top_titles": [
+     "关于2024年上半年全国大学英语四、六级考试报名工作的通知",
+     "关于2025年上半年全国大学英语四、六级考试报名工作的通知",
+     "关于2024年下半年全国大学英语四、六级考试报名工作的通知",
+     "XX大学本科生转专业管理办法",
+     "XX大学本科生毕业设计（论文）工作管理规定"
+    ],
+    "hit": true,
+    "rank": 1,
+    "candidates": 15,
+    "latency_ms": 172.0,
+    "fallback": false
+   },
+   "router": {
+    "route": "document",
+    "correct": true,
+    "plan": {
+     "route": "document",
+     "reason": "询问四六级报考条件，属于学校文件/政策规定内容，需要读原文",
+     "rewritten_query": "英语六级报考条件 四级分数要求 规定",
+     "doc_type": "考试",
+     "college": "",
+     "department": "",
+     "year": 0,
+     "category": "",
+     "level": "",
+     "exam_category": "英语",
+     "keyword": "六级",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 1056.3
+   },
+   "e2e": {
+    "route": "document",
+    "correct_route": true,
+    "answer": "## 报考英语六级对四级分数的要求\n\n**核心要求：英语四级成绩须达到 425 分及以上。**\n\n三份报名通知对此的表述一致：\n\n- 2024 年上半年通知：「报考英语六级的考生，英语四级成绩须达到 425 分及以上」[资料1]\n- 2024 年下半年通知：「报考六级须四级成绩达到 425 分及以上」[资料3]\n- 2025 年上半年通知：「报考六级须英语四级成绩达 425 分及以上」[资料2]\n\n## 几点补充说明\n\n1. **报考对象范围**：全日制在校本科生、研究生 [资料1][资料2][资料3]。\n2. **缺考影响**：缺考会被暂停一次报名资格。例如 2023 年 12 月无故缺考的考生，2024 年上半年暂停一次报名资格 [资料1]；2024 年 12 月缺考考生，2025 年上半年暂停报名资格一次 [资料2]。\n3. **刷分提示**：四级成绩已达 425 分的考生可自愿刷分，每学年最多可刷分一次 [资料1]；学校也建议四级未通过的同学优先报考四级，不要盲目刷分 [资料2]。\n\n## 关于当前能否报名\n\n以上三份通知分别是 2024 年 3 月、2024 年 9 月和 2025 年 3 月发布的，其中的报名时间窗口（如 2025 年 3 月 19 日 9:00 — 3 月 27 日 17:00 [资料2]）均早已结束。资料未给出当前（2026 年 10 月）的报名状态，请以教务处官网或最新通知为准。\n\n如果你想确认自己是否满足 425 分这一条件，可以先查一下自己的四级成绩单；若已达标，等下一次报名通知发布后，登录 cet-bm.neea.edu.cn 完成报名即可。",
+    "answer_chars": 702,
+    "sources": [
+     "关于2024年上半年全国大学英语四、六级考试报名工作的通知",
+     "关于2025年上半年全国大学英语四、六级考试报名工作的通知",
+     "关于2024年下半年全国大学英语四、六级考试报名工作的通知"
+    ],
+    "retrieval_hit": true,
+    "retrieval_rank": 1,
+    "tools": [],
+    "tool_ok": null,
+    "facts_matched": 1,
+    "facts_total": 1,
+    "facts_hit": [
+     "425"
+    ],
+    "facts_miss": [],
+    "citation": true,
+    "refusal_ok": null,
+    "latency_ms": 3698.8
+   }
+  },
+  "D08": {
+   "retrieval": {
+    "top_titles": [
+     "计算机学院2024年本科生转专业工作实施细则",
+     "计算机学院2025年推荐优秀应届本科毕业生免试攻读研究生工作细则",
+     "XX大学本科生转专业管理办法",
+     "关于组织参加2024年中国大学生计算机设计大赛的通知",
+     "关于组织我校学生参加2025年第十六届蓝桥杯大赛的通知"
+    ],
+    "hit": true,
+    "rank": 1,
+    "candidates": 13,
+    "latency_ms": 230.4,
+    "fallback": false
+   },
+   "router": {
+    "route": "hybrid",
+    "correct": false,
+    "plan": {
+     "route": "hybrid",
+     "reason": "既要转专业文件原文（接收哪些专业），又要各专业接收人数的结构化字段",
+     "rewritten_query": "计算机学院2024年转专业接收专业及各专业接收人数",
+     "doc_type": "学籍",
+     "college": "计算机学院",
+     "department": "",
+     "year": 2024,
+     "category": "",
+     "level": "",
+     "exam_category": "",
+     "keyword": "转专业",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 984.7
+   },
+   "e2e": {
+    "route": "hybrid",
+    "correct_route": false,
+    "answer": "## 计算机学院2024年转专业接收专业及人数\n\n根据《计算机学院2024年本科生转专业工作实施细则》，2024 年我院接收转专业学生的专业及计划如下 [资料1]：\n\n| 接收专业 | 接收人数 |\n|---|---|\n| 计算机科学与技术 | 12 人 |\n| 软件工程 | 10 人 |\n| 网络空间安全 | 8 人 |\n| 人工智能 | 8 人 |\n| **合计** | **38 人** |\n\n合计 38 人，其中面向 2023 级（大一）33 人，面向 2022 级（大二）5 人 [资料1]。\n\n## 需要注意的时间问题\n\n该细则的发布日期为 2024-04-10，文中时间安排为：4 月 15 日—4 月 22 日提交申请、5 月 11 日笔试、5 月 18 日面试、5 月 22 日—5 月 28 日拟录取名单公示 [资料1]。这是 **2024 年**的报名与考核窗口，早已结束，现在无法按此细则报名。\n\n关于当前（2026 年）的转专业接收计划与报名状态，资料中未检索到相关内容，请以学院官网或最新通知为准。\n\n## 补充：申请条件与考核方式（供参考）\n\n- **申请条件**：全日制本科一年级、二年级在校生；第一学年无不及格课程，平均学分绩点不低于 3.0；高考为理工类考生，或已修读《高等数学》《程序设计基础》且成绩合格；受过纪律处分、已转过一次专业、通过艺术类体育类等特殊类型招生录取者不予接收 [资料1]。\n- **考核方式**：笔试（满分 100 分，占 60%，程序设计基础 C 语言/Python 任选，120 分钟）+ 面试（满分 100 分，占 40%）；笔试成绩低于 60 分者不得进入面试，按总成绩从高到低择优录取，总成绩相同的按笔试成绩排序 [资料1]。\n\n如需咨询，可联系刘老师，电话 020-8888xxxx，办公地点计算机楼 A102 [资料1]。",
+    "answer_chars": 799,
+    "sources": [
+     "计算机学院2024年本科生转专业工作实施细则"
+    ],
+    "retrieval_hit": true,
+    "retrieval_rank": 1,
+    "tools": [
+     "query_competition",
+     "query_exam"
+    ],
+    "tool_ok": null,
+    "facts_matched": 3,
+    "facts_total": 3,
+    "facts_hit": [
+     "12",
+     "10",
+     "8"
+    ],
+    "facts_miss": [],
+    "citation": true,
+    "refusal_ok": null,
+    "latency_ms": 5435.7
+   }
+  },
+  "D09": {
+   "retrieval": {
+    "top_titles": [
+     "XX大学本科生转专业管理办法",
+     "计算机学院2024年本科生转专业工作实施细则",
+     "XX大学本科生毕业设计（论文）工作管理规定",
+     "计算机学院2025年推荐优秀应届本科毕业生免试攻读研究生工作细则",
+     "XX大学学生综合素质测评实施办法"
+    ],
+    "hit": true,
+    "rank": 1,
+    "candidates": 12,
+    "latency_ms": 275.3,
+    "fallback": false
+   },
+   "router": {
+    "route": "document",
+    "correct": true,
+    "plan": {
+     "route": "document",
+     "reason": "询问转专业政策的具体规定，答案在学籍管理文件原文中",
+     "rewritten_query": "本科生转专业申请次数规定",
+     "doc_type": "学籍",
+     "college": "",
+     "department": "",
+     "year": 0,
+     "category": "",
+     "level": "",
+     "exam_category": "",
+     "keyword": "转专业",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 1120.6
+   },
+   "e2e": {
+    "route": "document",
+    "correct_route": true,
+    "answer": "根据《XX大学本科生转专业管理办法》，**每人限转一次** [资料1]。\n\n具体来说：\n\n- **基本规定**：全日制本科一、二年级在校生可申请转专业，每人限转一次 [资料1]。\n- **排除情形**：已转过一次专业的学生，不得再次申请转专业 [资料1]。计算机学院的实施细则中也同样列明「已转过一次专业」者不予接收 [资料2]。\n\n也就是说，本科生在校期间转专业的机会只有一次，一旦转过专业，就不能再申请第二次。\n\n另外提醒一点：上述文件分别是 2023 年和 2024 年发布的，其中计算机学院细则里的申请时间（4 月 15 日—4 月 22 日等）属于 2024 年，早已过期。资料未给出当前年度的报名状态，如果你打算申请，请以教务处或学院官网的最新通知为准。",
+    "answer_chars": 333,
+    "sources": [
+     "XX大学本科生转专业管理办法",
+     "计算机学院2024年本科生转专业工作实施细则",
+     "计算机学院2025年推荐优秀应届本科毕业生免试攻读研究生工作细则"
+    ],
+    "retrieval_hit": true,
+    "retrieval_rank": 1,
+    "tools": [],
+    "tool_ok": null,
+    "facts_matched": 1,
+    "facts_total": 1,
+    "facts_hit": [
+     "一次"
+    ],
+    "facts_miss": [],
+    "citation": true,
+    "refusal_ok": null,
+    "latency_ms": 2662.8
+   }
+  },
+  "D10": {
+   "retrieval": {
+    "top_titles": [
+     "关于组织我校学生参加2025年第十六届蓝桥杯大赛的通知",
+     "关于2025年全国大学生信息安全竞赛校内选拔的通知",
+     "关于组织参加2024年中国大学生计算机设计大赛的通知",
+     "关于组织参加2025年全国大学生数学建模竞赛的通知",
+     "关于举办第十届校园科技创新节的通知"
+    ],
+    "hit": true,
+    "rank": 1,
+    "candidates": 12,
+    "latency_ms": 180.8,
+    "fallback": false
+   },
+   "router": {
+    "route": "structured",
+    "correct": false,
+    "plan": {
+     "route": "structured",
+     "reason": "询问蓝桥杯的赛道分类，属于竞赛结构化字段信息，不需要读文件原文，也不涉及学生个人情况",
+     "rewritten_query": "蓝桥杯比赛分哪几个赛道 竞赛类别",
+     "doc_type": "",
+     "college": "",
+     "department": "",
+     "year": 0,
+     "category": "计算机",
+     "level": "",
+     "exam_category": "",
+     "keyword": "蓝桥杯",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 1235.9
+   },
+   "e2e": {
+    "route": "structured",
+    "correct_route": false,
+    "answer": "# 蓝桥杯赛道/组别情况\n\n## 能确认的信息\n\n根据结构化数据查询结果，蓝桥杯全国软件和信息技术专业人才大赛（主办单位：工业和信息化部人才交流中心，国家级，面向本科/高职，专业不限，官网 https://dasai.lanqiao.cn/）在已收录的各届记录中，描述字段给出的都是：\n\n- **个人赛**形式；\n- 按编程语言划分**组别**：C/C++、Java、Python 等；\n- 赛制为**校赛—省赛—国赛**三级。\n\n以上描述在 2021—2026 各届记录中一致。\n\n## 需要说明的部分\n\n关于「赛道」的**完整划分清单**（例如软件类、电子类等大类赛道，以及各赛道下的具体科目），本次查询结果中**未检索到相关内容**。工具返回的字段只包含「组别」和「赛制层级」，没有返回完整的赛道清单，也没有赛道划分的详细数据。\n\n## 建议\n\n如果你需要确认完整的赛道设置（尤其是电子类、设计类等非软件方向是否单独设赛道），建议直接查看官网 https://dasai.lanqiao.cn/ 的最新赛事通知，或咨询学校负责该竞赛报名的老师。\n\n另外提醒：查询结果显示 2026 年蓝桥杯报名时间为 2025-11-23 至 2026-02-06，比赛时间为 2026-04-10 至 2026-04-17，**阶段为「已结束」**，该届已过。下一届的报名时间尚未有数据，请以官网最新通知为准。",
+    "answer_chars": 601,
+    "sources": [],
+    "retrieval_hit": false,
+    "retrieval_rank": null,
+    "tools": [
+     "query_competition"
+    ],
+    "tool_ok": null,
+    "facts_matched": 0,
+    "facts_total": 2,
+    "facts_hit": [],
+    "facts_miss": [
+     "软件赛",
+     "电子赛"
+    ],
+    "citation": false,
+    "refusal_ok": null,
+    "latency_ms": 6422.5
+   }
+  },
+  "D11": {
+   "retrieval": {
+    "top_titles": [
+     "关于组织参加2025年全国大学生数学建模竞赛的通知",
+     "关于组织我校学生参加2025年第十六届蓝桥杯大赛的通知",
+     "关于2025年全国大学生信息安全竞赛校内选拔的通知",
+     "关于组织参加2024年中国大学生计算机设计大赛的通知",
+     "关于举办第十届校园科技创新节的通知"
+    ],
+    "hit": true,
+    "rank": 1,
+    "candidates": 13,
+    "latency_ms": 175.0,
+    "fallback": false
+   },
+   "router": {
+    "route": "structured",
+    "correct": true,
+    "plan": {
+     "route": "structured",
+     "reason": "只问竞赛的比赛时间这一结构化字段，不需要文件原文",
+     "rewritten_query": "2025年数学建模竞赛比赛时间",
+     "doc_type": "竞赛",
+     "college": "",
+     "department": "",
+     "year": 2025,
+     "category": "数学",
+     "level": "",
+     "exam_category": "",
+     "keyword": "数学建模竞赛",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 986.8
+   },
+   "e2e": {
+    "route": "structured",
+    "correct_route": true,
+    "answer": "2025 年全国大学生数学建模竞赛的比赛时间如下：\n\n- **比赛时间：2025-09-10 至 2025-09-17**\n- 竞赛名称：全国大学生数学建模竞赛（2025 年，国家级，数学类）\n- 主办单位：中国工业与应用数学学会\n- 报名时间：2025-05-03 至 2025-07-17\n- 面向年级：本科/专科；面向专业：不限\n- 当前阶段：**已结束**\n- 官网：https://www.mcm.edu.cn/\n\n补充说明：该竞赛为 3 人一队，需在 72 小时内完成建模、求解与论文写作，是国内规模最大的基础性学科竞赛。\n\n由于 2025 年赛事已结束，如果你打算参加下一届，建议关注官网 https://www.mcm.edu.cn/ 发布的最新通知，通常报名在上半年、比赛在 9 月前后；具体时间以官网公告为准。",
+    "answer_chars": 365,
+    "sources": [],
+    "retrieval_hit": false,
+    "retrieval_rank": null,
+    "tools": [
+     "query_competition"
+    ],
+    "tool_ok": null,
+    "facts_matched": 0,
+    "facts_total": 2,
+    "facts_hit": [],
+    "facts_miss": [],
+    "citation": false,
+    "refusal_ok": null,
+    "latency_ms": 4261.5
+   }
+  },
+  "D12": {
+   "retrieval": {
+    "top_titles": [
+     "关于组织参加2025年全国大学生数学建模竞赛的通知",
+     "关于组织参加2024年中国大学生计算机设计大赛的通知",
+     "关于2025年全国大学生信息安全竞赛校内选拔的通知",
+     "关于组织我校学生参加2025年第十六届蓝桥杯大赛的通知",
+     "计算机学院2025年推荐优秀应届本科毕业生免试攻读研究生工作细则"
+    ],
+    "hit": true,
+    "rank": 1,
+    "candidates": 11,
+    "latency_ms": 149.5,
+    "fallback": false
+   },
+   "router": {
+    "route": "document",
+    "correct": true,
+    "plan": {
+     "route": "document",
+     "reason": "询问竞赛规则/参赛要求，属于文件里规定的内容，需要读通知原文",
+     "rewritten_query": "数学建模竞赛 组队人数 参赛队伍要求",
+     "doc_type": "竞赛",
+     "college": "",
+     "department": "",
+     "year": 0,
+     "category": "数学",
+     "level": "",
+     "exam_category": "",
+     "keyword": "数学建模竞赛",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 1307.9
+   },
+   "e2e": {
+    "route": "document",
+    "correct_route": true,
+    "answer": "**全国大学生数学建模竞赛：3 人一队。**\n\n根据学校通知，参赛对象与组队要求为：在校本科生，3 人一队（鼓励跨学院、跨专业组队），每队可设 1 名指导教师 [资料1]。\n\n补充两点相关信息：\n- 竞赛分本科组与专科组，本科组从 A、B、C 三题中任选一题 [资料1]。\n- 该通知发布于 2025 年 4 月 25 日，其中校内报名时间为 2025 年 5 月 6 日 — 6 月 20 日，该时间窗口已过去；资料未给出当前（2026 年）的报名状态，请以官网或最新通知为准 [资料1]。",
+    "answer_chars": 246,
+    "sources": [
+     "关于组织参加2025年全国大学生数学建模竞赛的通知",
+     "关于组织参加2024年中国大学生计算机设计大赛的通知",
+     "关于2025年全国大学生信息安全竞赛校内选拔的通知"
+    ],
+    "retrieval_hit": true,
+    "retrieval_rank": 1,
+    "tools": [],
+    "tool_ok": null,
+    "facts_matched": 1,
+    "facts_total": 1,
+    "facts_hit": [
+     "3"
+    ],
+    "facts_miss": [],
+    "citation": true,
+    "refusal_ok": null,
+    "latency_ms": 2379.1
+   }
+  },
+  "D13": {
+   "retrieval": {
+    "top_titles": [
+     "关于2025年全国大学生信息安全竞赛校内选拔的通知",
+     "关于组织我校学生参加2025年第十六届蓝桥杯大赛的通知",
+     "关于组织参加2024年中国大学生计算机设计大赛的通知",
+     "关于组织参加2025年全国大学生数学建模竞赛的通知",
+     "关于举办第十届校园科技创新节的通知"
+    ],
+    "hit": true,
+    "rank": 1,
+    "candidates": 12,
+    "latency_ms": 201.3,
+    "fallback": false
+   },
+   "router": {
+    "route": "document",
+    "correct": true,
+    "plan": {
+     "route": "document",
+     "reason": "问的是校内选拔通知文件里规定的赛道设置，属于文件原文内容",
+     "rewritten_query": "信息安全竞赛校内选拔 赛道设置",
+     "doc_type": "竞赛",
+     "college": "",
+     "department": "",
+     "year": 0,
+     "category": "",
+     "level": "",
+     "exam_category": "",
+     "keyword": "信息安全竞赛",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 1228.9
+   },
+   "e2e": {
+    "route": "document",
+    "correct_route": true,
+    "answer": "信息安全竞赛校内选拔共设 **2 个赛道**，具体如下：\n\n## 一、赛道设置\n\n1. **创新实践能力赛（CTF）**\n   - 组队要求：3 人一队\n   - 题目方向：Web 安全、逆向工程、二进制漏洞利用（Pwn）、密码学、杂项（Misc）[资料1]\n\n2. **作品赛**\n   - 组队要求：2—4 人一队\n   - 内容要求：提交信息安全相关作品（系统、工具、协议设计等）[资料1]\n\n## 二、组队相关的两点限制\n\n- 个人可同时报名 CTF 与作品赛，但同一人不得参加两支 CTF 队伍 [资料1]\n- 选拔对象为我校在校本科生，专业不限；网络空间安全、计算机科学与技术、软件工程等专业优先 [资料1]\n\n## 三、时间提醒\n\n该通知发布于 2025 年 3 月 10 日，其中报名截止为 2025 年 3 月 20 日，线上初赛为 2025 年 3 月 29 日，线下复赛为 2025 年 4 月 6 日 [资料1]。这些时间节点均属于 2025 年，现已全部过去，**当前无法按该通知报名**。资料未给出 2026 年的报名状态，请以计算机学院官网或最新通知为准；如需咨询，可联系黄老师（电话：020-8888xxxx）[资料1]。",
+    "answer_chars": 527,
+    "sources": [
+     "关于2025年全国大学生信息安全竞赛校内选拔的通知",
+     "关于组织我校学生参加2025年第十六届蓝桥杯大赛的通知",
+     "关于组织参加2024年中国大学生计算机设计大赛的通知"
+    ],
+    "retrieval_hit": true,
+    "retrieval_rank": 1,
+    "tools": [],
+    "tool_ok": null,
+    "facts_matched": 2,
+    "facts_total": 2,
+    "facts_hit": [
+     "CTF",
+     "作品赛"
+    ],
+    "facts_miss": [],
+    "citation": true,
+    "refusal_ok": null,
+    "latency_ms": 2640.5
+   }
+  },
+  "D14": {
+   "retrieval": {
+    "top_titles": [
+     "关于2024—2025学年第二学期选课工作的通知",
+     "关于2025年春季学期国家助学贷款申请与续贷工作的通知",
+     "计算机学院2024年本科生转专业工作实施细则",
+     "关于2024年下半年全国大学英语四、六级考试报名工作的通知",
+     "关于2025年上半年全国大学英语四、六级考试报名工作的通知"
+    ],
+    "hit": true,
+    "rank": 1,
+    "candidates": 15,
+    "latency_ms": 216.1,
+    "fallback": false
+   },
+   "router": {
+    "route": "document",
+    "correct": true,
+    "plan": {
+     "route": "document",
+     "reason": "问选课分几轮及第一轮开始时间，属于学校教学管理文件中的规定与流程，需要读文件原文",
+     "rewritten_query": "本学期选课轮次安排 第一轮选课开始时间 选课通知",
+     "doc_type": "教学",
+     "college": "",
+     "department": "",
+     "year": 0,
+     "category": "",
+     "level": "",
+     "exam_category": "",
+     "keyword": "选课",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 1219.3
+   },
+   "e2e": {
+    "route": "document",
+    "correct_route": true,
+    "answer": "## 选课轮次与第一轮时间\n\n根据教务处发布的选课通知，选课共分 **3 轮**，第一轮为**预选**：\n\n| 轮次 | 时间 |\n|---|---|\n| 第一轮（预选） | 2025 年 1 月 10 日 9:00 — 1 月 14 日 22:00 [资料1] |\n| 第二轮（补退选） | 2025 年 2 月 24 日 9:00 — 2 月 28 日 22:00 [资料1] |\n| 第三轮（试听后补退） | 2025 年 3 月 3 日 9:00 — 3 月 7 日 22:00 [资料1] |\n\n选课系统为 xk.example.edu.cn，开放时间为每日 9:00—22:00 [资料1]。\n\n## 需要注意的时间问题\n\n上述安排出自 **2025 年 1 月 6 日**发布的《关于2024—2025学年第二学期选课工作的通知》，对应的是 **2024—2025 学年第二学期**，这些时间窗口早已过去，**不是当前正在进行的选课** [资料1]。\n\n关于**本学期（2026—2027 学年）的选课轮次与第一轮开始时间**：未检索到相关内容。资料中也没有给出当前报名阶段的信息，请以教务处官网或最新选课通知为准。\n\n## 可参考的常规做法（来自该通知，供你了解流程）\n\n- 第一轮预选采用**随机抽签**方式，与提交时间先后无关，无需抢课 [资料1]；\n- 补退选阶段采用**先到先得**，需及时关注选课系统通知 [资料1]；\n- 未在规定时间内完成选课或确认，视为放弃选课 [资料1]。\n\n## 建议的下一步\n\n1. **今天内**登录 xk.example.edu.cn 查看系统首页公告，确认本学期选课通知是否已发布；\n2. 若系统暂无公告，联系**教务处信息科（020-8888xxxx）** 咨询选课系统开放安排 [资料1]；\n3. 培养方案、学分认定等个性化问题，咨询**所在学院教学秘书** [资料1]；\n4. 拿到新通知后，重点核对：轮次数量、每轮起止时间、抽签还是先到先得、学分上下限要求。",
+    "answer_chars": 863,
+    "sources": [
+     "关于2024—2025学年第二学期选课工作的通知",
+     "XX大学本科生毕业设计（论文）工作管理规定"
+    ],
+    "retrieval_hit": true,
+    "retrieval_rank": 1,
+    "tools": [],
+    "tool_ok": null,
+    "facts_matched": 1,
+    "facts_total": 1,
+    "facts_hit": [
+     "1月10日"
+    ],
+    "facts_miss": [],
+    "citation": true,
+    "refusal_ok": null,
+    "latency_ms": 4459.2
+   }
+  },
+  "D15": {
+   "retrieval": {
+    "top_titles": [
+     "XX大学本科生毕业设计（论文）工作管理规定",
+     "关于组织参加2024年中国大学生计算机设计大赛的通知",
+     "关于2024—2025学年第二学期选课工作的通知",
+     "计算机学院2025年推荐优秀应届本科毕业生免试攻读研究生工作细则",
+     "计算机学院2024年本科生转专业工作实施细则"
+    ],
+    "hit": true,
+    "rank": 1,
+    "candidates": 13,
+    "latency_ms": 168.3,
+    "fallback": false
+   },
+   "router": {
+    "route": "document",
+    "correct": true,
+    "plan": {
+     "route": "document",
+     "reason": "询问毕业设计选题的政策规定，答案在学校文件原文中",
+     "rewritten_query": "毕业设计选题要求 规定",
+     "doc_type": "教学",
+     "college": "",
+     "department": "",
+     "year": 0,
+     "category": "",
+     "level": "",
+     "exam_category": "",
+     "keyword": "毕业设计",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 923.5
+   },
+   "e2e": {
+    "route": "document",
+    "correct_route": true,
+    "answer": "# 毕业设计选题要求\n\n根据《XX大学本科生毕业设计（论文）工作管理规定》，选题方面的要求主要有以下几点：\n\n## 一、选题方向\n\n- 选题应结合专业培养目标，鼓励结合科研项目、企业实际问题选题 [资料1]。\n- 题目不得与往届重复 [资料1]。\n\n## 二、一人一题原则\n\n- 毕业设计（论文）实行一人一题 [资料1]。\n- 多人合作完成的题目，须明确每人独立完成的部分 [资料1]。\n\n## 三、选题环节的流程要求\n\n- 毕业设计（论文）须在系统中完成选题、开题、中期、查重、答辩等各环节记录，未按规定完成者不予答辩 [资料1]。\n- 学生须在第八学期第 4 周前完成开题报告，第 10 周前完成中期检查；中期检查不合格者，须限期整改 [资料1]。\n\n## 四、补充说明\n\n上述规定由教务处负责解释，自 2023 年 11 月 1 日公布之日起施行 [资料1]。关于本学年选题工作的具体时间安排和操作通知，本次资料中未检索到相关内容，建议关注教务处及所在学院的最新通知。",
+    "answer_chars": 437,
+    "sources": [
+     "XX大学本科生毕业设计（论文）工作管理规定",
+     "关于2024—2025学年第二学期选课工作的通知"
+    ],
+    "retrieval_hit": true,
+    "retrieval_rank": 1,
+    "tools": [],
+    "tool_ok": null,
+    "facts_matched": 1,
+    "facts_total": 1,
+    "facts_hit": [
+     "一人一题"
+    ],
+    "facts_miss": [],
+    "citation": true,
+    "refusal_ok": null,
+    "latency_ms": 2953.8
+   }
+  },
+  "D16": {
+   "retrieval": {
+    "top_titles": [
+     "XX大学学生综合素质测评实施办法",
+     "XX大学本科生毕业设计（论文）工作管理规定",
+     "计算机学院2025年推荐优秀应届本科毕业生免试攻读研究生工作细则",
+     "关于2023—2024学年校级优秀学生奖学金评定工作的通知",
+     "关于组织我校学生参加2025年第十六届蓝桥杯大赛的通知"
+    ],
+    "hit": true,
+    "rank": 1,
+    "candidates": 14,
+    "latency_ms": 173.0,
+    "fallback": false
+   },
+   "router": {
+    "route": "document",
+    "correct": true,
+    "plan": {
+     "route": "document",
+     "reason": "询问综测成绩的构成与分值，属于学校文件/政策规定内容，需读文件原文。",
+     "rewritten_query": "综合素质测评成绩构成及各部分分值占比",
+     "doc_type": "规章制度",
+     "college": "",
+     "department": "",
+     "year": 0,
+     "category": "",
+     "level": "",
+     "exam_category": "",
+     "keyword": "综合素质测评",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 1143.5
+   },
+   "e2e": {
+    "route": "document",
+    "correct_route": true,
+    "answer": "# 综合素质测评成绩构成与分值\n\n根据《XX大学学生综合素质测评实施办法》，综合素质测评成绩**满分 100 分**，由以下三部分构成 [资料1]：\n\n| 构成部分 | 分值 | 主要内容 |\n|---|---|---|\n| 学业成绩 | 70 分 | 按学年加权平均学分绩点折算 [资料1] |\n| 思想品德 | 15 分 | 思想素质、道德修养、纪律表现、集体观念等 [资料1] |\n| 实践创新 | 15 分 | 学科竞赛、科研创新、社会实践、志愿服务、文体活动等 [资料1] |\n\n## 补充说明\n\n**学业成绩折算公式**：学业分 =（本人学年加权 GPA ÷ 4.0）× 70，最高不超过 70 分 [资料1]。\n\n**实践创新模块**：该模块累计不超过 15 分；同一赛事同一学年取最高奖项计分，不重复累加，不同赛事可累加 [资料1]。\n\n**测评结果用途**：作为学生评奖评优、推优入党、推荐免试研究生的重要依据 [资料1]。\n\n---\n\n需要提醒的是，这份办法的发布日期为 2023 年 9 月 1 日，其中规定的测评工作时间为「每学年第一学期开学后 4 周内」[资料1]。资料未给出当前学年测评的具体报名或提交状态，请以学院、学生工作处的最新通知为准。",
+    "answer_chars": 536,
+    "sources": [
+     "XX大学学生综合素质测评实施办法"
+    ],
+    "retrieval_hit": true,
+    "retrieval_rank": 1,
+    "tools": [],
+    "tool_ok": null,
+    "facts_matched": 2,
+    "facts_total": 2,
+    "facts_hit": [
+     "70",
+     "15"
+    ],
+    "facts_miss": [],
+    "citation": true,
+    "refusal_ok": null,
+    "latency_ms": 2597.8
+   }
+  },
+  "D17": {
+   "retrieval": {
+    "top_titles": [
+     "关于开展2024—2025学年家庭经济困难学生认定工作的通知",
+     "关于2023—2024学年校级优秀学生奖学金评定工作的通知",
+     "关于做好2024年国家励志奖学金评审工作的通知",
+     "关于2025年春季学期国家助学贷款申请与续贷工作的通知",
+     "XX大学学生综合素质测评实施办法"
+    ],
+    "hit": true,
+    "rank": 1,
+    "candidates": 12,
+    "latency_ms": 143.4,
+    "fallback": false
+   },
+   "router": {
+    "route": "document",
+    "correct": true,
+    "plan": {
+     "route": "document",
+     "reason": "询问政策规定中的认定等级划分，答案在学校文件原文里",
+     "rewritten_query": "家庭经济困难学生认定 等级划分 政策规定",
+     "doc_type": "助学金",
+     "college": "",
+     "department": "",
+     "year": 0,
+     "category": "",
+     "level": "",
+     "exam_category": "",
+     "keyword": "家庭经济困难学生认定",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 953.0
+   },
+   "e2e": {
+    "route": "document",
+    "correct_route": true,
+    "answer": "根据学校通知，家庭经济困难学生认定分为**三个等级** [资料1]：\n\n| 等级 | 认定标准 |\n|---|---|\n| **特别困难** | 家庭人均月收入低于当地最低生活保障标准，或家庭遭遇重大突发变故 [资料1] |\n| **比较困难** | 家庭人均月收入低于当地最低生活保障标准 1.5 倍 [资料1] |\n| **一般困难** | 家庭收入较低，难以完全负担学费及生活费 [资料1] |\n\n**补充说明：**\n\n- 认定对象为我校全日制本科在校生中，家庭经济状况难以承担在校期间学习生活基本支出的学生 [资料1]。\n- 认定为家庭经济困难的学生可申请国家助学金（一等 4300 元/年、二等 3300 元/年、三等 2300 元/年），可优先申请勤工助学岗位 [资料1]。\n\n**关于当前能否申请：** 上述认定程序出自 2024 年 9 月 5 日发布的通知，其中申请时间为 9 月 6 日—9 月 13 日，属于 2024—2025 学年，该时间窗口已过去 [资料1]。资料未给出当前学年的报名状态，请以学生工作处官网或最新通知为准。",
+    "answer_chars": 476,
+    "sources": [
+     "关于开展2024—2025学年家庭经济困难学生认定工作的通知",
+     "关于2025年春季学期国家助学贷款申请与续贷工作的通知"
+    ],
+    "retrieval_hit": true,
+    "retrieval_rank": 1,
+    "tools": [],
+    "tool_ok": null,
+    "facts_matched": 2,
+    "facts_total": 2,
+    "facts_hit": [
+     "特别困难",
+     "比较困难"
+    ],
+    "facts_miss": [],
+    "citation": true,
+    "refusal_ok": null,
+    "latency_ms": 3399.7
+   }
+  },
+  "D18": {
+   "retrieval": {
+    "top_titles": [
+     "关于调整图书馆自习室开放时间的通知",
+     "关于2025年春季学期国家助学贷款申请与续贷工作的通知",
+     "关于2024—2025学年第二学期选课工作的通知",
+     "计算机学院2024年本科生转专业工作实施细则",
+     "关于2024年上半年全国大学英语四、六级考试报名工作的通知"
+    ],
+    "hit": true,
+    "rank": 1,
+    "candidates": 16,
+    "latency_ms": 138.8,
+    "fallback": false
+   },
+   "router": {
+    "route": "document",
+    "correct": true,
+    "plan": {
+     "route": "document",
+     "reason": "询问图书馆自习室开放时间调整的具体规定，属于学校通知/规章制度原文内容",
+     "rewritten_query": "图书馆自习室开放时间调整通知",
+     "doc_type": "后勤",
+     "college": "",
+     "department": "",
+     "year": 0,
+     "category": "",
+     "level": "",
+     "exam_category": "",
+     "keyword": "图书馆自习室",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 1099.8
+   },
+   "e2e": {
+    "route": "document",
+    "correct_route": true,
+    "answer": "## 图书馆自习室开放时间调整说明\n\n根据图书馆 2025 年 3 月 1 日发布的《关于调整图书馆自习室开放时间的通知》，自 **2025 年 3 月 3 日**起，自习室开放时间作如下调整 [资料1]：\n\n### 一、各区域开放时间\n\n| 区域 | 调整后开放时间 |\n|---|---|\n| 一楼、二楼自习室 | 7:00—23:00（原为 8:00—22:00）[资料1] |\n| 三楼考研自习专区 | 24 小时开放，凭学生卡刷卡进入 [资料1] |\n| 考试周（每学期第 16—18 周） | 全馆自习区域延长至 24:00 闭馆 [资料1] |\n\n### 二、三楼考研自习专区的座位预约\n\n- 实行座位预约制，通过「XX大学图书馆」微信服务号预约 [资料1]\n- 每次最多可预约 **4 小时**，可续约一次 [资料1]\n- 预约后 **30 分钟内**未签到，系统自动释放座位，并记违约一次 [资料1]\n- 一学期累计违约 **3 次**，暂停预约权限 **7 天** [资料1]\n\n### 三、其他注意事项\n\n1. 请勿以任何物品占座，闭馆后工作人员将清理桌面留置物品，遗留物品统一存放于一楼服务台，保留 3 天 [资料1]\n2. 自习室内请保持安静，手机调至静音 [资料1]\n3. 请勿携带食物及含糖饮料进入自习室 [资料1]\n\n### 四、意见反馈渠道\n\n可通过图书馆主页「读者留言」栏目反馈，或致电 020-8888xxxx [资料1]。\n\n---\n\n**提示：** 该通知发布于 2025 年 3 月 1 日，上述时间安排自 2025 年 3 月 3 日起执行。资料中未说明此后是否有进一步调整，如需确认当前实际开放时间，建议以图书馆官网或最新通知为准。",
+    "answer_chars": 740,
+    "sources": [
+     "关于调整图书馆自习室开放时间的通知"
+    ],
+    "retrieval_hit": true,
+    "retrieval_rank": 1,
+    "tools": [],
+    "tool_ok": null,
+    "facts_matched": 2,
+    "facts_total": 2,
+    "facts_hit": [
+     "7:00",
+     "23:00"
+    ],
+    "facts_miss": [],
+    "citation": true,
+    "refusal_ok": null,
+    "latency_ms": 3513.3
+   }
+  },
+  "D19": {
+   "retrieval": {
+    "top_titles": [
+     "关于2025年春季学期国家助学贷款申请与续贷工作的通知",
+     "关于开展2024—2025学年家庭经济困难学生认定工作的通知",
+     "关于做好2024年国家励志奖学金评审工作的通知",
+     "关于做好2024年国家奖学金评选工作的通知",
+     "关于做好2025年国家奖学金评选工作的通知"
+    ],
+    "hit": true,
+    "rank": 1,
+    "candidates": 12,
+    "latency_ms": 159.9,
+    "fallback": false
+   },
+   "router": {
+    "route": "document",
+    "correct": true,
+    "plan": {
+     "route": "document",
+     "reason": "询问国家助学贷款额度这一政策规定，答案在学校资助政策文件原文中",
+     "rewritten_query": "国家助学贷款 本科生 每年最高贷款额度 政策规定",
+     "doc_type": "助学金",
+     "college": "",
+     "department": "",
+     "year": 0,
+     "category": "",
+     "level": "",
+     "exam_category": "",
+     "keyword": "国家助学贷款",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 884.7
+   },
+   "e2e": {
+    "route": "document",
+    "correct_route": true,
+    "answer": "**国家助学贷款本科生每年最高可贷金额：16000 元**\n\n根据学校《关于2025年春季学期国家助学贷款申请与续贷工作的通知》中的贷款额度规定：\n\n- **本科生**：每人每年最高 **16000 元** [资料1]\n- **研究生**：每人每年最高 **20000 元** [资料1]\n\n**补充说明：**\n\n- 贷款优先用于支付学费和住宿费，剩余部分可用于生活费 [资料1]。\n- 在校期间利息由财政全额补贴，毕业后开始计息 [资料1]。\n\n**关于当前能否申请：**\n\n上述通知发布于 **2025 年 3 月 5 日**，其中线上申请与县级资助中心受理的时间为 3 月 10 日—6 月 30 日，上交《受理证明》的时间为 9 月 1 日—9 月 20 日 [资料1]。这些时间窗口均属于 2025 年，现已过去。资料未给出当前（2026 年）的报名状态，请以学校官网或学生工作处最新通知为准。如需了解最新申请安排，可咨询学生工作处李老师（电话：020-8888xxxx）[资料1]。",
+    "answer_chars": 447,
+    "sources": [
+     "关于2025年春季学期国家助学贷款申请与续贷工作的通知",
+     "关于开展2024—2025学年家庭经济困难学生认定工作的通知"
+    ],
+    "retrieval_hit": true,
+    "retrieval_rank": 1,
+    "tools": [],
+    "tool_ok": null,
+    "facts_matched": 1,
+    "facts_total": 1,
+    "facts_hit": [
+     "16000"
+    ],
+    "facts_miss": [],
+    "citation": true,
+    "refusal_ok": null,
+    "latency_ms": 2786.7
+   }
+  },
+  "D20": {
+   "retrieval": {
+    "top_titles": [
+     "计算机学院2025年推荐优秀应届本科毕业生免试攻读研究生工作细则",
+     "计算机学院2024年本科生转专业工作实施细则",
+     "关于组织我校学生参加2025年第十六届蓝桥杯大赛的通知",
+     "关于组织参加2024年中国大学生计算机设计大赛的通知",
+     "关于做好2025年国家奖学金评选工作的通知"
+    ],
+    "hit": true,
+    "rank": 1,
+    "candidates": 12,
+    "latency_ms": 155.1,
+    "fallback": false
+   },
+   "router": {
+    "route": "document",
+    "correct": true,
+    "plan": {
+     "route": "document",
+     "reason": "询问推免名额数量，属于学校文件/政策规定中的具体内容，需要读文件原文",
+     "rewritten_query": "2025年计算机学院推免名额分配数量",
+     "doc_type": "规章制度",
+     "college": "计算机学院",
+     "department": "",
+     "year": 2025,
+     "category": "",
+     "level": "",
+     "exam_category": "",
+     "keyword": "推免",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 1045.6
+   },
+   "e2e": {
+    "route": "document",
+    "correct_route": true,
+    "answer": "2025 年计算机学院推免名额共 **46 名**，其中普通推免 40 名，「研究生支教团」专项 3 名，「农村学校教育硕士师资培养计划」专项 3 名 [资料1]。\n\n按专业分配如下 [资料1]：\n\n| 专业 | 名额 |\n|---|---|\n| 计算机科学与技术 | 18 名 |\n| 软件工程 | 14 名 |\n| 网络空间安全 | 8 名 |\n| 人工智能 | 6 名 |\n\n**关于当前报名状态**：该细则发布于 2025 年 6 月 15 日，其中规定的申请时间为 6 月 20 日—6 月 27 日，属于 2025 年的安排，该时间窗口已过去 [资料1]。资料未给出当前（2026 年）的报名状态和名额安排，请以学院官网或最新通知为准。",
+    "answer_chars": 324,
+    "sources": [
+     "计算机学院2025年推荐优秀应届本科毕业生免试攻读研究生工作细则"
+    ],
+    "retrieval_hit": true,
+    "retrieval_rank": 1,
+    "tools": [],
+    "tool_ok": null,
+    "facts_matched": 1,
+    "facts_total": 1,
+    "facts_hit": [
+     "46"
+    ],
+    "facts_miss": [],
+    "citation": true,
+    "refusal_ok": null,
+    "latency_ms": 3422.9
+   }
+  },
+  "S01": {
+   "retrieval": {
+    "top_titles": [
+     "关于组织我校学生参加2025年第十六届蓝桥杯大赛的通知",
+     "关于组织参加2025年全国大学生数学建模竞赛的通知",
+     "关于2025年上半年全国大学英语四、六级考试报名工作的通知",
+     "关于2025年全国大学生信息安全竞赛校内选拔的通知",
+     "关于举办第十届校园科技创新节的通知"
+    ],
+    "hit": false,
+    "rank": null,
+    "candidates": 12,
+    "latency_ms": 224.1,
+    "fallback": false
+   },
+   "router": {
+    "route": "structured",
+    "correct": true,
+    "plan": {
+     "route": "structured",
+     "reason": "只问竞赛报名时间这一结构化字段，不需要文件原文",
+     "rewritten_query": "2025年蓝桥杯报名开始时间",
+     "doc_type": "",
+     "college": "",
+     "department": "",
+     "year": 2025,
+     "category": "计算机",
+     "level": "",
+     "exam_category": "",
+     "keyword": "蓝桥杯",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 1129.6
+   },
+   "e2e": {
+    "route": "structured",
+    "correct_route": true,
+    "answer": "# 2025 年蓝桥杯报名时间\n\n## 报名时间\n2025 年蓝桥杯全国软件和信息技术专业人才大赛的报名时间为 **2024-11-27 至 2025-02-10**。\n\n## 当前状态\n该赛事当前阶段为 **已结束**，报名窗口和比赛时间（2025-04-14 至 2025-04-21）均已过去，现在无法报名 2025 年这一届。\n\n## 赛事基本信息\n- 竞赛名称：蓝桥杯全国软件和信息技术专业人才大赛\n- 竞赛类别：计算机\n- 竞赛级别：国家级\n- 主办单位：工业和信息化部人才交流中心\n- 面向年级：本科/高职\n- 面向专业：不限\n- 赛制说明：个人赛，分 C/C++、Java、Python 等组别；校赛—省赛—国赛三级赛制，省赛获奖可加综测分\n- 官网：https://dasai.lanqiao.cn/\n\n## 建议\n如果你打算参加下一届，可参考本届的时间节奏提前准备：报名一般在前一年 11 月下旬启动、次年 2 月上旬截止，比赛在次年 4 月中下旬。具体下一届的报名时间，资料中未检索到相关内容，请以官网 https://dasai.lanqiao.cn/ 的最新通知为准。",
+    "answer_chars": 497,
+    "sources": [],
+    "retrieval_hit": false,
+    "retrieval_rank": null,
+    "tools": [
+     "query_competition"
+    ],
+    "tool_ok": true,
+    "facts_matched": 1,
+    "facts_total": 1,
+    "facts_hit": [
+     "2024-11-27"
+    ],
+    "facts_miss": [],
+    "citation": false,
+    "refusal_ok": null,
+    "latency_ms": 5226.3
+   }
+  },
+  "S02": {
+   "retrieval": {
+    "top_titles": [
+     "关于组织我校学生参加2025年第十六届蓝桥杯大赛的通知",
+     "关于组织参加2025年全国大学生数学建模竞赛的通知",
+     "关于2025年上半年全国大学英语四、六级考试报名工作的通知",
+     "关于2025年全国大学生信息安全竞赛校内选拔的通知",
+     "关于举办第十届校园科技创新节的通知"
+    ],
+    "hit": false,
+    "rank": null,
+    "candidates": 13,
+    "latency_ms": 151.1,
+    "fallback": false
+   },
+   "router": {
+    "route": "structured",
+    "correct": true,
+    "plan": {
+     "route": "structured",
+     "reason": "问的是蓝桥杯历年报名时间这类结构化字段，不需要文件原文",
+     "rewritten_query": "近五年蓝桥杯竞赛报名时间",
+     "doc_type": "",
+     "college": "",
+     "department": "",
+     "year": 0,
+     "category": "计算机",
+     "level": "",
+     "exam_category": "",
+     "keyword": "蓝桥杯",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 982.5
+   },
+   "e2e": {
+    "route": "structured",
+    "correct_route": true,
+    "answer": "# 蓝桥杯近五年报名时间（2021—2025）\n\n| 年份 | 报名时间 | 比赛时间 | 当前状态 |\n|---|---|---|---|\n| 2021 年 | 2020-11-22 至 2021-02-05 | 2021-04-09 至 2021-04-16 | 已结束 |\n| 2022 年 | 2021-11-25 至 2022-02-08 | 2022-04-12 至 2022-04-19 | 已结束 |\n| 2023 年 | 2022-11-28 至 2023-02-11 | 2023-04-15 至 2023-04-22 | 已结束 |\n| 2024 年 | 2023-11-24 至 2024-02-07 | 2024-04-11 至 2024-04-18 | 已结束 |\n| 2025 年 | 2024-11-27 至 2025-02-10 | 2025-04-14 至 2025-04-21 | 已结束 |\n\n## 规律小结\n\n- **报名启动**：均在前一年的 11 月下旬（11 月 22 日—28 日之间）。\n- **报名截止**：均在当年 2 月上旬（2 月 5 日—11 日之间）。\n- **比赛时间**：均在当年 4 月中下旬。\n- 也就是说，报名窗口大致是「前一年 11 月底 → 当年 2 月上旬」，跨度约两个半月。\n\n## 关于 2026 年\n\n未检索到 2026 年及以后年份的蓝桥杯报名数据，资料未给出当前报名状态，请以官网 https://dasai.lanqiao.cn/ 或学校最新通知为准。\n\n## 给你的行动建议\n\n1. **现在（2026 年 10 月）**：按往年规律，2027 年赛事的报名很可能在 2026 年 11 月下旬启动，可以提前关注官网和学院通知。\n2. **11 月中下旬**：每周查看一次官网报名入口是否开放，同时确认自己的组别（C/C++、Java、Python 等）。\n3. **报名开放后尽快提交**：不要拖到 2 月截止前，避免临近截止系统拥堵。\n4. **报名后到 4 月比赛**：留出约 2 个月备赛，按校赛—省赛—国赛三级赛制逐级准备。\n\n补充信息：该赛事面向本科/高职，专业不限，为个人赛。",
+    "answer_chars": 942,
+    "sources": [],
+    "retrieval_hit": false,
+    "retrieval_rank": null,
+    "tools": [
+     "query_competition",
+     "query_competition",
+     "query_competition",
+     "query_competition",
+     "query_competition"
+    ],
+    "tool_ok": true,
+    "facts_matched": 1,
+    "facts_total": 1,
+    "facts_hit": [
+     "蓝桥杯"
+    ],
+    "facts_miss": [],
+    "citation": false,
+    "refusal_ok": null,
+    "latency_ms": 7335.5
+   }
+  },
+  "S03": {
+   "retrieval": {
+    "top_titles": [
+     "关于组织我校学生参加2025年第十六届蓝桥杯大赛的通知",
+     "关于组织参加2024年中国大学生计算机设计大赛的通知",
+     "关于2025年全国大学生信息安全竞赛校内选拔的通知",
+     "关于组织参加2025年全国大学生数学建模竞赛的通知",
+     "计算机学院2025年推荐优秀应届本科毕业生免试攻读研究生工作细则"
+    ],
+    "hit": false,
+    "rank": null,
+    "candidates": 12,
+    "latency_ms": 160.8,
+    "fallback": false
+   },
+   "router": {
+    "route": "structured",
+    "correct": true,
+    "plan": {
+     "route": "structured",
+     "reason": "只问竞赛类别与数量等结构化字段，不需要文件原文，且为多年范围",
+     "rewritten_query": "近五年计算机类竞赛有哪些",
+     "doc_type": "",
+     "college": "",
+     "department": "",
+     "year": 0,
+     "category": "计算机",
+     "level": "",
+     "exam_category": "",
+     "keyword": "计算机竞赛",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 1263.3
+   },
+   "e2e": {
+    "route": "structured",
+    "correct_route": true,
+    "answer": "# 近五年（2021–2025）计算机类竞赛一览\n\n## 一、竞赛项目：共 5 项，均为国家级\n\n| 序号 | 竞赛名称 | 主办单位 | 面向对象 | 赛制要点 |\n|---|---|---|---|---|\n| 1 | 中国大学生程序设计竞赛（CCPC） | 中国大学生程序设计竞赛组委会 | 本科、计算机类 | ACM 赛制，3 人一队，5 小时内解题，按通过题数与罚时排名 |\n| 2 | 全国大学生信息安全竞赛 | 教育部高等学校网络空间安全专业教学指导委员会 | 本科、网络空间安全/计算机类 | 分作品赛与创新实践能力赛（CTF） |\n| 3 | 中国大学生计算机设计大赛 | 教育部高等学校计算机类专业教学指导委员会 | 本科、计算机类/软件工程/数字媒体 | 团队赛（2-5 人），先省赛后国赛 |\n| 4 | 中国高校计算机大赛·团体程序设计天梯赛 | 教育部高等学校计算机类专业教学指导委员会 | 本科/高职、计算机类 | 10 人一队，按团队总分排名 |\n| 5 | 蓝桥杯全国软件和信息技术专业人才大赛 | 工业和信息化部人才交流中心 | 本科/高职、专业不限 | 个人赛，校赛—省赛—国赛三级赛制 |\n\n## 二、各年度时间规律（2021–2025 年均有记录）\n\n这 5 项竞赛在 2021–2025 年每年都有举办，各年度的报名与比赛时间窗口基本稳定，可按以下规律提前准备：\n\n- **团体程序设计天梯赛**：报名约在 1 月上旬至 3 月下旬，比赛约在 4 月中下旬（每年最早启动的一项）。\n- **中国大学生计算机设计大赛**：报名约在 2 月底至 5 月中旬，比赛约在 5 月中下旬。\n- **全国大学生信息安全竞赛**：报名约在 3 月中旬至 5 月底，比赛约在 7 月上中旬。\n- **CCPC**：报名约在 5 月上旬至 7 月下旬，比赛约在 9 月中下旬。\n- **蓝桥杯**：报名在前一年 11 月下旬至当年 2 月上旬，比赛约在 4 月中下旬。\n\n## 三、当前报名状态说明\n\n以上 2021–2025 各年度记录的状态均为「已结束」。数据库中另有 2026 年数据（超出近五年范围），5 项竞赛的报名与比赛阶段同样均显示「已结束」。资料未给出 2027 年及以后的报名安排，请以官网或最新通知为准。\n\n## 四、未检索到的内容\n\n- 数据库中计算机类竞赛均为国家级，**未查询到省级、校级计算机类竞赛数据**。\n- 除上述 5 项外，**未查询到其他计算机类竞赛项目**。\n\n## 五、备赛建议（按时间节点）\n\n1. **现在—寒假前**：确定 1–2 项主攻方向（算法类选 CCPC/天梯赛/蓝桥杯，安全类选信息安全竞赛，作品类选计算机设计大赛），组队并开始刷题或积累作品。\n2. **11 月下旬—次年 2 月上旬**：关注蓝桥杯报名（往年均在此窗口开放）。\n3. **1 月—3 月下旬**：完成天梯赛报名，组织 10 人队伍集训。\n4. **2 月底—5 月中旬**：完成计算机设计大赛报名并打磨作品。\n5. **3 月中旬—5 月底**：完成信息安全竞赛报名。\n6. **5 月上旬—7 月下旬**：完成 CCPC 报名，暑期集中训练，迎接 9 月比赛。\n\n具体日期请以当年官方通知为准。",
+    "answer_chars": 1375,
+    "sources": [],
+    "retrieval_hit": false,
+    "retrieval_rank": null,
+    "tools": [
+     "query_competition",
+     "query_competition",
+     "query_competition",
+     "query_competition",
+     "query_competition",
+     "query_competition"
+    ],
+    "tool_ok": true,
+    "facts_matched": 1,
+    "facts_total": 1,
+    "facts_hit": [
+     "计算机"
+    ],
+    "facts_miss": [],
+    "citation": false,
+    "refusal_ok": null,
+    "latency_ms": 12644.0
+   }
+  },
+  "S04": {
+   "retrieval": {
+    "top_titles": [
+     "关于组织参加2025年全国大学生数学建模竞赛的通知",
+     "关于组织我校学生参加2025年第十六届蓝桥杯大赛的通知",
+     "关于2025年全国大学生信息安全竞赛校内选拔的通知",
+     "关于组织参加2024年中国大学生计算机设计大赛的通知",
+     "关于举办第十届校园科技创新节的通知"
+    ],
+    "hit": false,
+    "rank": null,
+    "candidates": 13,
+    "latency_ms": 262.5,
+    "fallback": false
+   },
+   "router": {
+    "route": "structured",
+    "correct": true,
+    "plan": {
+     "route": "structured",
+     "reason": "只问竞赛的比赛时间，属于结构化字段查询，不需要读文件原文",
+     "rewritten_query": "2025年数学建模竞赛比赛开始时间",
+     "doc_type": "",
+     "college": "",
+     "department": "",
+     "year": 2025,
+     "category": "数学",
+     "level": "",
+     "exam_category": "",
+     "keyword": "数学建模竞赛",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 797.1
+   },
+   "e2e": {
+    "route": "structured",
+    "correct_route": true,
+    "answer": "# 2025 年全国大学生数学建模竞赛时间安排\n\n**比赛时间：2025-09-10 至 2025-09-17**\n\n## 其他相关信息\n\n- **竞赛名称**：全国大学生数学建模竞赛（数学类，国家级，2025 届）\n- **主办单位**：中国工业与应用数学学会\n- **报名时间**：2025-05-03 至 2025-07-17\n- **面向对象**：本科/专科，专业不限\n- **竞赛形式**：3 人一队，72 小时完成建模、求解、论文写作，是国内规模最大的基础性学科竞赛\n- **当前状态**：已结束（数据查询日期为 2026-10-19）\n- **官网**：https://www.mcm.edu.cn/\n\n## 提示\n\n2025 年这一届的报名和比赛均已结束。如果你打算参加下一届，建议关注官网 https://www.mcm.edu.cn/ 发布的最新通知，通常报名在 5 月前后、比赛在 9 月前后，具体日期以当年官方通知为准。",
+    "answer_chars": 422,
+    "sources": [],
+    "retrieval_hit": false,
+    "retrieval_rank": null,
+    "tools": [
+     "query_competition"
+    ],
+    "tool_ok": true,
+    "facts_matched": 1,
+    "facts_total": 1,
+    "facts_hit": [
+     "数学建模"
+    ],
+    "facts_miss": [],
+    "citation": false,
+    "refusal_ok": null,
+    "latency_ms": 5209.1
+   }
+  },
+  "S05": {
+   "retrieval": {
+    "top_titles": [
+     "关于2025年上半年全国大学英语四、六级考试报名工作的通知",
+     "关于2024年下半年全国大学英语四、六级考试报名工作的通知",
+     "关于2024年上半年全国大学英语四、六级考试报名工作的通知",
+     "关于组织我校学生参加2025年第十六届蓝桥杯大赛的通知",
+     "关于2025年全国大学生信息安全竞赛校内选拔的通知"
+    ],
+    "hit": false,
+    "rank": null,
+    "candidates": 14,
+    "latency_ms": 210.7,
+    "fallback": false
+   },
+   "router": {
+    "route": "structured",
+    "correct": true,
+    "plan": {
+     "route": "structured",
+     "reason": "问的是英语类考试有哪些，属于结构化字段查询，不需要读文件原文",
+     "rewritten_query": "学校开设的英语类考试有哪些",
+     "doc_type": "",
+     "college": "",
+     "department": "",
+     "year": 0,
+     "category": "",
+     "level": "",
+     "exam_category": "英语",
+     "keyword": "",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 853.3
+   },
+   "e2e": {
+    "route": "structured",
+    "correct_route": true,
+    "answer": "# 学校英语类考试一览\n\n根据现有考试记录，学校涉及的英语类考试共 **3 类**，具体如下：\n\n## 一、全国大学英语四级考试（CET-4）\n- **面向对象**：本科/研究生\n- **报名费**：30-50 元\n- **最近一次安排（2026 年下半年）**：报名 2026-09-19 至 2026-10-09，考试日期 2026-12-13\n- **当前状态**：报名已截止，待举行（距举行 55 天）\n- **关键规则**：需先通过四级才能报考六级；四级成绩 425 分及以上视为通过。\n\n## 二、全国大学英语六级考试（CET-6）\n- **面向对象**：本科/研究生\n- **报名费**：30-50 元\n- **最近一次安排（2026 年下半年）**：报名 2026-09-19 至 2026-10-09，考试日期 2026-12-13\n- **当前状态**：报名已截止，待举行（距举行 55 天）\n- **关键规则**：报考需四级成绩达到 425 分；部分院校对刷分次数有限制。\n\n## 三、全国大学生英语竞赛（初赛）\n- **面向对象**：本科/研究生\n- **报名费**：约 30 元\n- **最近一次安排（2026 年）**：报名 2025-12-13 至 2026-01-02，考试日期 2026-04-12\n- **当前状态**：已结束\n- **关键规则**：初赛成绩优异者可进入决赛；获奖可计入综测。\n\n## 补充说明\n- 本次查询共返回 20 条记录，已达到查询上限，**是否还有更多英语类考试记录，未查询到相关数据**。\n- 从往年规律看，四级、六级每年分上、下半年两次；英语竞赛每年一次，报名一般在前一年 12 月中旬至次年 1 月初、考试在 4 月中旬。若你计划参加下一轮，可参考这一节奏提前准备，但具体时间请以学校官网或最新通知为准。",
+    "answer_chars": 786,
+    "sources": [],
+    "retrieval_hit": false,
+    "retrieval_rank": null,
+    "tools": [
+     "query_exam"
+    ],
+    "tool_ok": true,
+    "facts_matched": 1,
+    "facts_total": 1,
+    "facts_hit": [
+     "四级"
+    ],
+    "facts_miss": [],
+    "citation": false,
+    "refusal_ok": null,
+    "latency_ms": 8505.2
+   }
+  },
+  "S06": {
+   "retrieval": {
+    "top_titles": [
+     "关于2024年下半年全国大学英语四、六级考试报名工作的通知",
+     "关于2024年上半年全国大学英语四、六级考试报名工作的通知",
+     "关于2025年上半年全国大学英语四、六级考试报名工作的通知",
+     "关于组织我校学生参加2025年第十六届蓝桥杯大赛的通知",
+     "关于组织参加2024年中国大学生计算机设计大赛的通知"
+    ],
+    "hit": false,
+    "rank": null,
+    "candidates": 14,
+    "latency_ms": 162.1,
+    "fallback": false
+   },
+   "router": {
+    "route": "structured",
+    "correct": true,
+    "plan": {
+     "route": "structured",
+     "reason": "问的是考试报名时间这类结构化字段，不需要读文件原文",
+     "rewritten_query": "计算机等级考试报名时间",
+     "doc_type": "",
+     "college": "",
+     "department": "",
+     "year": 0,
+     "category": "",
+     "level": "",
+     "exam_category": "计算机",
+     "keyword": "计算机等级考试",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 1257.1
+   },
+   "e2e": {
+    "route": "structured",
+    "correct_route": true,
+    "answer": "# 计算机等级考试（NCRE 二级）报名时间\n\n## 一、已查询到的场次\n\n根据结构化数据查询结果，目前能查到的都是**全国计算机等级考试（NCRE）二级**的场次，报名时间如下（报名费均为 80-120 元，面向年级不限）：\n\n| 考试场次 | 报名时间 | 考试日期 | 阶段 |\n|---|---|---|---|\n| 2026 年 9 月 | 2026-06-24 至 2026-07-14 | 2026-09-20 | 已结束 |\n| 2026 年 3 月 | 2025-12-23 至 2026-01-12 | 2026-03-20 | 已结束 |\n| 2025 年 9 月 | 2025-06-23 至 2025-07-13 | 2025-09-19 | 已结束 |\n| 2025 年 3 月 | 2024-12-27 至 2025-01-16 | 2025-03-24 | 已结束 |\n\n更早的 2021—2024 年各场次也都能查到，阶段同样全部为「已结束」。\n\n## 二、当前报名状态\n\n**截至今天（2026-10-19），上述所有场次的报名均已结束，目前没有可以报名的场次。**\n\n## 三、关于下一次报名\n\n**未检索到 2026 年 10 月之后（含 2027 年）场次的报名时间数据**，因此无法给出下一次报名的具体日期。\n\n## 四、建议\n\n从往年规律看，3 月场次的报名一般在前一年 12 月下旬至次年 1 月中旬，9 月场次的报名一般在当年 6 月下旬至 7 月中旬。但这只是历史数据的呈现，**不能作为下一次报名的确定依据**，请以学校教务部门或考试官网发布的最新通知为准。\n\n建议你：\n1. 关注学校教务处/考试中心官网的通知公告；\n2. 留意班级群、辅导员转发的报名通知；\n3. 在 2026 年 12 月前后重点查看 2027 年 3 月场次的报名信息。",
+    "answer_chars": 799,
+    "sources": [],
+    "retrieval_hit": false,
+    "retrieval_rank": null,
+    "tools": [
+     "query_exam"
+    ],
+    "tool_ok": true,
+    "facts_matched": 1,
+    "facts_total": 1,
+    "facts_hit": [
+     "计算机"
+    ],
+    "facts_miss": [],
+    "citation": false,
+    "refusal_ok": null,
+    "latency_ms": 6936.9
+   }
+  },
+  "S07": {
+   "retrieval": {
+    "top_titles": [
+     "关于组织我校学生参加2025年第十六届蓝桥杯大赛的通知",
+     "关于组织参加2025年全国大学生数学建模竞赛的通知",
+     "关于2024年上半年全国大学英语四、六级考试报名工作的通知",
+     "关于2025年上半年全国大学英语四、六级考试报名工作的通知",
+     "关于2024年下半年全国大学英语四、六级考试报名工作的通知"
+    ],
+    "hit": false,
+    "rank": null,
+    "candidates": 14,
+    "latency_ms": 161.5,
+    "fallback": false
+   },
+   "router": {
+    "route": "structured",
+    "correct": true,
+    "plan": {
+     "route": "structured",
+     "reason": "只问蓝桥杯报名时间这一结构化字段，不需要文件原文",
+     "rewritten_query": "2026年蓝桥杯报名时间",
+     "doc_type": "",
+     "college": "",
+     "department": "",
+     "year": 2026,
+     "category": "计算机",
+     "level": "",
+     "exam_category": "",
+     "keyword": "蓝桥杯",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 904.0
+   },
+   "e2e": {
+    "route": "structured",
+    "correct_route": true,
+    "answer": "# 2026年蓝桥杯报名时间\n\n## 报名时间\n**2025-11-23 至 2026-02-06**\n\n## 当前状态\n该赛事当前阶段为**已结束**。今天是 2026-10-19，报名窗口（2025-11-23 至 2026-02-06）和比赛时间（2026-04-10 至 2026-04-17）均已过去，**现在无法报名 2026 年这一届**。\n\n## 其他关键信息\n- **竞赛名称**：蓝桥杯全国软件和信息技术专业人才大赛\n- **类别 / 级别**：计算机 / 国家级\n- **主办单位**：工业和信息化部人才交流中心\n- **面向年级**：本科/高职；**面向专业**：不限\n- **赛制**：个人赛，分 C/C++、Java、Python 等组别；校赛—省赛—国赛三级赛制，省赛获奖可加综测分\n- **官网**：https://dasai.lanqiao.cn/\n\n## 建议\n1. 关注官网 https://dasai.lanqiao.cn/ ，等待 2027 年届次的报名通知（往年报名多在 11 月下旬启动，可提前留意）。\n2. 若你今年仍想参赛，可先向学院教务或竞赛负责老师确认是否有其他计算机类竞赛可报名——**未检索到相关内容**，需以学院最新通知为准。\n3. 提前准备：确定参赛语言组别（C/C++、Java、Python 等），按校赛—省赛—国赛三级赛制规划备赛时间。",
+    "answer_chars": 602,
+    "sources": [],
+    "retrieval_hit": false,
+    "retrieval_rank": null,
+    "tools": [
+     "query_competition"
+    ],
+    "tool_ok": true,
+    "facts_matched": 1,
+    "facts_total": 1,
+    "facts_hit": [
+     "2025-11-23"
+    ],
+    "facts_miss": [],
+    "citation": false,
+    "refusal_ok": null,
+    "latency_ms": 5007.9
+   }
+  },
+  "S08": {
+   "retrieval": {
+    "top_titles": [
+     "关于2025年全国大学生信息安全竞赛校内选拔的通知",
+     "关于组织我校学生参加2025年第十六届蓝桥杯大赛的通知",
+     "关于举办第十届校园科技创新节的通知",
+     "关于组织参加2024年中国大学生计算机设计大赛的通知",
+     "关于组织参加2025年全国大学生数学建模竞赛的通知"
+    ],
+    "hit": false,
+    "rank": null,
+    "candidates": 13,
+    "latency_ms": 141.5,
+    "fallback": false
+   },
+   "router": {
+    "route": "structured",
+    "correct": true,
+    "plan": {
+     "route": "structured",
+     "reason": "只问创新创业类竞赛有哪些，属于结构化字段查询，不需要文件原文也不涉及个人情况",
+     "rewritten_query": "创新创业类竞赛有哪些",
+     "doc_type": "",
+     "college": "",
+     "department": "",
+     "year": 0,
+     "category": "创新创业",
+     "level": "",
+     "exam_category": "",
+     "keyword": "创新创业竞赛",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 1057.8
+   },
+   "e2e": {
+    "route": "structured",
+    "correct_route": true,
+    "answer": "# 创新创业类竞赛一览\n\n根据结构化数据查询结果，按类别「创新创业」共查到 **12 条**记录，涉及 2 项竞赛（每项各 6 届）。以「创新创业」为名称关键词的竞赛未查询到相关数据。\n\n## 一、中国国际大学生创新大赛（原「互联网+」）\n\n- **级别**：国家级\n- **主办单位**：教育部\n- **面向年级**：本科/研究生/高职\n- **面向专业**：不限\n- **官网**：https://cy.ncss.cn/\n- **赛道设置**：高教主赛道、青年红色筑梦之旅赛道、产业命题赛道；需提交商业计划书与路演\n- **最近一届（2026 届）时间**：报名 2026-04-13 至 2026-06-27；比赛 2026-08-18 至 2026-08-25；阶段：已结束\n\n## 二、「挑战杯」全国大学生课外学术科技作品竞赛\n\n- **级别**：国家级\n- **主办单位**：共青团中央、中国科协、教育部\n- **面向年级**：本科/研究生\n- **面向专业**：不限\n- **官网**：https://www.tiaozhanbei.net/\n- **作品分类**：自然科学类学术论文、哲学社会科学类社会调查报告、科技发明制作\n- **最近一届（2026 届）时间**：报名 2026-03-18 至 2026-06-01；比赛 2026-06-13 至 2026-06-20；阶段：已结束\n\n## 三、当前报名状态说明\n\n上述 12 条记录的阶段**均为「已结束」**，未查询到「正在报名」或「未开始报名」的创新创业类竞赛。也就是说，截至今天（2026-10-19），这两项竞赛的 2026 届均已结束，暂无在报名的创新创业类竞赛。\n\n## 四、给你的准备建议\n\n1. **现在（10 月—次年 2 月）**：确定选题方向，组建团队，打磨商业计划书或参赛作品；「互联网+」需准备商业计划书与路演材料。\n2. **次年 3 月前后**：关注「挑战杯」报名（近几届报名多在 3 月中下旬启动，6 月初截止）。\n3. **次年 4 月前后**：关注中国国际大学生创新大赛报名（近几届报名多在 4 月中旬启动，6 月下旬截止）。\n4. **随时**：以两个官网发布的最新通知为准，具体年份的时间以官方公告为准。\n\n如需了解某项竞赛的历届时间规律或赛道细节，可以继续问我。",
+    "answer_chars": 989,
+    "sources": [],
+    "retrieval_hit": false,
+    "retrieval_rank": null,
+    "tools": [
+     "query_competition",
+     "query_competition"
+    ],
+    "tool_ok": true,
+    "facts_matched": 1,
+    "facts_total": 1,
+    "facts_hit": [
+     "创新创业"
+    ],
+    "facts_miss": [],
+    "citation": false,
+    "refusal_ok": null,
+    "latency_ms": 8907.2
+   }
+  },
+  "S09": {
+   "retrieval": {
+    "top_titles": [
+     "关于2024年上半年全国大学英语四、六级考试报名工作的通知",
+     "关于2024年下半年全国大学英语四、六级考试报名工作的通知",
+     "关于2025年上半年全国大学英语四、六级考试报名工作的通知",
+     "关于组织参加2024年中国大学生计算机设计大赛的通知",
+     "关于2024—2025学年第二学期选课工作的通知"
+    ],
+    "hit": false,
+    "rank": null,
+    "candidates": 13,
+    "latency_ms": 158.6,
+    "fallback": false
+   },
+   "router": {
+    "route": "structured",
+    "correct": true,
+    "plan": {
+     "route": "structured",
+     "reason": "问的是四六级考试的次数/时间这类结构化字段，不需要读文件原文",
+     "rewritten_query": "大学英语四级考试一年考几次 考试时间安排",
+     "doc_type": "考试",
+     "college": "",
+     "department": "",
+     "year": 0,
+     "category": "",
+     "level": "",
+     "exam_category": "英语",
+     "keyword": "四级",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 1167.7
+   },
+   "e2e": {
+    "route": "structured",
+    "correct_route": true,
+    "answer": "# 大学英语四级考试（CET-4）一年考几次？\n\n## 结论\n\n**一年 2 次**：上半年一场（6 月）、下半年一场（12 月）。\n\n## 依据\n\n数据库按年份记录的场次统计如下：\n\n| 年份 | 场次 | 考试日期 |\n|---|---|---|\n| 2021 | 2 场 | 2021-06-12、2021-12-13 |\n| 2022 | 2 场 | 2022-06-13、2022-12-14 |\n| 2023 | 2 场 | 2023-06-14、2023-12-15 |\n| 2024 | 2 场 | 2024-06-15、2024-12-16 |\n| 2025 | 2 场 | 2025-06-16、2025-12-12 |\n| 2026 | 2 场 | 2026-06-12、2026-12-13 |\n\n需要说明的是：数据库中没有「一年考几次」这样的明确表述字段，上述频次是按各年份的记录条数统计得出的。\n\n## 补充信息\n\n- 考试名称均为「全国大学英语四级考试（CET-4）」，面向本科/研究生，报名费 30-50 元。\n- 需先通过四级才能报考六级；四级成绩 425 分及以上视为通过。\n\n## 当前这一场的情况（2026 年 12 月场）\n\n- 报名时间：2026-09-19 至 2026-10-09\n- 考试日期：2026-12-13\n- 阶段：**报名已截止，待举行**（距举行 55 天）\n\n也就是说，2026 年下半年的这场四级报名已经结束，现在无法再报。如果这次没赶上，下一次机会是 2027 年 6 月场，报名一般在前一年 3 月中下旬开始（参考往年 3 月 18 日—22 日区间），建议届时留意教务处或官网通知。",
+    "answer_chars": 728,
+    "sources": [],
+    "retrieval_hit": false,
+    "retrieval_rank": null,
+    "tools": [
+     "query_exam"
+    ],
+    "tool_ok": true,
+    "facts_matched": 1,
+    "facts_total": 1,
+    "facts_hit": [
+     "四级"
+    ],
+    "facts_miss": [],
+    "citation": false,
+    "refusal_ok": null,
+    "latency_ms": 7131.5
+   }
+  },
+  "S10": {
+   "retrieval": {
+    "top_titles": [
+     "关于组织我校学生参加2025年第十六届蓝桥杯大赛的通知",
+     "关于2025年全国大学生信息安全竞赛校内选拔的通知",
+     "关于组织参加2024年中国大学生计算机设计大赛的通知",
+     "关于举办第十届校园科技创新节的通知",
+     "关于组织参加2025年全国大学生数学建模竞赛的通知"
+    ],
+    "hit": false,
+    "rank": null,
+    "candidates": 12,
+    "latency_ms": 162.2,
+    "fallback": false
+   },
+   "router": {
+    "route": "structured",
+    "correct": true,
+    "plan": {
+     "route": "structured",
+     "reason": "只问电子类竞赛有哪些，属于竞赛结构化字段查询，不需要文件原文也不涉及个人情况",
+     "rewritten_query": "电子类竞赛有哪些",
+     "doc_type": "",
+     "college": "",
+     "department": "",
+     "year": 0,
+     "category": "电子",
+     "level": "",
+     "exam_category": "",
+     "keyword": "电子竞赛",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 1054.1
+   },
+   "e2e": {
+    "route": "structured",
+    "correct_route": true,
+    "answer": "# 电子类竞赛查询结果\n\n## 一、可查到的电子类竞赛\n\n按「竞赛类别 = 电子」查询，共返回 **6 条记录**，全部为同一项竞赛的不同届次：\n\n**全国大学生电子设计竞赛**\n\n| 项目 | 内容 |\n|---|---|\n| 类别 | 电子 |\n| 级别 | 国家级 |\n| 主办单位 | 教育部高等教育司、工业和信息化部人事教育司 |\n| 面向年级 | 本科/高职 |\n| 面向专业 | 电子信息类/自动化类 |\n| 官方网址 | https://nuedc.xjtu.edu.cn/ |\n| 竞赛形式 | 3 人一队，4 天 3 夜完成硬件设计与调试，奇数年举办全国赛 |\n\n## 二、各届时间安排与状态\n\n| 届次 | 报名时间 | 比赛时间 | 阶段 |\n|---|---|---|---|\n| 2026 届 | 2026-03-30 至 2026-06-13 | 2026-08-08 至 2026-08-15 | 已结束 |\n| 2025 届 | 2025-04-03 至 2025-06-17 | 2025-08-12 至 2025-08-19 | 已结束 |\n| 2024 届 | 2024-03-31 至 2024-06-14 | 2024-08-09 至 2024-08-16 | 已结束 |\n| 2023 届 | 2023-04-04 至 2023-06-18 | 2023-08-13 至 2023-08-20 | 已结束 |\n| 2022 届 | 2022-04-01 至 2022-06-15 | 2022-08-10 至 2022-08-17 | 已结束 |\n| 2021 届 | 2021-03-29 至 2021-06-12 | 2021-08-07 至 2021-08-14 | 已结束 |\n\n## 三、需要说明的两点\n\n1. **按「电子竞赛」关键词单独检索，未查询到相关数据（返回 0 条）**；上表内容是按「竞赛类别 = 电子」检索得到的。\n2. **当前报名状态**：截至 2026-10-19，可查到的最近一届（2026 届）阶段为「已结束」，其余各届也均为「已结束」。目前没有处于报名或进行中的电子类竞赛记录。该竞赛「奇数年举办全国赛」，下一届全国赛的报名与比赛时间尚未在数据中体现，请以官网 https://nuedc.xjtu.edu.cn/ 或学校最新通知为准。\n\n## 四、给你的建议\n\n- 若你是电子信息类/自动化类专业的本科或高职学生，可重点关注该项赛事，按「3 人一队」提前组队，并围绕硬件设计与调试做 4 天 3 夜封闭赛制的模拟训练。\n- 由于全国赛为奇数年举办，可留意偶数年是否有赛区赛、邀请赛等衍生安排——**这一点资料中未检索到相关内容**，建议直接查看官网或咨询学院竞赛负责老师。",
+    "answer_chars": 1179,
+    "sources": [],
+    "retrieval_hit": false,
+    "retrieval_rank": null,
+    "tools": [
+     "query_competition",
+     "query_competition"
+    ],
+    "tool_ok": true,
+    "facts_matched": 1,
+    "facts_total": 1,
+    "facts_hit": [
+     "电子"
+    ],
+    "facts_miss": [],
+    "citation": false,
+    "refusal_ok": null,
+    "latency_ms": 6972.6
+   }
+  },
+  "H01": {
+   "retrieval": {
+    "top_titles": [
+     "关于组织参加2025年全国大学生数学建模竞赛的通知",
+     "关于2025年全国大学生信息安全竞赛校内选拔的通知",
+     "关于组织我校学生参加2025年第十六届蓝桥杯大赛的通知",
+     "关于组织参加2024年中国大学生计算机设计大赛的通知",
+     "关于举办第十届校园科技创新节的通知"
+    ],
+    "hit": true,
+    "rank": 2,
+    "candidates": 13,
+    "latency_ms": 143.4,
+    "fallback": false
+   },
+   "router": {
+    "route": "hybrid",
+    "correct": true,
+    "plan": {
+     "route": "hybrid",
+     "reason": "既要计算机学院2025年竞赛通知原文，又要报名截止时间这类结构化字段",
+     "rewritten_query": "2025年计算机学院竞赛通知及报名截止时间",
+     "doc_type": "竞赛",
+     "college": "计算机学院",
+     "department": "",
+     "year": 2025,
+     "category": "计算机",
+     "level": "",
+     "exam_category": "",
+     "keyword": "竞赛",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 1022.4
+   },
+   "e2e": {
+    "route": "hybrid",
+    "correct_route": true,
+    "answer": "## 一、计算机学院发布的 2025 年竞赛通知原文\n\n在提供的资料中，**由计算机学院发布的 2025 年竞赛通知只有 1 份**：\n\n**《关于2025年全国大学生信息安全竞赛校内选拔的通知》**（发布部门：计算机学院；发布日期：2025-03-10）[资料2]\n\n要点摘录：\n- **赛道**：创新实践能力赛（CTF，3 人一队）；作品赛（2—4 人一队）[资料2]\n- **选拔对象**：我校在校本科生，专业不限；网络空间安全、计算机科学与技术、软件工程等专业优先 [资料2]\n- **校内选拔安排**：\n  - 报名截止：2025 年 3 月 20 日 [资料2]\n  - 线上初赛：2025 年 3 月 29 日 10:00—18:00 [资料2]\n  - 线下复赛：2025 年 4 月 6 日，计算机楼 A401 机房 [资料2]\n  - 入选名单公示：2025 年 4 月 10 日，最终确定 2—3 支队伍代表学校参赛 [资料2]\n- **培训支持**：计算机楼 A413，每周二、周四晚 19:00—22:00 开放 [资料2]\n\n另一份资料是教务处发布的《关于组织参加2025年全国大学生数学建模竞赛的通知》（全校适用，非计算机学院）[资料1]，如需也可一并参考。\n\n## 二、报名截止时间\n\n**1. 计算机学院通知（资料2）中的截止时间**\n- 全国大学生信息安全竞赛校内选拔：**2025 年 3 月 20 日** [资料2]\n\n**2. 结构化查询到的 2025 年计算机类竞赛报名截止时间**\n\n| 竞赛名称 | 报名时间 | 报名截止 | 阶段 |\n|---|---|---|---|\n| 中国大学生程序设计竞赛（CCPC） | 2025-05-12 至 2025-07-26 | 2025-07-26 | 已结束 |\n| 全国大学生信息安全竞赛 | 2025-03-17 至 2025-05-31 | 2025-05-31 | 已结束 |\n| 中国大学生计算机设计大赛 | 2025-03-03 至 2025-05-17 | 2025-05-17 | 已结束 |\n| 中国高校计算机大赛·团体程序设计天梯赛 | 2025-01-12 至 2025-03-28 | 2025-03-28 | 已结束 |\n| 蓝桥杯全国软件和信息技术专业人才大赛 | 2024-11-27 至 2025-02-10 | 2025-02-10 | 已结束 |\n\n## 三、重要提醒：这些报名都已截止\n\n- 今天是 **2026 年 10 月 19 日**，上述通知均为 **2025 年**发布，报名窗口早已过去。\n- 结构化查询结果中，5 项竞赛的「阶段」字段均为**已结束**，因此目前**均无法报名**。\n- 另外需说明：查询结果中未包含「计算机学院」这一主办或发布单位字段，因此无法确认这 5 项竞赛的通知是否由计算机学院发布；这些竞赛的通知原文也未检索到。\n\n## 四、建议的下一步\n\n1. **关注 2026—2027 学年的新通知**：可留意计算机学院官网通知栏与教务处竞赛专栏，通常信息安全竞赛校内选拔在每年 3 月前后启动 [资料2]。\n2. **提前准备**：信息安全方向可先利用计算机楼 A413 靶场环境参与每周二、周四晚 19:00—22:00 的集训（往年安排，需以新通知为准）[资料2]。\n3. **确认最新状态**：资料未给出当前（2026 年）报名状态，请以学校官网或学院最新通知为准。",
+    "answer_chars": 1468,
+    "sources": [
+     "关于组织参加2025年全国大学生数学建模竞赛的通知",
+     "关于2025年全国大学生信息安全竞赛校内选拔的通知"
+    ],
+    "retrieval_hit": true,
+    "retrieval_rank": 2,
+    "tools": [
+     "query_competition"
+    ],
+    "tool_ok": null,
+    "facts_matched": 1,
+    "facts_total": 1,
+    "facts_hit": [
+     "报名"
+    ],
+    "facts_miss": [],
+    "citation": true,
+    "refusal_ok": null,
+    "latency_ms": 8288.7
+   }
+  },
+  "H02": {
+   "retrieval": {
+    "top_titles": [
+     "计算机学院2024年本科生转专业工作实施细则",
+     "XX大学本科生转专业管理办法",
+     "计算机学院2025年推荐优秀应届本科毕业生免试攻读研究生工作细则",
+     "关于组织我校学生参加2025年第十六届蓝桥杯大赛的通知",
+     "关于组织参加2024年中国大学生计算机设计大赛的通知"
+    ],
+    "hit": true,
+    "rank": 1,
+    "candidates": 13,
+    "latency_ms": 152.8,
+    "fallback": false
+   },
+   "router": {
+    "route": "hybrid",
+    "correct": true,
+    "plan": {
+     "route": "hybrid",
+     "reason": "既要转专业文件原文，又要计算机学院接收人数的结构化数据",
+     "rewritten_query": "学校转专业政策文件 计算机学院 接收人数 名额",
+     "doc_type": "学籍",
+     "college": "计算机学院",
+     "department": "",
+     "year": 2026,
+     "category": "",
+     "level": "",
+     "exam_category": "",
+     "keyword": "转专业",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 1233.7
+   },
+   "e2e": {
+    "route": "hybrid",
+    "correct_route": true,
+    "answer": "## 一、转专业相关文件\n\n学校层面和学院层面各有一份可用的转专业文件：\n\n**1. 校级文件：《XX大学本科生转专业管理办法》**（教务处，2023-04-12 发布，适用全校）[资料3]\n- 申请对象：全日制本科一、二年级在校生可申请转专业，每人限转一次 [资料3]。\n- 不得申请的情形：以特殊招生形式录取的；正在休学、保留学籍或应作退学处理的；在校期间受过记过及以上纪律处分的；已转过一次专业的 [资料3]。\n- 程序要点：每年 4 月各学院报送接收计划与实施细则，经教务处审核后统一公布；学生向所在学院提出申请，转出学院审核同意后材料转交转入学院；转入学院组织考核，结果在本学院范围内公示不少于 5 个工作日 [资料3]。\n\n**2. 院级文件：《计算机学院2024年本科生转专业工作实施细则》**（计算机学院，2024-04-10 发布）[资料1]\n- 申请条件：全日制本科一年级、二年级在校生；第一学年无不及格课程，平均学分绩点不低于 3.0；高考为理工类考生，或已修读《高等数学》《程序设计基础》且成绩合格 [资料1]。\n- 考核方式：笔试（满分 100 分，占 60%，内容为程序设计基础，C 语言/Python 任选，考试时长 120 分钟）+ 面试（满分 100 分，占 40%）；笔试成绩低于 60 分者不得进入面试，按总成绩从高到低择优录取 [资料1]。\n- 时间安排（2024 年）：4 月 15 日—4 月 22 日提交申请；4 月 25 日转出学院审核并公示；5 月 11 日 9:00—11:00 笔试（计算机楼 A201）；5 月 18 日面试（计算机楼 A305）；5 月 22 日—5 月 28 日拟录取名单公示 5 个工作日；6 月 5 日前报教务处备案 [资料1]。\n\n⚠️ 注意：这份院级细则的发布日期是 **2024 年 4 月 10 日**，其中的时间节点属于 2024 年，早已过去，**不是当前正在进行的报名安排**。资料中也未给出当前年度的报名状态，请以学院官网或最新通知为准。\n\n## 二、计算机学院今年（2026 年）接收多少人\n\n**未检索到相关内容。**\n\n本次结构化数据查询中没有取到「计算机学院 2026 年接收人数」的数据，因此无法给出今年的接收名额。\n\n作为参考，文件中能查到的只有 **2024 年**的计划数（属于往年数据，不能当作今年名额）[资料1]：\n- 计算机科学与技术 12 人；软件工程 10 人；网络空间安全 8 人；人工智能 8 人；\n- 合计 38 人，其中面向 2023 级（大一）33 人，面向 2022 级（大二）5 人 [资料1]。\n\n## 三、建议的下一步\n\n1. **查最新细则**：按校级办法，各学院每年 4 月报送接收计划与实施细则，经教务处审核后统一公布 [资料3]，可到计算机学院官网或教务处网站查看最新一年度的实施细则。\n2. **直接咨询**：细则中留的联系人为刘老师，电话 020-8888xxxx，办公地点计算机楼 A102 [资料1]。\n3. **提前对照条件**：绩点不低于 3.0、第一学年无不及格课程、理工类或已修读《高等数学》《程序设计基础》并合格 [资料1]；同时确认自己不属于不得申请的几类情形 [资料3]。\n4. **准备笔试**：考核以程序设计基础为主、占总成绩 60% [资料1]，可提前按 C 语言或 Python 其一系统复习。",
+    "answer_chars": 1436,
+    "sources": [
+     "计算机学院2024年本科生转专业工作实施细则",
+     "计算机学院2025年推荐优秀应届本科毕业生免试攻读研究生工作细则",
+     "XX大学本科生转专业管理办法"
+    ],
+    "retrieval_hit": true,
+    "retrieval_rank": 1,
+    "tools": [
+     "query_competition",
+     "query_exam"
+    ],
+    "tool_ok": null,
+    "facts_matched": 2,
+    "facts_total": 2,
+    "facts_hit": [
+     "38",
+     "转专业"
+    ],
+    "facts_miss": [],
+    "citation": true,
+    "refusal_ok": null,
+    "latency_ms": 7778.6
+   }
+  },
+  "H03": {
+   "retrieval": {
+    "top_titles": [
+     "关于做好2024年国家奖学金评选工作的通知",
+     "关于做好2025年国家奖学金评选工作的通知",
+     "关于做好2024年国家励志奖学金评审工作的通知",
+     "关于2023—2024学年校级优秀学生奖学金评定工作的通知",
+     "关于组织我校学生参加2025年第十六届蓝桥杯大赛的通知"
+    ],
+    "hit": true,
+    "rank": 2,
+    "candidates": 13,
+    "latency_ms": 157.8,
+    "fallback": false
+   },
+   "router": {
+    "route": "hybrid",
+    "correct": true,
+    "plan": {
+     "route": "hybrid",
+     "reason": "既要国家奖学金通知原文，又要名额这类结构化字段",
+     "rewritten_query": "国家奖学金评选通知 名额",
+     "doc_type": "奖学金",
+     "college": "",
+     "department": "",
+     "year": 2026,
+     "category": "",
+     "level": "",
+     "exam_category": "",
+     "keyword": "国家奖学金",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 1265.7
+   },
+   "e2e": {
+    "route": "hybrid",
+    "correct_route": true,
+    "answer": "# 国家奖学金通知与名额说明\n\n## 一、关于“通知原文”\n\n目前可查到的国家奖学金评选通知有两份，均为往年发布：\n\n- **2024 年通知**：学生工作处 2024-09-15 发布，2024 年上级下达我校名额 **42 名**，奖励标准为每人每年 **8000 元**，一次性发放 [资料1]。\n- **2025 年通知**：学生工作处 2025-09-12 发布，2025 年上级下达我校名额 **45 名**，比去年增加 3 名，新增名额重点向国家一流本科专业建设点倾斜 [资料2]。\n\n两份通知的申请条件、评审程序、材料要求等完整内容，均可在上述文件中查阅（例如 2025 年的申请时间为 9 月 15 日—9 月 21 日，校级评审答辩为 10 月 9 日 [资料2]）。\n\n## 二、关于“今年（2026 年）名额”\n\n**未检索到相关内容。** 结构化数据查询结果显示：2026 年国家奖学金的名额、竞赛与考试相关数据均未查询到；同时现有工具中没有可检索校内通知原文的接口，因此也未查询到 2026 年的通知原文。\n\n## 三、重要提醒（时间判断）\n\n- 上述两份通知分别是 **2024 年**和 **2025 年**发布的，其中的时间窗口（如 2025 年的 9 月 15 日—9 月 21 日个人申请 [资料2]）属于文件发布当年，**早已结束**，不能视为当前正在报名。\n- 资料中**没有给出当前（2026 年）的报名阶段信息**，因此无法断言现在能否报名，请以学校官网或学生工作处最新通知为准。\n\n## 四、建议的下一步\n\n1. **查最新通知**：登录学校学生工作处官网或校内通知平台，检索“2026 年国家奖学金”，确认名额与时间安排。\n2. **直接咨询**：可联系学生工作处（2024 年通知中的联系人为张老师，办公地点行政楼 305 室 [资料1]），确认 2026 年评选是否启动。\n3. **提前备材料**：参照往年要求，可先准备《国家奖学金申请审批表》一式两份、加盖教务处公章的成绩单、获奖证书及科研成果佐证材料复印件 [资料2]，并留意综合素质测评排名（往年要求专业前 10% [资料1][资料2]）。\n4. **注意兼得限制**：同一学年内国家奖学金与国家励志奖学金不可兼得 [资料1][资料3]。\n\n如果你需要，我可以再帮你梳理往年申请条件的具体差异，方便你对照自身情况准备。",
+    "answer_chars": 1015,
+    "sources": [
+     "关于做好2024年国家奖学金评选工作的通知",
+     "关于做好2025年国家奖学金评选工作的通知",
+     "关于做好2024年国家励志奖学金评审工作的通知",
+     "关于2023—2024学年校级优秀学生奖学金评定工作的通知"
+    ],
+    "retrieval_hit": true,
+    "retrieval_rank": 2,
+    "tools": [
+     "query_competition",
+     "query_exam"
+    ],
+    "tool_ok": null,
+    "facts_matched": 1,
+    "facts_total": 1,
+    "facts_hit": [
+     "45"
+    ],
+    "facts_miss": [],
+    "citation": true,
+    "refusal_ok": null,
+    "latency_ms": 6913.9
+   }
+  },
+  "H04": {
+   "retrieval": {
+    "top_titles": [
+     "关于2025年上半年全国大学英语四、六级考试报名工作的通知",
+     "关于2024年上半年全国大学英语四、六级考试报名工作的通知",
+     "关于2024年下半年全国大学英语四、六级考试报名工作的通知",
+     "关于组织参加2024年中国大学生计算机设计大赛的通知",
+     "关于组织参加2025年全国大学生数学建模竞赛的通知"
+    ],
+    "hit": true,
+    "rank": 1,
+    "candidates": 14,
+    "latency_ms": 245.4,
+    "fallback": false
+   },
+   "router": {
+    "route": "hybrid",
+    "correct": true,
+    "plan": {
+     "route": "hybrid",
+     "reason": "既要找四六级报名通知原文，又要结构化字段报名时间",
+     "rewritten_query": "四六级报名通知及报名时间",
+     "doc_type": "考试",
+     "college": "",
+     "department": "",
+     "year": 0,
+     "category": "",
+     "level": "",
+     "exam_category": "英语",
+     "keyword": "四六级",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 990.3
+   },
+   "e2e": {
+    "route": "hybrid",
+    "correct_route": true,
+    "answer": "## 一、通知原文在哪\n\n本次检索到的四六级报名通知原文共 3 份，均由**教务处**发布、适用全校：\n\n- 《关于2024年上半年全国大学英语四、六级考试报名工作的通知》，发布日期 2024-03-18 [资料1]\n- 《关于2024年下半年全国大学英语四、六级考试报名工作的通知》，发布日期 2024-09-18 [资料3]\n- 《关于2025年上半年全国大学英语四、六级考试报名工作的通知》，发布日期 2025-03-17 [资料2]\n\n需要说明的是：本次没有检索到这些通知的原文链接或具体存放页面，只拿到了通知正文内容；如需查看原件，建议到教务处网站的通知公告栏按标题检索。\n\n## 二、报名时间\n\n**1. 上述三份通知里的报名时间（均为往年，早已截止）**\n\n| 通知 | 报名时间 | 缴费标准 |\n|---|---|---|\n| 2024 年上半年 [资料1] | 2024 年 3 月 20 日 9:00 — 3 月 28 日 17:00 | 四级 36 元/人，六级 38 元/人 |\n| 2024 年下半年 [资料3] | 2024 年 9 月 20 日 9:00 — 9 月 28 日 17:00 | 四级 36 元、六级 38 元 |\n| 2025 年上半年 [资料2] | 2025 年 3 月 19 日 9:00 — 3 月 27 日 17:00 | 四级 36 元/人，六级 38 元/人 |\n\n这三份文件分别是 2024 年、2025 年发布的，对应的报名窗口都已经过去，**不能按上面的日期去报名**。\n\n**2. 当前（2026 年下半年）场次**\n\n- 报名时间：2026-09-19 至 2026-10-09\n- 考试日期：2026-12-13\n- 当前阶段：**报名已截止，待举行（距举行 55 天）**\n\n也就是说，2026 年下半年四六级报名已经在 10 月 9 日结束，今天是 10 月 19 日，**本轮无法再报名**。\n\n## 三、给你的建议\n\n1. **本轮已错过**：2026 年下半年场次报名已截止，考试 12 月 13 日举行，现在只能等下一场。\n2. **关注下一场**：按往年规律，下一次是 2027 年上半年场次，报名一般安排在 3 月中下旬、考试在 6 月中旬（参考 2026 年上半年为 3 月 18 日—4 月 7 日报名、6 月 12 日考试）。建议 **2027 年 3 月初**起每周查看一次教务处网站通知公告栏。\n3. **提前备好材料**：证件照按 6 个月内免冠正面蓝底、jpg 格式、144×192 像素、不超过 200KB 准备 [资料1]；听力耳机需自备并能接收 84.7MHz 调频信号 [资料2][资料3]。\n4. **核对资格**：报考六级须四级成绩达 425 分及以上 [资料1][资料2][资料3]；上一次考试无故缺考会被暂停一次报名资格 [资料1][资料3]，报名前先确认自己是否受影响。\n5. **报名入口**：全国大学英语四、六级考试报名网 cet-bm.neea.edu.cn [资料1][资料2][资料3]，开放当天尽早完成信息核对与缴费，逾期未缴费视为放弃报名 [资料1]。\n\n如需确认最新一场的具体时间，请以教务处官网最新通知为准。",
+    "answer_chars": 1374,
+    "sources": [
+     "关于2024年上半年全国大学英语四、六级考试报名工作的通知",
+     "关于2025年上半年全国大学英语四、六级考试报名工作的通知",
+     "关于2024年下半年全国大学英语四、六级考试报名工作的通知"
+    ],
+    "retrieval_hit": true,
+    "retrieval_rank": 2,
+    "tools": [
+     "query_exam",
+     "query_exam"
+    ],
+    "tool_ok": null,
+    "facts_matched": 1,
+    "facts_total": 1,
+    "facts_hit": [
+     "报名"
+    ],
+    "facts_miss": [],
+    "citation": true,
+    "refusal_ok": null,
+    "latency_ms": 9712.1
+   }
+  },
+  "H05": {
+   "retrieval": {
+    "top_titles": [
+     "关于组织参加2025年全国大学生数学建模竞赛的通知",
+     "关于组织参加2024年中国大学生计算机设计大赛的通知",
+     "关于组织我校学生参加2025年第十六届蓝桥杯大赛的通知",
+     "关于2025年全国大学生信息安全竞赛校内选拔的通知",
+     "关于举办第十届校园科技创新节的通知"
+    ],
+    "hit": true,
+    "rank": 1,
+    "candidates": 13,
+    "latency_ms": 768.8,
+    "fallback": false
+   },
+   "router": {
+    "route": "hybrid",
+    "correct": true,
+    "plan": {
+     "route": "hybrid",
+     "reason": "既要竞赛通知原文，又要比赛时间这类结构化字段",
+     "rewritten_query": "数学建模竞赛通知及比赛时间",
+     "doc_type": "竞赛",
+     "college": "",
+     "department": "",
+     "year": 0,
+     "category": "数学",
+     "level": "",
+     "exam_category": "",
+     "keyword": "数学建模竞赛",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 1031.9
+   },
+   "e2e": {
+    "route": "hybrid",
+    "correct_route": true,
+    "answer": "## 一、找到的竞赛通知\n\n校内确实有一份数学建模竞赛的通知文件：\n\n- **标题**：关于组织参加2025年全国大学生数学建模竞赛的通知\n- **发布部门**：教务处（与数学学院联合）\n- **发布日期**：2025 年 4 月 25 日\n- **适用学院**：全校\n\n通知中的关键内容如下：\n\n**竞赛时间**：2025 年 9 月 4 日（周四）18:00 至 9 月 7 日（周日）20:00，连续 72 小时 [资料1]\n\n**参赛对象与组队**：在校本科生，3 人一队（鼓励跨学院、跨专业组队），每队可设 1 名指导教师；竞赛分本科组与专科组，本科组从 A、B、C 三题中任选一题 [资料1]\n\n**报名安排**：\n1. 校内报名：2025 年 5 月 6 日 — 6 月 20 日 [资料1]\n2. 报名方式：登录全国大学生数学建模竞赛官网（www.mcm.edu.cn）注册，同时将队名、队员信息、联系方式发送至 math-model@example.edu.cn [资料1]\n3. 报名费：每队 100 元，由学校统一缴纳 [资料1]\n\n**赛前培训**：教务处与数学学院联合组织，共 8 讲，内容包括数学建模思想与常用模型、Python / MATLAB 数据处理与可视化、LaTeX 论文写作规范、历年赛题复盘与实战演练；时间为 5 月 10 日起每周六 14:00—17:00，地点为理科楼 B301 [资料1]\n\n**奖励与认定**：获省级奖项及以上者，按《XX大学学科竞赛奖励办法》给予奖励；参赛并成功提交论文者可获 1 个创新实践学分 [资料1]\n\n**联系人**：赵老师（数学学院），电话 020-8888xxxx [资料1]\n\n## 二、比赛时间（结构化数据）\n\n竞赛数据库中「全国大学生数学建模竞赛」各届次的时间记录如下：\n\n| 届次 | 报名时间 | 比赛时间 | 阶段 |\n|---|---|---|---|\n| 2026 年（第 36 届） | 2026-04-29 至 2026-07-13 | 2026-09-06 至 2026-09-13 | 已结束 |\n| 2025 年（第 35 届） | 2025-05-03 至 2025-07-17 | 2025-09-10 至 2025-09-17 | 已结束 |\n| 2024 年（第 34 届） | 2024-04-30 至 2024-07-14 | 2024-09-07 至 2024-09-14 | 已结束 |\n\n## 三、需要注意的两点\n\n1. **上面这份通知是 2025 年发布的**，其中的报名窗口（2025 年 5 月 6 日 — 6 月 20 日）和比赛时间（2025 年 9 月 4 日—7 日）都属于 2025 年，早已过去，**不是当前正在报名的通知**。\n2. 数据库显示，2026 年（第 36 届）的阶段为「已结束」，比赛时间为 2026-09-06 至 2026-09-13。今天是 2026 年 10 月 19 日，因此本年度赛事也已结束。**目前没有可报名的届次**，下一届（2027 年）的报名与比赛时间尚未公布，请以官网 https://www.mcm.edu.cn/ 和教务处最新通知为准。\n\n另外说明：本次只调用了竞赛数据库，返回结果中不含通知原文或章程正文，因此无法取回通知全文；上面引用的通知内容来自校内文件原文片段。",
+    "answer_chars": 1430,
+    "sources": [
+     "关于组织参加2025年全国大学生数学建模竞赛的通知",
+     "关于组织参加2024年中国大学生计算机设计大赛的通知",
+     "关于组织我校学生参加2025年第十六届蓝桥杯大赛的通知"
+    ],
+    "retrieval_hit": true,
+    "retrieval_rank": 1,
+    "tools": [
+     "query_competition",
+     "query_competition"
+    ],
+    "tool_ok": null,
+    "facts_matched": 1,
+    "facts_total": 1,
+    "facts_hit": [
+     "9月4日"
+    ],
+    "facts_miss": [],
+    "citation": true,
+    "refusal_ok": null,
+    "latency_ms": 8709.5
+   }
+  },
+  "H06": {
+   "retrieval": {
+    "top_titles": [
+     "关于2025年春季学期国家助学贷款申请与续贷工作的通知",
+     "关于开展2024—2025学年家庭经济困难学生认定工作的通知",
+     "关于做好2024年国家励志奖学金评审工作的通知",
+     "关于2023—2024学年校级优秀学生奖学金评定工作的通知",
+     "关于做好2024年国家奖学金评选工作的通知"
+    ],
+    "hit": true,
+    "rank": 1,
+    "candidates": 15,
+    "latency_ms": 248.3,
+    "fallback": false
+   },
+   "router": {
+    "route": "hybrid",
+    "correct": true,
+    "plan": {
+     "route": "hybrid",
+     "reason": "既要助学贷款通知原文，又要本科生贷款额度这类结构化字段",
+     "rewritten_query": "助学贷款办理通知 本科生贷款额度",
+     "doc_type": "助学金",
+     "college": "",
+     "department": "",
+     "year": 0,
+     "category": "",
+     "level": "",
+     "exam_category": "",
+     "keyword": "助学贷款",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 867.8
+   },
+   "e2e": {
+    "route": "hybrid",
+    "correct_route": true,
+    "answer": "## 一、助学贷款通知\n\n以下为《关于2025年春季学期国家助学贷款申请与续贷工作的通知》（学生工作处，2025年3月5日）的主要内容：\n\n**贷款对象**\n家庭经济困难、无法支付在校期间学费和住宿费的全日制本科生、研究生；已通过学校家庭经济困难学生认定的学生优先 [资料1]。\n\n**首次申请流程**\n1. 登录国家开发银行生源地助学贷款学生在线系统（sls.cdb.com.cn）注册；\n2. 填写申请信息，导出并打印《国家开发银行生源地信用助学贷款申请表》；\n3. 携带申请表、录取通知书（学生证）、身份证、户口本，与共同借款人（一般为父母）一同前往户籍所在地县级学生资助管理中心办理；\n4. 办理完成后，将《受理证明》交至学校学生资助管理中心 [资料1]。\n\n**续贷流程**\n续贷学生可直接在系统中提交续贷声明（100 字以上，说明学习生活情况及贷款用途），县级资助中心远程审核，无需再到现场办理；审核通过后打印《受理证明》上交学校 [资料1]。\n\n**时间安排**\n1. 3 月 10 日—6 月 30 日：线上申请与县级资助中心受理；\n2. 9 月 1 日—9 月 20 日：学生将《受理证明》交至学生资助管理中心（行政楼 305 室）统一录入回执；\n3. 11 月：贷款资金到账后统一划扣学费、住宿费，余额发放至学生银行卡 [资料1]。\n\n**注意事项**\n未按时上交《受理证明》导致贷款无法发放的，责任自负；毕业后须按合同约定按期还款，逾期将影响个人征信；在校期间利息由财政全额补贴，毕业后开始计息 [资料1]。\n\n联系人：李老师　电话：020-8888xxxx [资料1]\n\n## 二、本科生贷款额度\n\n本科生每人每年最高 16000 元，研究生每人每年最高 20000 元；贷款优先用于支付学费和住宿费，剩余部分可用于生活费 [资料1]。\n\n## 三、关于当前能否报名\n\n上述通知发布于 **2025 年 3 月 5 日**，其中列出的时间窗口（3 月 10 日—6 月 30 日线上申请、9 月 1 日—9 月 20 日上交《受理证明》）均属于 2025 年，现已全部过去。资料未给出当前（2026 年）的报名状态，请以学校官网或学生工作处最新通知为准。\n\n另外，结构化数据查询结果中，助学贷款通知原文与本科生助学贷款额度均显示「未查询到相关数据」，因此以上内容全部来自学校文件原文 [资料1]。",
+    "answer_chars": 1010,
+    "sources": [
+     "关于2025年春季学期国家助学贷款申请与续贷工作的通知",
+     "关于开展2024—2025学年家庭经济困难学生认定工作的通知"
+    ],
+    "retrieval_hit": true,
+    "retrieval_rank": 1,
+    "tools": [
+     "query_competition",
+     "query_exam"
+    ],
+    "tool_ok": null,
+    "facts_matched": 1,
+    "facts_total": 1,
+    "facts_hit": [
+     "16000"
+    ],
+    "facts_miss": [],
+    "citation": true,
+    "refusal_ok": null,
+    "latency_ms": 5906.3
+   }
+  },
+  "P01": {
+   "retrieval": {
+    "top_titles": [
+     "关于组织我校学生参加2025年第十六届蓝桥杯大赛的通知",
+     "关于组织参加2024年中国大学生计算机设计大赛的通知",
+     "关于2025年全国大学生信息安全竞赛校内选拔的通知",
+     "关于组织参加2025年全国大学生数学建模竞赛的通知",
+     "计算机学院2025年推荐优秀应届本科毕业生免试攻读研究生工作细则"
+    ],
+    "hit": false,
+    "rank": null,
+    "candidates": 11,
+    "latency_ms": 153.9,
+    "fallback": false
+   },
+   "router": {
+    "route": "planning",
+    "correct": true,
+    "plan": {
+     "route": "planning",
+     "reason": "问题包含学生年级和专业，并询问「怎么准备」，需要结合个人情况给规划建议",
+     "rewritten_query": "大二软件工程专业学生参加计算机类竞赛的准备建议与规划",
+     "doc_type": "",
+     "college": "",
+     "department": "",
+     "year": 0,
+     "category": "计算机",
+     "level": "",
+     "exam_category": "",
+     "keyword": "",
+     "grade": "大二",
+     "major": "软件工程",
+     "interests": "计算机竞赛",
+     "use_student_profile": false
+    },
+    "latency_ms": 1077.1
+   },
+   "e2e": {
+    "route": "planning",
+    "correct_route": true,
+    "answer": "# 大二软件工程专业参加计算机类竞赛的准备建议\n\n## 一、先说清楚当前的时间状态\n\n今天是 2026 年 10 月 19 日。从竞赛库查询结果看，**2026 届的计算机类竞赛阶段全部为「已结束」**，包括蓝桥杯、中国大学生计算机设计大赛、天梯赛、全国大学生信息安全竞赛、CCPC 在内，没有任何一项处于「正在报名」或「未开始报名」状态；同时**未查询到 2027 届及以后届次的竞赛数据**。因此现在没有可以立刻报名的赛事，资料也未给出下一届的报名时间，请以官网和最新通知为准。\n\n不过，这恰好是大二学生最宝贵的「备赛窗口期」——下一届（2027 届）的报名大概率会在今年年底到明年春季陆续启动，你现在开始准备，正好赶得上。\n\n## 二、值得重点关注的赛事（按适合软件工程专业程度排序）\n\n结合你的专业，以下几项赛事在资料中有明确记载，且软件工程专业对口：\n\n1. **蓝桥杯全国软件和信息技术专业人才大赛**（国家级，工业和信息化部人才交流中心主办）：设 C/C++ 程序设计、Java 软件开发、Python 程序设计、Web 应用开发、软件测试、网络安全等赛道 [资料1]。\n2. **中国大学生计算机设计大赛（4C）**（国家级，教育部高等学校计算机类专业教学指导委员会主办）：设软件应用与开发、大数据应用、人工智能应用等类别，**团队形式，每队 2—5 人，须有 1—2 名指导教师，每人限参加 1 件作品** [资料2]。\n3. **全国大学生信息安全竞赛（CISCN）**：CTF 赛道 3 人一队，作品赛 2—4 人一队；**软件工程等专业优先**，个人可同时报名 CTF 与作品赛，但同一人不得参加两支 CTF 队伍 [资料3]。\n4. **中国高校计算机大赛·团体程序设计天梯赛**、**中国大学生程序设计竞赛（CCPC）**：偏算法与团队编程，适合作为算法能力的检验场（这两项在查询结果中有记录，但资料原文未提供细则）。\n\n## 三、分阶段准备规划（可执行）\n\n### 阶段一：现在—2026 年 12 月｜打基础\n\n- **确定主攻方向**：软件工程专业建议以「算法 + 软件开发」为主线。算法方向对应蓝桥杯程序设计赛道、天梯赛、CCPC；工程方向对应 4C 的软件应用与开发、人工智能应用等类别。\n- **算法训练**：按蓝桥杯集训的专题顺序推进——算法基础、动态规划、图论、搜索与剪枝 [资料1]。建议每周固定 3—4 次、每次 2 小时刷题，先打牢基础数据结构与常见算法。\n- **语言选择**：蓝桥杯软件赛提供 C/C++、Java、Python 三条路径 [资料1]，选你课程中最熟练的一门深耕，不要贪多。\n- **组队储备**：4C 需要 2—5 人团队 [资料2]，CISCN 的 CTF 需要 3 人一队 [资料3]。现在就可以在班级、社团里物色 2—3 位靠谱队友，提前磨合。\n\n### 阶段二：2026 年 12 月—2027 年 2 月｜跟进报名、进入集训\n\n- **盯紧报名通知**：参考往年节奏，蓝桥杯报名通常在**前一年 11 月下旬至次年 2 月上旬**（如 2026 届为 2025-11-23 至 2026-02-06），是全年最早启动的一项。请从 11 月起定期查看教务处、计算机学院通知和大赛官网（dasai.lanqiao.cn）。\n- **报名要点**（以蓝桥杯往年通知为例）：个人赛，学生登录大赛官网自行注册报名，**报名费由学校统一支付，请勿个人缴费**；报名后加入校内 QQ 群接收集训通知 [资料1]。\n- **参加赛前集训**：计算机学院会组织为期 6 周的赛前集训，**每周三晚 19:00—21:00，计算机楼 A401**，内容涵盖算法基础、动态规划、图论、搜索与剪枝等专题，**集训免费、面向全校学生开放** [资料1]。这是性价比最高的资源，务必全程参加。\n\n### 阶段三：2027 年 3 月—4 月｜冲刺与首战\n\n- **蓝桥杯省赛**：往年安排在 4 月中旬、省内考点机考、时长 4 小时 [资料1]。赛前一个月做整套真题模拟，严格计时。\n- **CISCN 校内选拔**：往年 3 月中下旬报名截止、3 月底线上初赛（8 小时 CTF）、4 月初线下复赛（含 AWD 攻防环节）[资料3]。信息安全实验室提供靶场环境与集训场地（**计算机楼 A413，每周二、周四晚 19:00—22:00 开放，由往届国赛选手带队训练**）[资料3]，想走安全方向的话这是现成的训练资源。\n- **4C 作品准备**：往年校内报名与选题截止在 3 月中下旬、作品提交截止在 4 月中下旬 [资料2]。作品须为原创，不得抄袭、不得使用往届参赛作品重复提交，需提交不超过 5 分钟的演示视频、设计文档、源代码或工程文件 [资料2]。\n\n### 阶段四：2027 年 5 月—8 月｜省赛/国赛\n\n- 4C 省赛往年 5 月中下旬（线上评审 + 现场答辩），国赛 7—8 月分赛区举行；进入国赛的队伍学院提供**不超过 2000 元的参赛经费支持（含差旅、材料费），凭发票报销** [资料2]。\n- CISCN 进入国赛的队伍可申请差旅全额报销 [资料3]。\n- 蓝桥杯全国总决赛往年 6 月上旬 [资料1]。\n\n## 四、给你的三条提醒\n\n1. **所有时间节点以当年最新通知为准**。上面引用的日期来自 2024、2025 年发布的文件，属于文件发布当年的安排，仅作节奏参考，不能当作 2027 届的确定时间。\n2. **大二参赛的核心目标是「完赛 + 拿经验」**，不要一上来就盯着国奖。省赛三等奖以上即可获得综合测评实践创新模块加分 [资料1]，先拿到第一个奖项，大三再冲更高名次。\n3. **善用免费资源**：蓝桥杯集训免费开放 [资料1]、信息安全实验室靶场免费开放 [资料3]、报名费由学校统一支付 [资料1]，这些都不需要你花钱，唯一要投入的是时间。\n\n如果你能告诉我更倾向「算法竞赛」还是「软件开发/作品类竞赛」，我可以帮你把上面的规划再收窄成一条更具体的路线。",
+    "answer_chars": 2530,
+    "sources": [
+     "关于组织我校学生参加2025年第十六届蓝桥杯大赛的通知",
+     "关于组织参加2024年中国大学生计算机设计大赛的通知",
+     "关于2025年全国大学生信息安全竞赛校内选拔的通知"
+    ],
+    "retrieval_hit": false,
+    "retrieval_rank": null,
+    "tools": [
+     "recommend_competition",
+     "query_competition"
+    ],
+    "tool_ok": null,
+    "facts_matched": 1,
+    "facts_total": 1,
+    "facts_hit": [
+     "竞赛"
+    ],
+    "facts_miss": [],
+    "citation": true,
+    "refusal_ok": null,
+    "latency_ms": 14570.3
+   }
+  },
+  "P02": {
+   "retrieval": {
+    "top_titles": [
+     "关于2025年全国大学生信息安全竞赛校内选拔的通知",
+     "关于组织我校学生参加2025年第十六届蓝桥杯大赛的通知",
+     "关于组织参加2024年中国大学生计算机设计大赛的通知",
+     "关于组织参加2025年全国大学生数学建模竞赛的通知",
+     "计算机学院2025年推荐优秀应届本科毕业生免试攻读研究生工作细则"
+    ],
+    "hit": false,
+    "rank": null,
+    "candidates": 11,
+    "latency_ms": 203.1,
+    "fallback": false
+   },
+   "router": {
+    "route": "planning",
+    "correct": true,
+    "plan": {
+     "route": "planning",
+     "reason": "问题包含年级、专业、兴趣，属于结合学生个人情况的竞赛推荐规划",
+     "rewritten_query": "大三计算机科学与技术专业学生，对信息安全感兴趣，适合参加哪些竞赛",
+     "doc_type": "",
+     "college": "",
+     "department": "",
+     "year": 0,
+     "category": "计算机",
+     "level": "",
+     "exam_category": "",
+     "keyword": "信息安全",
+     "grade": "大三",
+     "major": "计算机科学与技术",
+     "interests": "信息安全",
+     "use_student_profile": false
+    },
+    "latency_ms": 1239.6
+   },
+   "e2e": {
+    "route": "planning",
+    "correct_route": true,
+    "answer": "# 信息安全方向竞赛推荐（计算机科学与技术专业 · 大三）\n\n## 一、最匹配你兴趣的赛事：全国大学生信息安全竞赛（CISCN）\n\n这是信息安全领域最对口的国家级赛事，分两个赛道 [资料1]：\n\n- **创新实践能力赛（CTF）**：3 人一队，题目方向包括 Web 安全、逆向工程、二进制漏洞利用（Pwn）、密码学、杂项（Misc）[资料1]\n- **作品赛**：2—4 人一队，提交信息安全相关作品（系统、工具、协议设计等）[资料1]\n\n**参赛资格**：我校在校本科生，专业不限，网络空间安全、计算机科学与技术、软件工程等专业优先 [资料1]——你的专业正好在优先范围内。个人可同时报名 CTF 与作品赛，但同一人不得参加两支 CTF 队伍 [资料1]。\n\n**训练资源**：学院信息安全实验室提供靶场环境与集训场地（计算机楼 A413），每周二、周四晚 19:00—22:00 开放，由往届国赛选手带队训练 [资料1]。这是你目前最该利用的日常资源。\n\n**安全红线**：CTF 涉及真实漏洞利用技术，所有训练与比赛须在授权靶场环境内进行，严禁对未授权的真实系统进行任何测试 [资料1]。\n\n## 二、关于当前报名状态（重要）\n\n需要提醒你：结构化查询结果显示，全国大学生信息安全竞赛 2026 届的报名时间为 2026-03-13 至 2026-05-27，比赛时间为 2026-07-06 至 2026-07-13，**阶段为「已结束」**；查询到的所有竞赛记录阶段均为「已结束」，未查询到处于「正在报名」或「未开始报名」阶段的记录。\n\n另外，校内选拔通知是 2025 年 3 月发布的，其中「报名截止 2025 年 3 月 20 日、线上初赛 2025 年 3 月 29 日」等时间节点属于 2025 年那一届，早已过去，不能当作今年的安排 [资料1]。\n\n**结论**：目前没有可直接报名的信息安全赛事窗口，具体下一届校内选拔时间请以计算机学院官网和最新通知为准（联系人：黄老师，电话 020-8888xxxx [资料1]）。\n\n## 三、可作为补充的赛事\n\n- **蓝桥杯**：设有「网络安全」赛道，同时也有 C/C++ 程序设计等赛道，可作为算法与安全基础的练兵场 [资料2]。2026 届报名时间为 2025-11-23 至 2026-02-06，阶段已结束；按此节奏，下一届报名大概率在**今年 11 月下旬前后启动**，值得盯紧。\n- **中国大学生计算机设计大赛**：含「软件应用与开发」「人工智能应用」等类别，适合把你的安全兴趣做成作品（如安全工具、检测系统）参赛 [资料3]。注意该通知为 2024 年发布，其中 2024 年 3—8 月的赛程已过期 [资料3]；2026 届报名时间为 2026-02-27 至 2026-05-13，阶段也已结束。\n- **中国高校计算机大赛·团体程序设计天梯赛、CCPC**：偏算法竞赛，对 CTF 中的逆向、密码学方向有间接帮助，2026 届阶段均已结束。\n\n## 四、给你的分步行动建议（时间节点）\n\n1. **现在—2026 年 11 月**：每周二、周四晚 19:00—22:00 去计算机楼 A413 参加实验室集训 [资料1]，先打基础（Web 安全、密码学、Misc 入门），同时刷算法题。\n2. **2026 年 11 月下旬前后**：关注蓝桥杯下一届报名（参照 2026 届 2025-11-23 至 2026-02-06 的窗口），选「网络安全」或 C/C++ 赛道 [资料2]。\n3. **2026 年 12 月—2027 年 2 月**：组好 3 人 CTF 队伍，在靶场环境做模拟赛；同时可构思一个作品赛题目（2—4 人队）[资料1]。\n4. **2027 年 3 月前后**：密切关注计算机学院官网的 CISCN 校内选拔通知（参照 2026 届 3 月中旬开始报名的节奏），及时报名，并留意 4 月的线上初赛与线下复赛（含 AWD 攻防环节）[资料1]。\n5. **贯穿全程**：严守授权靶场红线，绝不对未授权真实系统做任何测试 [资料1]。\n\n由于你目前大三，下一届赛事正好落在你大四前的关键期，建议尽早进实验室跟训，把队伍和题目提前准备好。",
+    "answer_chars": 1772,
+    "sources": [
+     "关于2025年全国大学生信息安全竞赛校内选拔的通知",
+     "关于组织我校学生参加2025年第十六届蓝桥杯大赛的通知",
+     "关于组织参加2024年中国大学生计算机设计大赛的通知"
+    ],
+    "retrieval_hit": false,
+    "retrieval_rank": null,
+    "tools": [
+     "recommend_competition",
+     "query_competition"
+    ],
+    "tool_ok": null,
+    "facts_matched": 1,
+    "facts_total": 1,
+    "facts_hit": [
+     "信息安全"
+    ],
+    "facts_miss": [],
+    "citation": true,
+    "refusal_ok": null,
+    "latency_ms": 10688.3
+   }
+  },
+  "P03": {
+   "retrieval": {
+    "top_titles": [
+     "关于组织参加2025年全国大学生数学建模竞赛的通知",
+     "关于组织参加2024年中国大学生计算机设计大赛的通知",
+     "关于组织我校学生参加2025年第十六届蓝桥杯大赛的通知",
+     "关于2025年全国大学生信息安全竞赛校内选拔的通知",
+     "计算机学院2025年推荐优秀应届本科毕业生免试攻读研究生工作细则"
+    ],
+    "hit": false,
+    "rank": null,
+    "candidates": 12,
+    "latency_ms": 193.1,
+    "fallback": false
+   },
+   "router": {
+    "route": "planning",
+    "correct": true,
+    "plan": {
+     "route": "planning",
+     "reason": "问题包含学生年级（大一）和专业（数学），并询问「需要做什么准备」，属于结合个人情况的规划建议。",
+     "rewritten_query": "大一数学专业学生参加数学建模竞赛需要做哪些准备",
+     "doc_type": "",
+     "college": "",
+     "department": "",
+     "year": 0,
+     "category": "数学",
+     "level": "",
+     "exam_category": "",
+     "keyword": "数学建模",
+     "grade": "大一",
+     "major": "数学",
+     "interests": "数学建模",
+     "use_student_profile": false
+    },
+    "latency_ms": 1273.4
+   },
+   "e2e": {
+    "route": "planning",
+    "correct_route": true,
+    "answer": "# 大一数学专业参加数学建模的准备建议\n\n## 一、先明确一个时间事实\n\n全国大学生数学建模竞赛的报名和比赛时间，各届都集中在**上半年报名、9 月比赛**。根据查询结果，2026 年这一届的报名时间为 2026-04-29 至 2026-07-13，比赛时间为 2026-09-06 至 2026-09-13，**阶段：已结束**；2025 年及更早各届同样均为「已结束」。也就是说，**现在（2026 年 10 月）没有正在报名的数学建模竞赛**，你今年的目标应放在为下一届（2027 年）做准备上。\n\n学校文件《关于组织参加2025年全国大学生数学建模竞赛的通知》发布于 2025-04-25，其中写的「校内报名：2025 年 5 月 6 日 — 6 月 20 日」属于 2025 年那一届的时间窗口，早已过去，不能当作当前可报名的依据 [资料1]。\n\n## 二、赛制与门槛（据往年通知）\n\n- 参赛对象：在校本科生，**3 人一队**（鼓励跨学院、跨专业组队），每队可设 1 名指导教师；本科组从 A、B、C 三题中任选一题 [资料1]。\n- 比赛形式：连续 **72 小时**完成建模、求解与论文写作（2025 年通知中为 9 月 4 日 18:00 至 9 月 7 日 20:00）[资料1]。\n- 报名费：每队 100 元，由学校统一缴纳 [资料1]。\n- 激励：获省级奖项及以上者按《XX大学学科竞赛奖励办法》给予奖励；参赛并成功提交论文者可获 **1 个创新实践学分** [资料1]。\n\n## 三、分阶段准备路线（以 2027 年参赛为目标）\n\n**第一阶段：现在 — 2027 年 2 月（打基础）**\n1. 数学功底：数学专业的高等代数、数学分析、概率统计是建模的核心工具，先把课程学扎实。\n2. 编程入门：掌握 Python 或 MATLAB 的基本数据处理与绘图能力（往年培训第 4—5 讲即为此内容）[资料1]。\n3. 论文写作：提前熟悉 LaTeX 排版（往年培训第 6—7 讲为 LaTeX 论文写作规范）[资料1]。\n\n**第二阶段：2027 年 3—4 月（组队与建模方法）**\n1. 组建 3 人队伍，建议数学 + 计算机/统计等跨专业搭配，并联系 1 名指导教师 [资料1]。\n2. 系统学习常用模型：优化、微分方程、统计分析（对应往年培训第 1—3 讲）[资料1]。\n3. 关注教务处与数学学院发布的当年培训通知——往年培训为 5 月 10 日起每周六 14:00—17:00、理科楼 B301，共 8 讲 [资料1]；具体年份的时间地点请以当年通知为准。\n\n**第三阶段：2027 年 4 月底—7 月（报名窗口）**\n- 按往年规律，报名集中在 4 月底至 7 月中旬（2026 年为 2026-04-29 至 2026-07-13）。届时登录竞赛官网 www.mcm.edu.cn 注册，并按校内通知要求提交队名、队员信息与联系方式 [资料1]。\n- 注意：**资料未给出 2027 年的报名时间与当前报名状态，请以官网和教务处最新通知为准。**\n\n**第四阶段：2027 年 7—9 月（实战演练）**\n- 做历年赛题复盘与全流程模拟（往年培训第 8 讲即历年赛题复盘与实战演练）[资料1]，重点练 72 小时内的分工与时间管理。\n\n## 四、关于备赛资料\n\n本次查询未返回任何关于「数学建模备赛准备内容、培训、参考书目」的数据，也未查询到校级或省级数学建模竞赛数据，因此**未检索到相关内容**，无法给出具体书目或校内选拔赛信息，建议直接咨询数学学院赵老师（电话：020-8888xxxx）[资料1]。\n\n## 五、顺带一提：现在正在报名的相关竞赛\n\n如果你希望大一就有比赛练手，查询结果显示**全国大学生数学竞赛（2026 年）正在报名**：报名时间 2026-08-30 至 2026-11-13，比赛时间 2026-11-08，面向本科，分数学类与非数学类，笔试 3 小时，内容以高等数学、数学分析为主，官网 https://www.cmathc.cn/。它与建模能力互补，可作为热身。",
+    "answer_chars": 1722,
+    "sources": [
+     "关于组织参加2025年全国大学生数学建模竞赛的通知",
+     "关于组织参加2024年中国大学生计算机设计大赛的通知",
+     "关于组织我校学生参加2025年第十六届蓝桥杯大赛的通知"
+    ],
+    "retrieval_hit": false,
+    "retrieval_rank": null,
+    "tools": [
+     "query_competition",
+     "recommend_competition"
+    ],
+    "tool_ok": null,
+    "facts_matched": 1,
+    "facts_total": 1,
+    "facts_hit": [
+     "数学建模"
+    ],
+    "facts_miss": [],
+    "citation": true,
+    "refusal_ok": null,
+    "latency_ms": 10562.6
+   }
+  },
+  "P04": {
+   "retrieval": {
+    "top_titles": [
+     "关于组织我校学生参加2025年第十六届蓝桥杯大赛的通知",
+     "关于组织参加2024年中国大学生计算机设计大赛的通知",
+     "关于2025年全国大学生信息安全竞赛校内选拔的通知",
+     "关于组织参加2025年全国大学生数学建模竞赛的通知",
+     "计算机学院2025年推荐优秀应届本科毕业生免试攻读研究生工作细则"
+    ],
+    "hit": false,
+    "rank": null,
+    "candidates": 13,
+    "latency_ms": 211.5,
+    "fallback": false
+   },
+   "router": {
+    "route": "planning",
+    "correct": true,
+    "plan": {
+     "route": "planning",
+     "reason": "问题给出学号，需要结合该学生个人画像推荐竞赛，属于个性化规划。",
+     "rewritten_query": "学号20240217的学生适合参加哪些竞赛",
+     "doc_type": "",
+     "college": "",
+     "department": "",
+     "year": 0,
+     "category": "",
+     "level": "",
+     "exam_category": "",
+     "keyword": "竞赛",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": true
+    },
+    "latency_ms": 1036.4
+   },
+   "e2e": {
+    "route": "planning",
+    "correct_route": true,
+    "answer": "# 学号 20240217（林一鸣）竞赛推荐\n\n## 一、你的基本情况\n\n- 姓名：林一鸣，大二，软件工程专业，计算机学院\n- 兴趣方向：Web 开发、创新创业\n- GPA：3.45\n\n## 二、与你方向匹配的竞赛（共 6 项）\n\n按你的两个兴趣方向归类如下：\n\n**计算机类**\n1. 蓝桥杯全国软件和信息技术专业人才大赛（国家级，2026 届）\n2. 中国大学生计算机设计大赛（国家级，2026 届）\n3. 中国高校计算机大赛·团体程序设计天梯赛（国家级，2026 届）\n4. 全国大学生信息安全竞赛（国家级，2026 届）\n\n**创新创业类**\n5. 「挑战杯」全国大学生课外学术科技作品竞赛（国家级，2026 届）\n6. 中国国际大学生创新大赛（原「互联网+」，国家级，2026 届）\n\n## 三、当前报名状态（重要）\n\n上述 6 项竞赛的**阶段字段均为「已结束」**，也就是说 2026 届的报名与比赛窗口都已经过去，现在（2026 年 10 月 19 日）无法再报名本届赛事。\n\n另外提醒一点：学校文件里的时间属于文件发布当年，不能直接当作今年的安排。例如蓝桥杯通知发布于 2024-11-20，其中「报名截止 2025 年 3 月 20 日（学校统一报名截止时间提前至 3 月 15 日）」是 2025 年第十六届的安排 [资料1]；计算机设计大赛通知发布于 2024-02-28，其中「校内报名与选题截止：2024 年 3 月 20 日」是 2024 年的安排 [资料2]；信息安全竞赛校内选拔通知发布于 2025-03-10，其中「报名截止：2025 年 3 月 20 日」是 2025 年的安排 [资料3]。这些窗口都已过去，**资料未给出 2027 届的报名时间，请以官网和最新通知为准**。\n\n## 四、给你的准备建议（面向下一届）\n\n结合你的专业和兴趣，可以按下面的节奏提前准备：\n\n**1. 现在—2026 年 12 月：打基础、选赛道**\n- Web 方向：蓝桥杯设有「Web 应用开发」赛道 [资料1]，计算机设计大赛设有「软件应用与开发」「信息可视化设计」等类别 [资料2]，可以先确定 1—2 个主攻方向。\n- 创新创业方向：挑战杯、中国国际大学生创新大赛适合组队做项目，建议尽早找队友和指导老师。计算机设计大赛要求「每队 2—5 人，须有 1—2 名指导教师（本校在职教师）」[资料2]，可以提前物色。\n\n**2. 2026 年 11 月—2027 年 2 月：关注报名通知**\n- 蓝桥杯往年 11 月发布通知、次年 3 月截止报名 [资料1]，是每年最早启动的一项，建议优先盯住教务处和计算机学院的通知。\n- 报名方式为个人登录大赛官网（dasai.lanqiao.cn）自行注册，报名费由学校统一支付，请勿个人缴费 [资料1]。\n\n**3. 2027 年 3—5 月：集中参赛期**\n- 计算机设计大赛往年 3 月校内报名截止、4 月作品提交截止 [资料2]，需要提交演示视频（不超过 5 分钟）、设计文档、源代码或工程文件 [资料2]。\n- 信息安全竞赛往年 3 月校内选拔报名截止、3 月底线上初赛 [资料3]，CTF 为 3 人一队，作品赛 2—4 人一队 [资料3]。如果你对 Web 安全感兴趣，这条线也值得考虑。\n\n**4. 日常可利用的免费资源**\n- 蓝桥杯赛前集训：每周三晚 19:00—21:00，计算机楼 A401，集训免费、面向全校开放 [资料1]。\n- 信息安全实验室靶场与集训：每周二、周四晚 19:00—22:00，计算机楼 A413，由往届国赛选手带队训练 [资料3]。\n\n## 五、说明\n\n资料中未检索到 2027 届各项竞赛的具体报名时间、名额和奖励细则，以上时间节点均依据往年通知推算，仅供规划参考，实际请以学校官网和最新通知为准。",
+    "answer_chars": 1608,
+    "sources": [
+     "关于组织我校学生参加2025年第十六届蓝桥杯大赛的通知",
+     "关于组织参加2024年中国大学生计算机设计大赛的通知",
+     "关于2025年全国大学生信息安全竞赛校内选拔的通知"
+    ],
+    "retrieval_hit": false,
+    "retrieval_rank": null,
+    "tools": [
+     "get_student_profile",
+     "recommend_competition"
+    ],
+    "tool_ok": null,
+    "facts_matched": 1,
+    "facts_total": 1,
+    "facts_hit": [
+     "竞赛"
+    ],
+    "facts_miss": [],
+    "citation": true,
+    "refusal_ok": null,
+    "latency_ms": 9458.8
+   }
+  },
+  "P05": {
+   "retrieval": {
+    "top_titles": [
+     "计算机学院2025年推荐优秀应届本科毕业生免试攻读研究生工作细则",
+     "关于组织我校学生参加2025年第十六届蓝桥杯大赛的通知",
+     "XX大学本科生毕业设计（论文）工作管理规定",
+     "关于2024—2025学年第二学期选课工作的通知",
+     "关于组织参加2025年全国大学生数学建模竞赛的通知"
+    ],
+    "hit": false,
+    "rank": null,
+    "candidates": 13,
+    "latency_ms": 141.1,
+    "fallback": false
+   },
+   "router": {
+    "route": "planning",
+    "correct": true,
+    "plan": {
+     "route": "planning",
+     "reason": "问题包含学生个人情况（大二）并询问保研规划建议，属于需要结合个人情况的规划类问题。",
+     "rewritten_query": "大二学生保研规划建议 保研条件与准备路径",
+     "doc_type": "",
+     "college": "",
+     "department": "",
+     "year": 0,
+     "category": "",
+     "level": "",
+     "exam_category": "",
+     "keyword": "保研",
+     "grade": "大二",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 1172.8
+   },
+   "e2e": {
+    "route": "planning",
+    "correct_route": true,
+    "answer": "# 大二学生保研规划建议\n\n## 一、先明确：保研的硬性门槛（以计算机学院 2025 年细则为参照）\n\n你目前大二，正好处在积累期。对照文件，需要满足的申请基本条件包括：\n\n- 前三年（五年制前四年）学业成绩排名位于本专业前 30% [资料1]\n- 全国大学英语四级成绩达到 425 分及以上（或雅思 5.5、托福 70 分以上）[资料1]\n- 无不及格课程记录 [资料1]\n- 品行端正，无违纪处分记录 [资料1]\n\n综合成绩 = 学业成绩（70%）+ 综合素质（30%），学业成绩以前三学年加权平均学分绩点折算 [资料1]。也就是说，**绩点是绝对大头，竞赛科研是拉开差距的部分**。\n\n> 说明：以上为计算机学院 2025 年细则，你所在学院的具体比例、名额可能不同，请以本学院最新细则为准。资料中未给出你所在学院及个人成绩信息，无法判断你是否已达标。\n\n## 二、分阶段行动建议\n\n### 阶段一：大二上（现在 — 2027 年 1 月）—— 打基础、补短板\n\n1. **稳住绩点**：本学期所有课程力争高分，尤其避免不及格（一旦挂科直接失去资格）[资料1]。\n2. **英语**：若四级尚未达标，尽快报考。2026 年 12 月 13 日的四级考试报名已于 10 月 9 日截止，最近一次机会需关注 2027 年上半年报名通知；已过四级的可继续冲六级，为后续复试和科研阅读打底。\n3. **启动竞赛**：目前正在报名的有——\n   - 全国大学生数学竞赛：报名 2026-08-30 至 2026-11-13，比赛 2026-11-08（距报名截止 25 天）\n   - 外研社·国才杯英语演讲大赛：报名 2026-09-08 至 2026-11-22，比赛 2026-10-23（距报名截止 34 天）\n   \n   计算机类竞赛（蓝桥杯、天梯赛、计算机设计大赛、信息安全竞赛等）本年度批次均已结束，可提前准备 2027 年批次，其中蓝桥杯往年报名约在 11 月下旬启动 [资料3]。\n\n### 阶段二：大二下 — 大三上（2027 年 2 月 — 2027 年 12 月）—— 出成果\n\n1. **主攻高含金量竞赛**：按加分规则，国家级一等奖 15 分、二等奖 12 分、三等奖 9 分；省级一等奖 8 分、二等奖 6 分，仅计最高一项 [资料1]。建议集中精力打 1—2 项计算机类国家级赛事。\n2. **进课题组**：争取以第一作者发表 SCI/EI 论文（15 分）或核心期刊（10 分），或主持国家级大创项目（8 分）、省级大创（5 分）[资料1]。大二下联系导师进实验室是比较合适的时间点。\n3. **注意加分上限**：上述加分累计不超过 30 分，即综合素质满分 [资料1]，不必盲目堆数量，重在质量。\n\n### 阶段三：大三下 — 大四上（2028 年）—— 申报与复试\n\n参照 2025 年的节奏（每年具体日期以当年通知为准）：\n\n- 6 月中下旬：提交申请及佐证材料 [资料1]\n- 7 月初：学院审核材料并核算综合成绩 [资料1]\n- 7 月上中旬：拟推荐名单公示 5 个工作日 [资料1]\n- 9 月：报研究生院，组织接收单位复试 [资料1]\n\n因此**大三结束前必须把所有加分材料（获奖证书、论文录用证明、大创立项结题材料）准备齐全**。\n\n## 三、需要你自行确认的事项\n\n- 你所在学院的最新推免细则（名额、排名比例、加分标准）——资料中仅有计算机学院 2025 年版本 [资料1]。\n- 你目前的专业排名和绩点是否在前 30% 以内——资料未提供你的个人信息，无法判断。\n- 2027、2028 年各竞赛的具体报名时间——现有数据只覆盖到 2026 年批次，需以官网通知为准。\n\n## 四、一句话总结\n\n**大二这一年，绩点不能松、四级必须过、竞赛科研尽早起步；把 70% 的学业成绩守住，再用 30% 的综合素质去争排名。** 具体时间节点请以你所在学院当年发布的推免细则为准。",
+    "answer_chars": 1663,
+    "sources": [
+     "计算机学院2025年推荐优秀应届本科毕业生免试攻读研究生工作细则",
+     "关于做好2024年国家励志奖学金评审工作的通知",
+     "关于组织我校学生参加2025年第十六届蓝桥杯大赛的通知",
+     "XX大学本科生转专业管理办法"
+    ],
+    "retrieval_hit": false,
+    "retrieval_rank": null,
+    "tools": [
+     "recommend_competition",
+     "query_exam"
+    ],
+    "tool_ok": null,
+    "facts_matched": 1,
+    "facts_total": 1,
+    "facts_hit": [
+     "推免"
+    ],
+    "facts_miss": [],
+    "citation": true,
+    "refusal_ok": null,
+    "latency_ms": 11305.7
+   }
+  },
+  "P06": {
+   "retrieval": {
+    "top_titles": [
+     "关于2023—2024学年校级优秀学生奖学金评定工作的通知",
+     "XX大学学生综合素质测评实施办法",
+     "关于做好2024年国家奖学金评选工作的通知",
+     "关于做好2024年国家励志奖学金评审工作的通知",
+     "关于组织我校学生参加2025年第十六届蓝桥杯大赛的通知"
+    ],
+    "hit": false,
+    "rank": null,
+    "candidates": 13,
+    "latency_ms": 142.0,
+    "fallback": false
+   },
+   "router": {
+    "route": "planning",
+    "correct": true,
+    "plan": {
+     "route": "planning",
+     "reason": "学生描述了自己的成绩情况并寻求奖学金获取建议，属于结合个人情况的规划类问题",
+     "rewritten_query": "成绩一般的学生如何申请和获得奖学金，奖学金评选条件与提升建议",
+     "doc_type": "奖学金",
+     "college": "",
+     "department": "",
+     "year": 0,
+     "category": "",
+     "level": "",
+     "exam_category": "",
+     "keyword": "奖学金",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 1426.8
+   },
+   "e2e": {
+    "route": "planning",
+    "correct_route": true,
+    "answer": "# 关于「成绩一般想拿奖学金」的建议\n\n先说明一点：你只提到「成绩一般」，没有提供年级、专业、成绩排名、家庭经济困难认定情况，所以下面只能按学校文件里的规则给你梳理方向，具体能不能报、报哪一项，要对照你自己的情况判断。\n\n## 一、先看清三类奖学金的不同门槛\n\n**1. 校级优秀学生奖学金（覆盖面最大，最适合先争取）**\n- 一等奖学金每人每年 2000 元，评定比例 5%；二等奖学金每人每年 1200 元，评定比例 10%；三等奖学金每人每年 800 元，评定比例 15% [资料1]。\n- 单项奖学金设社会实践、科技创新、文体活动、志愿服务四类，每人 500 元 [资料1]。\n- 评定依据是上一学年综合素质测评成绩，其中**学业成绩占 70%、思想品德占 15%、实践创新占 15%** [资料1]。\n- 关键点：三个等级合计比例达 30%，且不是纯看成绩——实践创新那 15% 是你可以主动补的短板。\n\n**2. 国家励志奖学金（需家庭经济困难认定）**\n- 每人每年 5000 元，一次性发放，面向二年级以上（含二年级）全日制本科在校生 [资料2]。\n- 硬条件：已通过学校家庭经济困难学生认定且等级为一般困难及以上；上一学年学习成绩排名与综合测评排名**均位于专业前 30%**；无不及格课程、无违纪处分 [资料2]。\n- 如果你家庭情况符合，这条路的成绩门槛（前 30%）比国家奖学金低得多。\n\n**3. 国家奖学金（门槛最高）**\n- 每人每年 8000 元，2025 年名额 45 名 [资料4]。\n- 要求上一学年综合素质测评排名专业前 10%，且无违纪处分、无不及格课程 [资料4]。\n- 例外通道：在学科竞赛、科研创新、社会服务等方面有突出表现者优先；2025 年起，获得中国国际大学生创新大赛省级金奖及以上、全国大学生信息安全竞赛国家级奖项者，可直接进入校级评审答辩环节，不占用学院初评名额 [资料4]。\n\n## 二、针对「成绩一般」的可执行建议\n\n**第一步：把「不挂科」作为底线（现在就要守住）**\n国家励志奖学金和国家奖学金都明确要求无不及格课程 [资料2][资料4]。成绩一般时，先保证没有短板科目，这是所有奖学金的前提。\n\n**第二步：主攻综合素质测评里的「实践创新 15%」和「思想品德 15%」**\n校级奖学金按学业 70% + 思想品德 15% + 实践创新 15% 计算 [资料1]。学业成绩短期难大幅提升，但志愿服务、社会实践、文体活动这些可以主动参与，同时对应单项奖学金（每人 500 元）[资料1]，等于多一条获奖路径。\n\n**第三步：用竞赛争取「破格通道」**\n如果你在学科竞赛上有兴趣，2025 年国家奖学金文件明确：中国国际大学生创新大赛省级金奖及以上、全国大学生信息安全竞赛国家级奖项，可直接进入校级评审答辩环节，不占用学院初评名额 [资料4]。这是一条不完全依赖成绩排名的路，但需要提前一年以上准备。\n\n**第四步：核对家庭经济困难认定**\n国家励志奖学金要求已通过认定且等级为一般困难及以上 [资料2]。如果符合条件但还没认定，要尽早向学院咨询认定流程——认定结果通常以当年公示名单为准 [资料2]。\n\n## 三、时间节点提醒（重要）\n\n- 上述文件分别是 2023 年、2024 年、2025 年发布的，**其中的报名和评审时间窗口都属于文件发布当年，早已过去**，不能当作现在的报名时间。\n- 现有查询结果里**没有给出当前学年的报名阶段信息**，因此无法判断现在能否报名。请以学校官网或学生工作处最新通知为准。\n- 按往年规律，国家奖学金、国家励志奖学金的申请一般集中在**9 月中下旬**，校级奖学金测评在**10 月上中旬** [资料1][资料2][资料4]。也就是说，如果你想争取下一学年的奖项，**现在（10 月）正是积累测评材料、规划竞赛和志愿服务的起点**，而不是等通知出来才动手。\n\n## 四、一句话总结\n\n成绩一般的情况下，最现实的路径是：**守住不挂科 → 冲校级二、三等奖学金和单项奖学金（合计覆盖 30% 比例）→ 若家庭情况符合则主攻国家励志奖学金（前 30% 即可）→ 有余力再用竞赛走国家奖学金的破格通道**。具体报名时间请以官网最新通知为准，资料未给出当前报名状态。",
+    "answer_chars": 1784,
+    "sources": [
+     "关于2023—2024学年校级优秀学生奖学金评定工作的通知",
+     "关于做好2024年国家励志奖学金评审工作的通知",
+     "关于做好2024年国家奖学金评选工作的通知",
+     "关于做好2025年国家奖学金评选工作的通知"
+    ],
+    "retrieval_hit": false,
+    "retrieval_rank": null,
+    "tools": [
+     "query_competition",
+     "query_exam"
+    ],
+    "tool_ok": null,
+    "facts_matched": 1,
+    "facts_total": 1,
+    "facts_hit": [
+     "奖学金"
+    ],
+    "facts_miss": [],
+    "citation": true,
+    "refusal_ok": null,
+    "latency_ms": 8711.3
+   }
+  },
+  "P07": {
+   "retrieval": {
+    "top_titles": [
+     "关于组织我校学生参加2025年第十六届蓝桥杯大赛的通知",
+     "关于组织参加2025年全国大学生数学建模竞赛的通知",
+     "关于2024—2025学年第二学期选课工作的通知",
+     "关于2025年全国大学生信息安全竞赛校内选拔的通知",
+     "关于组织参加2024年中国大学生计算机设计大赛的通知"
+    ],
+    "hit": false,
+    "rank": null,
+    "candidates": 12,
+    "latency_ms": 226.5,
+    "fallback": false
+   },
+   "router": {
+    "route": "planning",
+    "correct": true,
+    "plan": {
+     "route": "planning",
+     "reason": "用户要求结合自身情况做学期学习与竞赛安排规划，属于个性化规划类问题",
+     "rewritten_query": "本学期学习计划与竞赛安排规划建议",
+     "doc_type": "",
+     "college": "",
+     "department": "",
+     "year": 0,
+     "category": "",
+     "level": "",
+     "exam_category": "",
+     "keyword": "",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 964.2
+   },
+   "e2e": {
+    "route": "planning",
+    "correct_route": true,
+    "answer": "# 本学期学习与竞赛安排建议\n\n先说明一个前提：本次没有查到你的学号/姓名，系统按默认条件（年级：大二）返回了推荐结果，你的专业、兴趣方向、GPA 都未查询到。因此下面的规划以「大二、计算机相关方向可能性较高」为假设，你可以按自己的实际情况调整。另外，今天是 **2026 年 10 月 19 日**，本学期已过半，规划重点放在「眼下能抓的」和「为下学期铺路的」。\n\n---\n\n## 一、先看清时间坐标（关键）\n\n学校文件里的日期属于文件发布当年，不能直接当成本学期日程用：\n\n- 选课通知是 **2025 年 1 月**发布的，对应 2024—2025 学年第二学期，选课时间（1 月 10 日—3 月 7 日）早已过去 [资料1]。\n- 蓝桥杯通知是 **2024 年 11 月**发布的第十六届（2025 年）赛事，报名截止 2025 年 3 月 20 日、省赛 2025 年 4 月 12 日 [资料2]，同样已过期；结构化数据里 2026 届蓝桥杯也显示「已结束」。\n- 数学建模通知是 **2025 年 4 月**发布的 2025 年赛事，竞赛时间 2025 年 9 月 4 日—7 日 [资料3]，已结束。\n- 计算机设计大赛通知是 **2024 年 2 月**发布的 2024 年赛事 [资料4]，已结束。\n\n**结论：这四份文件对应的报名/比赛窗口都已关闭，不能作为「现在还能报名」的依据。** 当前真实可用的只有结构化数据里标注了「阶段」的条目。\n\n---\n\n## 二、当前正在报名、可以马上行动的（有明确阶段）\n\n| 事项 | 报名时间 | 比赛/考试时间 | 状态 |\n|---|---|---|---|\n| 全国大学生数学竞赛（国家级） | 2026-08-30 至 2026-11-13 | 2026-11-08 | 正在报名，距截止 25 天 |\n| 外研社·国才杯英语演讲大赛（国家级） | 2026-09-08 至 2026-11-22 | 2026-10-23 | 正在报名，距截止 34 天 |\n\n注意：英语演讲大赛比赛日 **10 月 23 日**就在 4 天后，如果之前没准备，报名意义有限；数学竞赛 11 月 8 日比赛、11 月 13 日截止，还有约 3 周准备期，是眼下性价比最高的一个。\n\n## 三、已截止但即将举行、需要现在开始复习的\n\n- **软考·中级**：考试 2026-11-07，距举行 19 天，报名已截止 [结构化数据]。\n- **CET-4 / CET-6**：考试 2026-12-13，距举行 55 天，报名已截止 [结构化数据]。\n- **全国硕士研究生招生考试（初试）**：考试 2026-12-19，报名 2026-10-06 至 2026-10-26，**正在报名、距截止 7 天**，面向大四/应届本科 [结构化数据]。如果你不是大四，这条不适用；如果是，这是最紧急的一件事。\n\n---\n\n## 四、分步执行建议\n\n**第 1 步（本周内，10 月 19—25 日）**\n1. 确认自己是否已报名软考、四六级；已报名的，把 11 月 7 日、12 月 13 日两个节点写进日历。\n2. 若为大四且准备考研：**10 月 26 日前**完成初试报名，这是硬截止。\n3. 决定是否参加全国大学生数学竞赛（11 月 13 日截止报名、11 月 8 日比赛），要参加就本周内完成报名并开始刷真题。\n\n**第 2 步（10 月 26 日—11 月 7 日）**\n- 主攻软考中级：按考试大纲过一遍教材 + 做 2—3 套真题。\n- 数学竞赛穿插准备，每天固定 1 小时做专题题。\n\n**第 3 步（11 月 8 日—12 月 13 日）**\n- 11 月 8 日数学竞赛、11 月 7 日软考结束后，重心全部转到四六级：以真题听力 + 阅读为主，每周 2 套完整模考。\n- 12 月 13 日四六级考试。\n\n**第 4 步（12 月中下旬—学期末）**\n- 回归课程复习与期末考试。选课学分方面可参考：本科生每学期修读学分一般控制在 20—28 之间，最低不少于 15 学分 [资料1]；通识教育选修课本科期间须修满 8 学分，其中艺术类不少于 2 学分 [资料1]——可趁期末核对一下自己的学分结构是否达标。\n\n**第 5 步（为下学期铺路）**\n- 蓝桥杯、计算机设计大赛、数学建模这类赛事，2026 届的报名窗口多集中在 **11 月至次年 3 月**（如 2026 届蓝桥杯报名为 2025-11-23 至 2026-02-06，计算机设计大赛为 2026-02-27 至 2026-05-13）[结构化数据]。建议 11 月起关注教务处与学院通知，提前组队、找指导教师。\n- 数学建模为 3 人一队、鼓励跨学院跨专业组队，每队可设 1 名指导教师 [资料3]；计算机设计大赛每队 2—5 人、须有 1—2 名本校在职教师指导、每人限参加 1 件作品 [资料4]。可以现在就开始物色队友。\n\n---\n\n## 五、需要你补充的信息\n\n以下内容本次**未检索到**，补齐后我可以给出更精准的规划：\n- 你的年级、专业、学院、兴趣方向、GPA；\n- 本学期校历与你的具体课程安排；\n- 你已修学分情况（用于判断选课空间）。\n\n另外提醒：本学期选课相关的具体安排，资料里只有 2024—2025 学年第二学期的旧通知 [资料1]，**未检索到本学期（2026 年秋季）的选课通知与当前选课状态**，请以教务处官网或最新通知为准。",
+    "answer_chars": 2300,
+    "sources": [
+     "关于2024—2025学年第二学期选课工作的通知",
+     "关于组织我校学生参加2025年第十六届蓝桥杯大赛的通知",
+     "关于组织参加2025年全国大学生数学建模竞赛的通知",
+     "关于组织参加2024年中国大学生计算机设计大赛的通知"
+    ],
+    "retrieval_hit": false,
+    "retrieval_rank": null,
+    "tools": [
+     "get_student_profile",
+     "recommend_competition",
+     "query_exam"
+    ],
+    "tool_ok": null,
+    "facts_matched": 1,
+    "facts_total": 1,
+    "facts_hit": [
+     "竞赛"
+    ],
+    "facts_miss": [],
+    "citation": true,
+    "refusal_ok": null,
+    "latency_ms": 13484.0
+   }
+  },
+  "P08": {
+   "retrieval": {
+    "top_titles": [
+     "关于组织我校学生参加2025年第十六届蓝桥杯大赛的通知",
+     "关于组织参加2024年中国大学生计算机设计大赛的通知",
+     "关于组织参加2025年全国大学生数学建模竞赛的通知",
+     "关于2025年全国大学生信息安全竞赛校内选拔的通知",
+     "关于2024年上半年全国大学英语四、六级考试报名工作的通知"
+    ],
+    "hit": false,
+    "rank": null,
+    "candidates": 12,
+    "latency_ms": 147.7,
+    "fallback": false
+   },
+   "router": {
+    "route": "planning",
+    "correct": true,
+    "plan": {
+     "route": "planning",
+     "reason": "问题包含学生年级「大二」并询问如何报名和准备，属于结合个人情况的规划建议",
+     "rewritten_query": "大二学生参加蓝桥杯的报名方式和备赛准备建议",
+     "doc_type": "竞赛",
+     "college": "",
+     "department": "",
+     "year": 0,
+     "category": "计算机",
+     "level": "",
+     "exam_category": "",
+     "keyword": "蓝桥杯",
+     "grade": "大二",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 1092.3
+   },
+   "e2e": {
+    "route": "planning",
+    "correct_route": true,
+    "answer": "# 大二参加蓝桥杯：报名与准备建议\n\n## 一、先说结论：当前没有可报名的批次\n\n根据结构化数据，2026 年蓝桥杯的报名时间为 2025-11-23 至 2026-02-06，比赛时间为 2026-04-10 至 2026-04-17，**阶段：已结束**。2025 年及更早各届同样均为「已结束」。**未查询到 2027 届（下一届）蓝桥杯的报名时间与比赛时间**，因此目前没有正在开放的报名窗口，请以官网和学校最新通知为准。\n\n另外提醒：学校那份《关于组织我校学生参加2025年第十六届蓝桥杯大赛的通知》发布于 2024-11-20，其中「报名截止 2025 年 3 月 20 日（学校统一报名截止时间提前至 3 月 15 日）」属于 2025 年那一届的时间，早已过去，不能当作现在的报名时间。\n\n## 二、报名方式（依据学校往年通知，供下一届参考）\n\n- **报名渠道**：个人赛，学生登录大赛官网（dasai.lanqiao.cn）自行注册报名 [资料1]\n- **报名费**：由学校统一支付，请勿个人缴费 [资料1]\n- **后续动作**：报名后请加入校内 QQ 群（群号见校内通知附件）以便接收集训通知 [资料1]\n- **参赛对象**：我校全日制在校本科生、研究生，按研究生组、大学 A 组（重点本科）、大学 B 组（一般本科）分组评奖 [资料1]——你大二在读，符合本科生参赛范围\n- **赛道选择**：软件赛含 C/C++ 程序设计、Java 软件开发、Python 程序设计、Web 应用开发、软件测试、网络安全；另有电子赛和视觉艺术设计赛 [资料1]\n\n注意：结构化数据中明确「未查询到蓝桥杯报名入口的具体操作流程、报名费、备赛资料等章程原文信息」，所以官网注册的具体步骤请以官网页面为准。\n\n## 三、备赛规划（按下一届时间倒推）\n\n参照往年节奏，蓝桥杯一般在**前一年 11 月下旬开放报名、次年 2 月上旬截止，4 月中旬比赛**。以今天（2026-10-19）为起点，可以这样安排：\n\n**第一阶段：现在 — 2026 年 11 月（打基础）**\n- 确定语言赛道（C/C++、Java、Python 任选其一），把该语言的语法和标准库刷熟。\n- 每天固定 1—2 题，从基础题单起步，重点练输入输出、字符串、排序、模拟。\n\n**第二阶段：2026 年 11 月下旬 — 2027 年 2 月上旬（报名 + 专题突破）**\n- 密切关注官网（dasai.lanqiao.cn）和教务处通知，窗口一开就注册报名，并加入校内 QQ 群 [资料1]。\n- 按专题推进：算法基础、动态规划、图论、搜索与剪枝——这正是学校往年集训覆盖的内容 [资料1]。\n- 每周至少一次限时训练（4 小时连续做题，模拟省赛时长 [资料1]）。\n\n**第三阶段：2027 年 2 月 — 4 月（冲刺）**\n- 刷历年真题，按套限时完成并复盘错题。\n- 关注计算机学院组织的赛前集训（往年是 6 周、每周三晚 19:00—21:00、计算机楼 A401，免费面向全校 [资料1]），开班通知以当年为准。\n- 赛前一周调整作息，熟悉机考环境。\n\n## 四、你需要主动确认的两件事\n\n1. **下一届报名时间**：目前未查询到 2027 届信息，建议 11 月起每周查看一次大赛官网和教务处通知。\n2. **当年集训安排**：往年集训的时间地点来自 2025 届通知 [资料1]，下一届是否照此组织，需等新通知。\n\n## 五、补充说明\n\n资料2 是中国大学生计算机设计大赛（4C）的通知，资料3 是数学建模竞赛的通知，两者都不是蓝桥杯，报名方式和时间不能混用。如果你也想了解这两项赛事，可以再单独问我。",
+    "answer_chars": 1553,
+    "sources": [
+     "关于组织我校学生参加2025年第十六届蓝桥杯大赛的通知",
+     "关于组织参加2024年中国大学生计算机设计大赛的通知",
+     "关于组织参加2025年全国大学生数学建模竞赛的通知"
+    ],
+    "retrieval_hit": false,
+    "retrieval_rank": null,
+    "tools": [
+     "query_competition",
+     "recommend_competition"
+    ],
+    "tool_ok": null,
+    "facts_matched": 1,
+    "facts_total": 1,
+    "facts_hit": [
+     "蓝桥杯"
+    ],
+    "facts_miss": [],
+    "citation": true,
+    "refusal_ok": null,
+    "latency_ms": 10095.3
+   }
+  },
+  "G01": {
+   "retrieval": {
+    "top_titles": [
+     "关于开展2024—2025学年家庭经济困难学生认定工作的通知",
+     "关于2024年上半年全国大学英语四、六级考试报名工作的通知",
+     "关于2025年春季学期国家助学贷款申请与续贷工作的通知",
+     "关于做好2025年国家奖学金评选工作的通知",
+     "关于2024—2025学年第二学期选课工作的通知"
+    ],
+    "hit": false,
+    "rank": null,
+    "candidates": 16,
+    "latency_ms": 357.0,
+    "fallback": false
+   },
+   "router": {
+    "route": "general",
+    "correct": true,
+    "plan": {
+     "route": "general",
+     "reason": "用户只是打招呼，未涉及学校文件、竞赛考试或个人信息。",
+     "rewritten_query": "你好",
+     "doc_type": "",
+     "college": "",
+     "department": "",
+     "year": 0,
+     "category": "",
+     "level": "",
+     "exam_category": "",
+     "keyword": "",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 749.9
+   },
+   "e2e": {
+    "route": "general",
+    "correct_route": true,
+    "answer": "你好！我是校园学习助手，很高兴见到你 👋\n\n我可以帮你处理这些方面的问题：\n\n- **竞赛与考试**：报名时间、参赛条件、考试安排等\n- **学校文件与规定**：学籍、课程、评奖评优等相关条款\n- **学习规划**：备考安排、时间节点梳理等可执行的分步建议\n\n有具体想了解的事情，直接告诉我就行，比如「XX 竞赛什么时候报名」「XX 规定是怎么写的」。我会依据学校文件和查询到的信息回答；如果资料里没有，我会明确告诉你「未检索到相关内容」，不会凭空猜测。",
+    "answer_chars": 227,
+    "sources": [],
+    "retrieval_hit": false,
+    "retrieval_rank": null,
+    "tools": [],
+    "tool_ok": null,
+    "facts_matched": 0,
+    "facts_total": 0,
+    "facts_hit": [],
+    "facts_miss": [],
+    "citation": false,
+    "refusal_ok": null,
+    "latency_ms": 2259.1
+   }
+  },
+  "G02": {
+   "retrieval": {
+    "top_titles": [
+     "关于2024年上半年全国大学英语四、六级考试报名工作的通知",
+     "关于组织参加2024年中国大学生计算机设计大赛的通知",
+     "关于组织我校学生参加2025年第十六届蓝桥杯大赛的通知",
+     "关于2025年全国大学生信息安全竞赛校内选拔的通知",
+     "关于2024—2025学年第二学期选课工作的通知"
+    ],
+    "hit": false,
+    "rank": null,
+    "candidates": 13,
+    "latency_ms": 159.9,
+    "fallback": false
+   },
+   "router": {
+    "route": "general",
+    "correct": true,
+    "plan": {
+     "route": "general",
+     "reason": "用户在询问助手的功能范围，属于闲聊/系统介绍类问题，不涉及学校文件或结构化数据检索。",
+     "rewritten_query": "你能做什么 功能范围 介绍",
+     "doc_type": "",
+     "college": "",
+     "department": "",
+     "year": 0,
+     "category": "",
+     "level": "",
+     "exam_category": "",
+     "keyword": "",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 822.1
+   },
+   "e2e": {
+    "route": "general",
+    "correct_route": true,
+    "answer": "我是「校园学习助手」，面向本校学生提供基于校内文件和结构化数据的问答服务。本轮没有检索到学校文件，也没有查询到结构化数据，所以下面只介绍我能做什么，不涉及任何具体校规校情。\n\n**我能帮你做的事**\n\n1. **查校内规定与通知**\n   依据学校文件原文回答学籍、选课、考试、请假、奖助学金、宿舍管理、毕业要求等问题，并标注出处。\n\n2. **查结构化数据**\n   在提供查询结果时，回答课程、成绩、培养方案、校历时间节点、报名阶段状态等事实性问题。\n\n3. **判断时间与资格**\n   结合文件发布年份和报名阶段字段，帮你判断某项事项现在是否还能报名、你是否符合条件。\n\n4. **做规划类建议**\n   针对备考、选课、申请材料准备等，给出分步骤、带时间节点的可执行建议。\n\n5. **说明信息边界**\n   资料里没有的内容，我会明确告诉你「未检索到相关内容」，不会用常识去补，也不会编造。\n\n**使用方式**\n\n- 直接描述你的问题即可，例如「转专业需要什么条件」「这学期选课什么时候截止」。\n- 涉及时间、金额、名额、条件的问题，我会严格按文件原文回答，不改动一个字。\n- 如果问题需要具体文件或数据支撑，而当前没有检索到，我会如实说明，并建议你以官网或最新通知为准。\n\n需要我帮你查什么，直接说就行。",
+    "answer_chars": 559,
+    "sources": [],
+    "retrieval_hit": false,
+    "retrieval_rank": null,
+    "tools": [],
+    "tool_ok": null,
+    "facts_matched": 0,
+    "facts_total": 0,
+    "facts_hit": [],
+    "facts_miss": [],
+    "citation": false,
+    "refusal_ok": null,
+    "latency_ms": 3379.3
+   }
+  },
+  "G03": {
+   "retrieval": {
+    "top_titles": [
+     "关于举办第十届校园科技创新节的通知",
+     "关于2024年上半年全国大学英语四、六级考试报名工作的通知",
+     "关于2024年下半年全国大学英语四、六级考试报名工作的通知",
+     "关于2025年上半年全国大学英语四、六级考试报名工作的通知",
+     "关于2024—2025学年第二学期选课工作的通知"
+    ],
+    "hit": false,
+    "rank": null,
+    "candidates": 13,
+    "latency_ms": 146.3,
+    "fallback": false
+   },
+   "router": {
+    "route": "general",
+    "correct": true,
+    "plan": {
+     "route": "general",
+     "reason": "询问天气，属于与本系统校园知识无关的闲聊类问题",
+     "rewritten_query": "今天天气怎么样",
+     "doc_type": "",
+     "college": "",
+     "department": "",
+     "year": 0,
+     "category": "",
+     "level": "",
+     "exam_category": "",
+     "keyword": "",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 1039.8
+   },
+   "e2e": {
+    "route": "general",
+    "correct_route": true,
+    "answer": "未检索到相关内容。\n\n我是校园学习助手，只能依据学校文件和校内查询结果回答学籍、选课、考试、报名等校园学习类问题，天气信息不在可回答范围内。建议你查看手机天气应用或气象部门官方发布。\n\n如果你有校园学习方面的问题（比如选课安排、考试时间、报名条件等），可以告诉我，我来帮你查。",
+    "answer_chars": 138,
+    "sources": [],
+    "retrieval_hit": false,
+    "retrieval_rank": null,
+    "tools": [],
+    "tool_ok": null,
+    "facts_matched": 0,
+    "facts_total": 0,
+    "facts_hit": [],
+    "facts_miss": [],
+    "citation": false,
+    "refusal_ok": true,
+    "latency_ms": 1836.6
+   }
+  },
+  "G04": {
+   "retrieval": {
+    "top_titles": [
+     "关于组织我校学生参加2025年第十六届蓝桥杯大赛的通知",
+     "关于2025年春季学期国家助学贷款申请与续贷工作的通知",
+     "关于举办第十届校园科技创新节的通知",
+     "关于组织参加2024年中国大学生计算机设计大赛的通知",
+     "关于调整图书馆自习室开放时间的通知"
+    ],
+    "hit": false,
+    "rank": null,
+    "candidates": 13,
+    "latency_ms": 191.2,
+    "fallback": false
+   },
+   "router": {
+    "route": "general",
+    "correct": true,
+    "plan": {
+     "route": "general",
+     "reason": "写诗属于闲聊创作，与校园文件、竞赛考试等系统知识无关",
+     "rewritten_query": "写一首关于春天的诗",
+     "doc_type": "",
+     "college": "",
+     "department": "",
+     "year": 0,
+     "category": "",
+     "level": "",
+     "exam_category": "",
+     "keyword": "",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 893.7
+   },
+   "e2e": {
+    "route": "general",
+    "correct_route": true,
+    "answer": "# 关于春天的诗\n\n写诗属于创作类请求，不涉及学校文件或结构化数据，因此下面这首诗是我为你现场创作的，不是从任何校内资料中摘录的内容。\n\n## 《春日校园》\n\n风把最后一片寒意吹散，\n枝头的绿意悄悄铺展，\n晨光落在教学楼的窗沿，\n把书页照得温柔而明亮。\n\n操场边的花开了几朵，\n像谁不经意写下的标点，\n铃声穿过长长的走廊，\n惊起一群雀跃的春天。\n\n我们在课桌之间生长，\n把疑问种进泥土里面，\n等某一天回头望，\n才发现自己也开成了春天。\n\n---\n\n如果你想要**特定风格**的版本，可以告诉我，比如：\n\n- 古体诗 / 五言、七言绝句\n- 现代自由诗（更长或更短）\n- 围绕某个具体场景（毕业季、运动会、晚自习、图书馆）\n- 用于朗诵、投稿或班级活动\n\n告诉我方向，我可以再写一版。",
+    "answer_chars": 341,
+    "sources": [],
+    "retrieval_hit": false,
+    "retrieval_rank": null,
+    "tools": [],
+    "tool_ok": null,
+    "facts_matched": 0,
+    "facts_total": 0,
+    "facts_hit": [],
+    "facts_miss": [],
+    "citation": false,
+    "refusal_ok": null,
+    "latency_ms": 3049.9
+   }
+  },
+  "G05": {
+   "retrieval": {
+    "top_titles": [
+     "关于举办第十届校园科技创新节的通知",
+     "关于做好2025年国家奖学金评选工作的通知",
+     "关于2024—2025学年第二学期选课工作的通知",
+     "关于组织我校学生参加2025年第十六届蓝桥杯大赛的通知",
+     "关于开展2024—2025学年家庭经济困难学生认定工作的通知"
+    ],
+    "hit": false,
+    "rank": null,
+    "candidates": 15,
+    "latency_ms": 162.5,
+    "fallback": false
+   },
+   "router": {
+    "route": "general",
+    "correct": true,
+    "plan": {
+     "route": "general",
+     "reason": "询问校长姓名属于学校常识性信息，不属于文件检索、结构化竞赛考试字段或个人规划范畴",
+     "rewritten_query": "学校校长是谁",
+     "doc_type": "",
+     "college": "",
+     "department": "",
+     "year": 0,
+     "category": "",
+     "level": "",
+     "exam_category": "",
+     "keyword": "",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 1108.0
+   },
+   "e2e": {
+    "route": "general",
+    "correct_route": true,
+    "answer": "未检索到相关内容。\n\n本轮没有提供任何学校文件或结构化数据，因此无法确认校长的姓名。建议通过学校官网「学校领导」栏目或校办最新通知核实。",
+    "answer_chars": 68,
+    "sources": [],
+    "retrieval_hit": false,
+    "retrieval_rank": null,
+    "tools": [],
+    "tool_ok": null,
+    "facts_matched": 0,
+    "facts_total": 0,
+    "facts_hit": [],
+    "facts_miss": [],
+    "citation": false,
+    "refusal_ok": true,
+    "latency_ms": 1966.8
+   }
+  },
+  "G06": {
+   "retrieval": {
+    "top_titles": [
+     "关于调整图书馆自习室开放时间的通知",
+     "关于2025年春季学期国家助学贷款申请与续贷工作的通知",
+     "关于2024年上半年全国大学英语四、六级考试报名工作的通知",
+     "关于做好2025年国家奖学金评选工作的通知",
+     "关于举办第十届校园科技创新节的通知"
+    ],
+    "hit": false,
+    "rank": null,
+    "candidates": 15,
+    "latency_ms": 159.5,
+    "fallback": false
+   },
+   "router": {
+    "route": "document",
+    "correct": false,
+    "plan": {
+     "route": "document",
+     "reason": "询问食堂开放时间，属于学校后勤服务规定，需要查学校文件/通知原文",
+     "rewritten_query": "食堂开放时间 营业时间 后勤服务安排",
+     "doc_type": "后勤",
+     "college": "",
+     "department": "",
+     "year": 0,
+     "category": "",
+     "level": "",
+     "exam_category": "",
+     "keyword": "食堂",
+     "grade": "",
+     "major": "",
+     "interests": "",
+     "use_student_profile": false
+    },
+    "latency_ms": 1140.2
+   },
+   "e2e": {
+    "route": "general",
+    "correct_route": true,
+    "answer": "未检索到相关内容。\n\n本轮没有提供任何学校文件或结构化数据，因此无法确认食堂的开门时间。建议你通过以下方式获取准确信息：\n\n- 查看学校后勤服务集团或饮食服务中心的官方通知\n- 关注食堂门口张贴的营业时间公告\n- 咨询辅导员或学生会生活部\n\n如果你能提供相关文件或通知内容，我可以帮你进一步核对。",
+    "answer_chars": 148,
+    "sources": [],
+    "retrieval_hit": false,
+    "retrieval_rank": null,
+    "tools": [],
+    "tool_ok": null,
+    "facts_matched": 0,
+    "facts_total": 0,
+    "facts_hit": [],
+    "facts_miss": [],
+    "citation": false,
+    "refusal_ok": true,
+    "latency_ms": 2146.7
+   }
+  }
+ }
+}

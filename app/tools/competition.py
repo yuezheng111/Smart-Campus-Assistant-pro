@@ -15,7 +15,7 @@ import json
 from langchain_core.tools import tool
 
 from app import db
-from app.tools.common import grade_like, window_status
+from app.tools.common import grade_like, normalize_enum, window_status
 
 # 竞赛的俗称 → 库内正式名称片段（同样是为了解决「学生会怎么说」的问题）
 KEYWORD_ALIASES: dict[str, list[str]] = {
@@ -91,6 +91,12 @@ def query_competition(
         limit: 最多返回条数，默认 20。
     """
     expanded = _expand_keyword(keyword)
+    # 先把模型给的枚举对齐到库内取值。传「计算机类」时如果直接拿去精确匹配，
+    # 会查回 0 行，而模型会把「0 行」当成「库里没有」—— 那是错的，是我们自己的问题。
+    category, cat_note = normalize_enum("category", category)
+    level, level_note = normalize_enum("level", level)
+    notes = [note for note in (cat_note, level_note) if note]
+
     conditions: list[tuple[str, str, object]] = [
         ("category", "=", category),
         ("level", "=", level),
@@ -122,11 +128,19 @@ def query_competition(
         }
         for row in rows
     ]
-    return json.dumps(
-        {"今天日期": today.isoformat(), "数量": len(items), "竞赛列表": items},
-        ensure_ascii=False,
-        default=str,
-    )
+    payload: dict[str, object] = {
+        "今天日期": today.isoformat(),
+        "数量": len(items),
+        "竞赛列表": items,
+    }
+    if notes:
+        # 必须明说「我忽略了你某个条件」。否则模型看到 0 条会回答「没有这类竞赛」，
+        # 而真实原因是参数没对上库里的口径 —— 这是最难发现的一类错答。
+        payload["参数调整"] = notes
+        payload["说明"] = "以上条件未被采用，结果是放宽这些条件后查到的"
+    elif not items:
+        payload["说明"] = "按当前条件确实没有记录，可以换个关键词或去掉部分条件"
+    return json.dumps(payload, ensure_ascii=False, default=str)
 
 
 @tool

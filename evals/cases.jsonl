@@ -1,0 +1,50 @@
+{"id": "D01", "category": "document", "question": "2025年国家奖学金每人每年奖励多少钱？", "expected_route": "document", "expected_titles": ["关于做好2025年国家奖学金评选工作的通知"], "must_contain": ["8000"]}
+{"id": "D02", "category": "document", "question": "2025年国家奖学金我们学校有多少个名额？", "expected_route": "document", "expected_titles": ["关于做好2025年国家奖学金评选工作的通知"], "must_contain": ["45"]}
+{"id": "D03", "category": "document", "question": "2024年国家奖学金的名额是多少？", "expected_route": "document", "expected_titles": ["关于做好2024年国家奖学金评选工作的通知"], "must_contain": ["42"]}
+{"id": "D04", "category": "document", "question": "国家励志奖学金的奖励标准和名额是多少？", "expected_route": "document", "expected_titles": ["关于做好2024年国家励志奖学金评审工作的通知"], "must_contain": ["5000", "320"]}
+{"id": "D05", "category": "document", "question": "校级优秀学生奖学金一等奖、二等奖、三等奖分别是多少钱？", "expected_route": "document", "expected_titles": ["关于2023—2024学年校级优秀学生奖学金评定工作的通知"], "must_contain": ["2000", "1200", "800"]}
+{"id": "D06", "category": "document", "question": "2025年上半年英语四级考试是哪一天？", "expected_route": "document", "route_accept": ["document", "structured"], "expected_titles": ["关于2025年上半年全国大学英语四、六级考试报名工作的通知"], "must_contain": ["6月14日"], "data_conflict": true, "conflict_note": "文档写「6 月 14 日」，exam 表写 2025-06-16"}
+{"id": "D07", "category": "document", "question": "报考英语六级对四级分数有什么要求？", "expected_route": "document", "expected_titles": ["关于2025年上半年全国大学英语四、六级考试报名工作的通知", "关于2024年上半年全国大学英语四、六级考试报名工作的通知", "关于2024年下半年全国大学英语四、六级考试报名工作的通知"], "must_contain": ["425"]}
+{"id": "D08", "category": "document", "question": "计算机学院2024年转专业接收哪些专业，各接收多少人？", "expected_route": "document", "expected_titles": ["计算机学院2024年本科生转专业工作实施细则"], "must_contain": ["12", "10", "8"]}
+{"id": "D09", "category": "document", "question": "本科生转专业最多可以申请几次？", "expected_route": "document", "expected_titles": ["XX大学本科生转专业管理办法"], "must_contain": ["一次"]}
+{"id": "D10", "category": "document", "question": "蓝桥杯比赛分哪几个赛道？", "expected_route": "document", "expected_titles": ["关于组织我校学生参加2025年第十六届蓝桥杯大赛的通知"], "must_contain": ["软件赛", "电子赛"]}
+{"id": "D11", "category": "document", "question": "2025年数学建模竞赛的比赛时间是什么时候？", "expected_route": "document", "route_accept": ["document", "structured"], "expected_titles": ["关于组织参加2025年全国大学生数学建模竞赛的通知"], "must_contain": ["9月4日", "72"], "data_conflict": true, "conflict_note": "文档写 9 月 4 日—7 日，competition 表写 2025-09-10 ~ 09-17"}
+{"id": "D12", "category": "document", "question": "数学建模竞赛几个人组一队？", "expected_route": "document", "expected_titles": ["关于组织参加2025年全国大学生数学建模竞赛的通知"], "must_contain": ["3"]}
+{"id": "D13", "category": "document", "question": "信息安全竞赛校内选拔有哪几个赛道？", "expected_route": "document", "expected_titles": ["关于2025年全国大学生信息安全竞赛校内选拔的通知"], "must_contain": ["CTF", "作品赛"]}
+{"id": "D14", "category": "document", "question": "这学期选课分几轮，第一轮什么时候开始？", "expected_route": "document", "expected_titles": ["关于2024—2025学年第二学期选课工作的通知"], "must_contain": ["1月10日"]}
+{"id": "D15", "category": "document", "question": "毕业设计选题有什么要求？", "expected_route": "document", "expected_titles": ["XX大学本科生毕业设计（论文）工作管理规定"], "must_contain": ["一人一题"]}
+{"id": "D16", "category": "document", "question": "综合素质测评成绩由哪几部分构成，各占多少分？", "expected_route": "document", "expected_titles": ["XX大学学生综合素质测评实施办法"], "must_contain": ["70", "15"]}
+{"id": "D17", "category": "document", "question": "家庭经济困难学生认定分为哪几个等级？", "expected_route": "document", "expected_titles": ["关于开展2024—2025学年家庭经济困难学生认定工作的通知"], "must_contain": ["特别困难", "比较困难"]}
+{"id": "D18", "category": "document", "question": "图书馆自习室的开放时间是怎么调整的？", "expected_route": "document", "expected_titles": ["关于调整图书馆自习室开放时间的通知"], "must_contain": ["7:00", "23:00"]}
+{"id": "D19", "category": "document", "question": "国家助学贷款本科生每年最多能贷多少钱？", "expected_route": "document", "expected_titles": ["关于2025年春季学期国家助学贷款申请与续贷工作的通知"], "must_contain": ["16000"]}
+{"id": "D20", "category": "document", "question": "2025年计算机学院推免名额一共多少名？", "expected_route": "document", "expected_titles": ["计算机学院2025年推荐优秀应届本科毕业生免试攻读研究生工作细则"], "must_contain": ["46"]}
+{"id": "S01", "category": "structured", "question": "2025年蓝桥杯什么时候开始报名？", "expected_route": "structured", "expect_tool": "query_competition", "must_contain": ["2024-11-27"]}
+{"id": "S02", "category": "structured", "question": "过去五年蓝桥杯分别什么时候报名？", "expected_route": "structured", "expect_tool": "query_competition", "must_contain": ["蓝桥杯"]}
+{"id": "S03", "category": "structured", "question": "近五年计算机类有哪些竞赛？", "expected_route": "structured", "expect_tool": "query_competition", "must_contain": ["计算机"]}
+{"id": "S04", "category": "structured", "question": "2025年数学建模竞赛什么时候开始比赛？", "expected_route": "structured", "expect_tool": "query_competition", "must_contain": ["数学建模"]}
+{"id": "S05", "category": "structured", "question": "学校有哪些英语类考试？", "expected_route": "structured", "expect_tool": "query_exam", "must_contain": ["四级"]}
+{"id": "S06", "category": "structured", "question": "计算机等级考试什么时候报名？", "expected_route": "structured", "expect_tool": "query_exam", "must_contain": ["计算机"]}
+{"id": "S07", "category": "structured", "question": "2026年蓝桥杯什么时候报名？", "expected_route": "structured", "expect_tool": "query_competition", "must_contain": ["2025-11-23"]}
+{"id": "S08", "category": "structured", "question": "创新创业类的竞赛有哪些？", "expected_route": "structured", "expect_tool": "query_competition", "must_contain": ["创新创业"]}
+{"id": "S09", "category": "structured", "question": "大学英语四级考试一年考几次？", "expected_route": "structured", "expect_tool": "query_exam", "must_contain": ["四级"]}
+{"id": "S10", "category": "structured", "question": "电子类竞赛有哪些？", "expected_route": "structured", "expect_tool": "query_competition", "must_contain": ["电子"]}
+{"id": "H01", "category": "hybrid", "question": "帮我找2025年计算机学院的竞赛通知，顺便看看报名截止时间", "expected_route": "hybrid", "expected_titles": ["关于2025年全国大学生信息安全竞赛校内选拔的通知", "关于组织参加2024年中国大学生计算机设计大赛的通知"], "must_contain": ["报名"]}
+{"id": "H02", "category": "hybrid", "question": "找一下学校关于转专业的文件，再说说计算机学院今年接收多少人", "expected_route": "hybrid", "expected_titles": ["XX大学本科生转专业管理办法", "计算机学院2024年本科生转专业工作实施细则"], "must_contain": ["38", "转专业"]}
+{"id": "H03", "category": "hybrid", "question": "国家奖学金的通知发我看看，另外今年名额多少", "expected_route": "hybrid", "expected_titles": ["关于做好2025年国家奖学金评选工作的通知"], "must_contain": ["45"]}
+{"id": "H04", "category": "hybrid", "question": "四六级报名的通知在哪，报名时间是什么时候", "expected_route": "hybrid", "expected_titles": ["关于2025年上半年全国大学英语四、六级考试报名工作的通知", "关于2024年下半年全国大学英语四、六级考试报名工作的通知"], "must_contain": ["报名"]}
+{"id": "H05", "category": "hybrid", "question": "数学建模竞赛的通知找一下，比赛时间也告诉我", "expected_route": "hybrid", "expected_titles": ["关于组织参加2025年全国大学生数学建模竞赛的通知"], "must_contain": ["9月4日"]}
+{"id": "H06", "category": "hybrid", "question": "助学贷款的通知发我，顺便说下本科生额度", "expected_route": "hybrid", "expected_titles": ["关于2025年春季学期国家助学贷款申请与续贷工作的通知"], "must_contain": ["16000"]}
+{"id": "P01", "category": "planning", "question": "我是大二软件工程专业的学生，想参加计算机类竞赛，现在应该怎么准备？", "expected_route": "planning", "must_contain": ["竞赛"]}
+{"id": "P02", "category": "planning", "question": "我大三，学计算机科学与技术，对信息安全感兴趣，适合参加什么竞赛？", "expected_route": "planning", "must_contain": ["信息安全"]}
+{"id": "P03", "category": "planning", "question": "我大一数学专业，想参加数学建模，需要做什么准备？", "expected_route": "planning", "must_contain": ["数学建模"]}
+{"id": "P04", "category": "planning", "question": "学号20240217的学生适合参加哪些竞赛？", "expected_route": "planning", "must_contain": ["竞赛"]}
+{"id": "P05", "category": "planning", "question": "我想保研，现在大二，应该怎么规划？", "expected_route": "planning", "must_contain": ["推免"]}
+{"id": "P06", "category": "planning", "question": "我成绩一般，想拿奖学金，有什么建议？", "expected_route": "planning", "must_contain": ["奖学金"]}
+{"id": "P07", "category": "planning", "question": "帮我规划一下这学期的学习和竞赛安排", "expected_route": "planning", "must_contain": ["竞赛"]}
+{"id": "P08", "category": "planning", "question": "我大二，想参加蓝桥杯，怎么报名和准备？", "expected_route": "planning", "must_contain": ["蓝桥杯"]}
+{"id": "G01", "category": "general", "question": "你好", "expected_route": "general"}
+{"id": "G02", "category": "general", "question": "你能做什么？", "expected_route": "general"}
+{"id": "G03", "category": "general", "question": "今天天气怎么样？", "expected_route": "general", "expect_refusal": true}
+{"id": "G04", "category": "general", "question": "帮我写一首关于春天的诗", "expected_route": "general"}
+{"id": "G05", "category": "general", "question": "我们学校校长是谁？", "expected_route": "general", "expect_refusal": true}
+{"id": "G06", "category": "general", "question": "食堂几点开门？", "expected_route": "general", "expect_refusal": true}

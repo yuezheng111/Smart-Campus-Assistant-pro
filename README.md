@@ -57,17 +57,36 @@ Agent学习6/
 ├── app/
 │   ├── config.py             # 全局配置 + Windows 注册表兜底读 API Key
 │   ├── db.py                 # MySQL 访问层（参数化查询构造器）
+│   ├── ingest.py             # 入库总入口：按 PARSING_PIPELINE 分派 v2 / legacy
+│   ├── logging_config.py     # 文件日志（按天轮转）
+│   ├── admin_change.py       # 管理端元数据变更（改档案不改正文）
+│   ├── chat_attachment.py    # 对话中的附件临时解析
 │   │
-│   ├── rag/                  # 第一条线：RAG
-│   │   ├── loader.py         #   文档加载 + YAML front-matter 元数据抽取
-│   │   ├── splitter.py       #   中文友好切分（chunk 补标题）
+│   ├── parsing/              # 多格式解析链路（v2，默认路径）
+│   │   ├── models.py         #   Canonical Document：表格保留合并单元格
+│   │   ├── base.py           #   BaseParser 基类 + 侧车元数据合并
+│   │   ├── factory.py        #   按 magic bytes 分发，不信后缀
+│   │   ├── pdf_parser.py     #   pdfplumber 取结构 + pypdf 取图片字节
+│   │   ├── docx_parser.py    #   标题层级 / 表格 / 图片
+│   │   ├── pptx_parser.py    #   按形状几何推断标题，备注单独成块
+│   │   ├── xlsx_parser.py    #   多 sheet，表头 + 合并区域
+│   │   ├── text_parser.py    #   md / txt，认中文编号标题
+│   │   ├── normalize.py      #   清洗 + 质量校验（四态状态判定）
+│   │   ├── chunker.py        #   结构感知切分
+│   │   ├── index.py          #   Chroma 写入（整批先删后写）
+│   │   └── pipeline.py       #   入库状态机 + 重试 + 并发边界
+│   │
+│   ├── rag/                  # 检索层（两条链路共用）+ 老链路（legacy 退路）
+│   │   ├── loader.py         #   老链路：文档加载 + front-matter 抽取
+│   │   ├── splitter.py       #   老链路：按字符切分
 │   │   ├── vectorstore.py    #   Chroma + DashScope Embedding
 │   │   └── retriever.py      #   语义检索 + 元数据过滤
 │   │
 │   ├── tools/                # Tools 层（Agent 的手）
-│   │   ├── common.py         #   年级翻译、报名窗口判断
+│   │   ├── common.py         #   年级翻译、报名窗口判断、同义词映射
 │   │   ├── document.py       #   search_school_document / list_school_documents
 │   │   │                     #   get_document_detail
+│   │   ├── admin.py          #   管理端：列文件 / 改元数据 / 对账 / 废止
 │   │   ├── competition.py    #   query_competition / recommend_competition
 │   │   ├── exam.py           #   query_exam
 │   │   └── student.py        #   get_student_profile
@@ -76,21 +95,33 @@ Agent学习6/
 │   │   ├── llm.py            #   LLM 客户端工厂
 │   │   ├── router.py         #   意图识别 + 参数抽取（结构化输出）
 │   │   ├── state.py          #   状态定义（reducer vs 覆盖）
-│   │   └── graph.py          #   状态机组装
+│   │   ├── graph.py          #   学生端状态机组装
+│   │   ├── admin_graph.py    #   管理端状态机（与学生端共用 RAG、逻辑隔离）
+│   │   ├── evidence.py       #   检索证据链，供引用编号校验
+│   │   └── verifier.py       #   回答校验（引用是否越界、数字是否有据）
 │   │
-│   ├── api/main.py           # FastAPI（14 个路由）
+│   ├── api/
+│   │   ├── main.py           # FastAPI 路由
+│   │   └── auth.py           # 管理端 token 校验
 │   └── web/                  # 前端（无框架无构建）
-│       ├── index.html
+│       ├── index.html        #   学生端
+│       ├── admin.html        #   管理端（文件管理 + 原件对账）
+│       ├── admin_chat.html   #   管理端对话
 │       ├── styles/{tokens,base,components}.css
 │       └── scripts/main.js
 │
 ├── db/schema.sql             # 4 张表：document / competition / exam / student
-├── data/raw/                 # 学校文件（21 份仿真文档）
+├── data/raw/                 # 学校文件（115 份：pdf / docx / md / txt）
+├── docs/                     # 系统设计、Agent 重构记录
+├── evals/                    # 问题集 + 评测脚本 + 历史评测结果
+├── tests/                    # 156 个单元测试
 ├── scripts/
 │   ├── init_db.py            # 建库建表 + 结构化种子数据
 │   ├── gen_sample_docs.py    # 生成仿真学校文件
 │   ├── seed_data.py          # 竞赛/考试/学生种子数据
-│   └── test_tools.py         # 工具层冒烟测试（不经过 LLM）
+│   ├── test_tools.py         # 工具层冒烟测试（不经过 LLM）
+│   ├── bench_retrieval.py    # 检索延迟测量（warmup + p50/p95）
+│   └── bench_ingest_v2.py    # 入库耗时与幂等验收
 └── var/chroma/               # 向量库持久化目录
 ```
 
@@ -111,9 +142,13 @@ Agent学习6/
 ### 1. 初始化数据库（结构化数据）
 
 ```bash
-python scripts/gen_sample_docs.py   # 生成 21 份学校文件
-python scripts/init_db.py           # 建表 + 灌竞赛/考试
+python scripts/gen_sample_docs.py        # 生成 21 份基础 md 文件
+python scripts/gen_corpus_multiformat.py # 生成 94 份多格式语料（md/txt/pdf/docx + 侧车 yaml）
+python scripts/init_db.py                # 建表 + 灌竞赛/考试
 ```
+
+> 语料是可选的：`data/raw/` 里已经带了一份 115 份的仿真语料，直接用就行。
+> 想换成自己的文件，把原件丢进 `data/raw/` 再跑灌库即可。
 
 > ⚠️ **顺序很重要**：`init_db.py` 里的 `schema.sql` 会 `DROP TABLE document`，
 > 所以它必须在 `run_ingest.py` **之前**跑。反过来跑会把文件元数据冲掉。
@@ -121,11 +156,12 @@ python scripts/init_db.py           # 建表 + 灌竞赛/考试
 ### 2. 学校文件灌库（第一条线）
 
 ```bash
-python run_ingest.py
+python run_ingest.py          # 默认走 v2 多格式解析链路
+python run_ingest.py --purge  # 连留档一起清空后重建（换向量库时用）
 ```
 
-这一步会：解析文档 → 切分（21 份 → 37 个 chunk）→ 写 MySQL 元数据表 → 写 Chroma 向量库。
-需要调用 DashScope Embedding 接口，约 4 次请求。
+这一步会：解析文档 → 清洗校验 → 结构感知切分（115 份 → 828 个 chunk）
+→ 写 MySQL 元数据表 → 写 Chroma 向量库。需要调用 DashScope Embedding 接口。
 
 ### 3. 自检（可选但推荐）
 
@@ -149,7 +185,22 @@ python -m app.agent.graph
 python -m app.api.main
 ```
 
-打开 <http://127.0.0.1:8000>。
+打开 <http://127.0.0.1:8000>。管理端在 `/admin`（默认只允许本机回环访问；
+需要远程访问就在 `.env` 里配 `ADMIN_TOKEN`，然后用 `/admin?token=...` 打开）。
+
+### 5. 测试与验收
+
+```bash
+python -m pytest tests -q                          # 156 例单元测试，不调外部接口
+python scripts/bench_ingest_v2.py --step rebuild   # 全量重建 + 计时
+python scripts/bench_ingest_v2.py --step verify    # 换进程校验 828 条片段可读
+python scripts/bench_ingest_v2.py --step incremental  # 幂等复跑，应 0 次 embedding
+python scripts/bench_retrieval.py                  # 检索延迟 p50 / p95
+python evals/run_eval.py --layer all               # 50 条问题的三层评测
+```
+
+> 跑完 `run_ingest.py` 或 `bench_ingest_v2.py` 之后，**web 服务必须重启**才能搜到新文件
+> —— 原因见「已知限制」和「设计决策 10」。
 
 ---
 
@@ -200,6 +251,48 @@ python -m app.api.main
 写死 `[2021..2025]` 的后果是：过两年跑起来全是「已结束」，演示直接垮掉。
 所以 `seed_data.py` 用 `range(今天年份-5, 今天年份+1)` 生成，永远有「正在报名」的数据。
 
+### 8. 为什么解析结果要先变成结构化文档，而不是直接切字符串
+
+老链路（`app/rag/loader.py`）把文件读成一个 `str`，这一步是不可逆的降维：
+读成字符串的那一刻，表格的行列、标题层级、图片位置全丢了，后面想「按章节切」
+「表格整体成块」根本没有数据可用 —— 只能在字符串上猜。
+
+所以 v2 链路的解析器统一吐 `ParsedDocument`（`app/parsing/models.py`）：
+一个 `blocks` 列表，每个 block 带 `type`（heading / paragraph / table / image）、
+`text`、`heading_level`。切分器（`chunker.py`）消费的是结构，不是字符串。
+**模型必须先于解析器存在，不能等解析完再补。**
+
+### 9. 为什么不把合并单元格拍平
+
+「拍平」指把合并区域里每个单元格都填上值。后果是一张跨 5 行的「学院」列
+会重复 5 次同样的文字，切块后模型看到 5 行重复，而且**再也分不清哪一格本来是合并的**。
+学校的名额分配表几乎全是这种结构。
+
+所以单元格存 `(row, col, rowspan, colspan)` 四元组，渲染时才用 `grid()` 展开成矩阵。
+代价是每个读表格的地方都得先调 `grid()`，收益是原始版式一点没丢。
+
+### 10. 为什么批量写 Chroma 要「先整批删，再逐份写」
+
+这是本项目踩得最深的一个坑。原来的写法是逐份文件「删掉旧片段 → 写入新片段」，
+115 份跑完，**HNSW 索引直接坏掉**：新进程打开集合，连 `count()` / `get()` 都报
+`Error loading hnsw index`，整个知识库对学生完全不可检索 —— 而 SQLite 里的数据一条没丢，
+所以从数据库看一切正常，极具迷惑性。
+
+写了个最小复现（`var/_exp_chroma_churn2.py`，805 条 / 1024 维）做了四组对照：
+
+| 写入模式 | 结果 |
+|---|---|
+| 逐份「删一次 → 写一批」交替 | ✗ 坏 |
+| 先逐份删 115 次，再统一写（分相） | ✗ 坏 |
+| 一次删空，再统一写 | ✓ 正常 |
+| 删集合重写 | ✓ 正常 |
+
+结论：变量是**删除调用的次数**，跟是否交替、跟有没有 `close()` 都无关
+（关之前 `sleep(10)` 照样坏）。20 条的小集合复现不出来，量级到数百条才触发。
+
+所以现在 `IngestPipeline.run()` 是三段式：全部文件解析+向量化完 → **一次** `$in` 删完整批
+→ 逐份 `upsert`（不是 `add`）。单份上传只有一份文件，删两次无所谓，不受这条约束。
+
 ---
 
 ## 五、API 一览
@@ -219,7 +312,22 @@ python -m app.api.main
 | GET | `/api/stats` | 统计 | ❌ |
 | GET | `/health` | 健康检查 | ❌ |
 
-> 设计原则：**只有 `/api/chat` 会烧钱**。用户在前端点筛选器、翻列表都不消耗 LLM。
+管理端（`/api/admin/*`，**默认只允许本机回环访问**；配了 `ADMIN_TOKEN` 后需带
+`X-Admin-Token` 请求头，也支持 `?token=`）：
+
+| 方法 | 路径 | 说明 | 消耗 LLM |
+|---|---|---|---|
+| POST | `/api/admin/upload` | 上传文件入库（支持 pdf/docx/pptx/xlsx/md/txt） | ❌ |
+| GET | `/api/admin/documents` | 文件管理列表（可按状态 / 原件缺失筛选） | ❌ |
+| POST | `/api/admin/documents/{id}/supersede` | 废止（只改状态，原文与片段保留） | ❌ |
+| POST | `/api/admin/documents/{id}/restore` | 撤销废止 | ❌ |
+| GET | `/api/admin/orphans` | 原件对账：扫出「库里有、磁盘上没有」的留档 | ❌ |
+| POST | `/api/admin/orphans/mark` | 标记缺失（需人工确认） | ❌ |
+| POST | `/api/admin/orphans/restore` | 恢复（原件确认回来后） | ❌ |
+| POST | `/api/admin/chat` | 管理端对话（与学生端共用同一套 RAG，逻辑隔离） | ✅ |
+| GET/POST | `/api/admin/changes` | 元数据变更提案 / 确认应用 | ✅ / ❌ |
+
+> 设计原则：**只有对话接口会烧钱**。用户在前端点筛选器、翻列表都不消耗 LLM。
 > 交互式文档：<http://127.0.0.1:8000/docs>
 
 ### `/api/chat` 返回结构
@@ -262,8 +370,8 @@ python -m app.api.main
 
 | 阶段 | 状态 | 落在哪里 |
 |---|---|---|
-| 1. 学校文件解析 | ✅ | `app/rag/loader.py` |
-| 2. RAG 知识库 | ✅ | `app/rag/splitter.py` + `vectorstore.py` |
+| 1. 学校文件解析 | ✅ | `app/parsing/`（默认链路，支持 pdf/docx/pptx/xlsx/md/txt）+ `app/rag/loader.py`（老链路） |
+| 2. RAG 知识库 | ✅ | `app/parsing/chunker.py` + `app/rag/vectorstore.py` |
 | 3. 自然语言文件搜索 | ✅ | `app/rag/retriever.py` + `search_school_document` |
 | 4. MySQL 竞赛/考试库 | ✅ | `db/schema.sql` + `scripts/init_db.py` |
 | 5. Python Tools | ✅ | `app/tools/*`（7 个工具） |
@@ -357,14 +465,35 @@ graph.invoke(state, config={"configurable": {"thread_id": session_id}})
 令牌定义在 `app/web/styles/tokens.css`，组件在 `components.css`。
 第一版设计（三栏 + 轨迹面板）的截图留在 `.recon/ui_0*.png`，改版后的在 `.recon/ui4/`。
 
+### 管理端：独立页面，刻意不进学生导航
+
+管理端是 `admin.html` + `admin_chat.html`，和学生端**共用同一套 RAG 和同一个 collection**，
+只是换了一套 `where` 条件和返回字段（`retriever.search_documents_admin` 传
+`include_superseded=True, include_missing=True`，并回填 `document.id`）。
+不另起一套向量库——那样两份库迟早不同步，而且重建一次要花双倍 embedding。
+
+三条刻意的边界：
+
+- **只改档案，不改正文**。管理端的「改元数据」改的是标题、发布部门、适用学院这类定位信息，
+  正文永远以 `data/raw/` 里的原件为准。要改内容就改原件再灌库。
+- **废止 ≠ 删除**。废止只改 `status`，原文和向量片段全部保留，`/raw`、`/download` 仍然可访问，
+  撤销废止不用重算 embedding。「下架一份文件」的正确操作是改状态。
+- **原件缺失只标记不删除**。文件从磁盘消失后，MySQL 留档、Chroma 片段保留
+  （片段里有正文，本身就是备份），只把两处标记改成缺失、退出默认检索。
+  扫描 `find_orphans()` 永远只读，真正的处置（标记/恢复）必须人工确认——
+  路径配错一次就能把整个知识库标成缺失。
+
 ---
 
 ## 八、已知限制
 
-1. **没有鉴权**。学生画像是演示表，真实场景要接学校统一身份认证。
-2. **数据是仿真的**。`data/raw/` 下 21 份文档是我按真实公文格式造的，
-   把真实 PDF/Word 放进去重新跑 `run_ingest.py` 即可替换（保留 YAML 头部格式，
-   或删掉头部让程序从文件名猜元数据）。
+1. **学生端没有鉴权**。学生画像是演示表，真实场景要接学校统一身份认证。
+   管理端有门禁（`app/api/auth.py`：默认只允许本机回环，配了 `ADMIN_TOKEN` 后走请求头校验，
+   并且是整个 `/api/admin` 前缀的中间件而非逐个路由加依赖），
+   但本质是「一个共享令牌」，不是真正的账号体系，也没有操作审计。
+2. **数据是仿真的**。`data/raw/` 下 115 份文档是我按真实公文格式造的（pdf / docx / md / txt 混合），
+   把真实文件放进去重新跑 `run_ingest.py` 即可替换。元数据来源优先级：
+   文件内 front-matter > 同目录的 `xxx.pdf.meta.yaml` 侧车 > 文件名日期 > 默认值。
 3. **按日期判断报名状态依赖数据新鲜度**。竞赛库是种子数据，真实部署要接学校教务数据源。
 4. **单轮检索**。复杂问题没有做 query 改写迭代（multi-hop），
    目前只做了一次 LLM 查询改写（`plan.rewritten_query`）。
@@ -376,12 +505,27 @@ graph.invoke(state, config={"configurable": {"thread_id": session_id}})
    Google Fonts 取，中文走系统字体栈（PingFang SC / Microsoft YaHei / Noto Sans SC）。
    国内加载不到拉丁字体时会静默回退，视觉不塌——这是刻意设计，
    但代价是首屏字体可能有一次替换闪烁（FOUT）。
-8. **阅读器只认文本类文件**。`/raw` 直接把文件当 UTF-8 文本读，
-   所以 `.md` / `.txt` 能读；换成真实 `.pdf` / `.docx` 时这里会读成乱码，
-   需要接 loader 里已有的 `_read_pdf` / `_read_docx` 来做解析。
+8. **阅读器对部分格式还是空白**。`/raw` 里 `.md` / `.txt` 直接按 UTF-8 读，
+   `.pdf` / `.docx` 走 `loader.load_one()` 解析出正文；但老链路 loader 不认
+   `.pptx` / `.xlsx`，这两种文件能入库、能检索，点「查看原文」却是空白。
+   修法是把 `/raw` 也接到 `app/parsing/` 上（同一套解析器，输出 Markdown 即可）。
+   `/download` 不受影响，一直返回原件。
 9. **高亮是「尽力而为」**。片段匹配用的是空白容忍的正则，
    如果模型引用的段落跨了 chunk 边界，或者片段被切分截断，就可能定位不到——
    这时不报错，只是不高亮。
+10. **扫描件没有 OCR**。纯图片 PDF（一个字都没抽出来）会被标成 `empty` 状态并跳过，
+    不会入库。当前 40 份测试 PDF 里有 4 份属于这种，是真实能力边界而非误判。
+11. **复杂版式仍会漏**。双栏 PDF 的左右栏文字若在同一水平线上，会被拼进同一段
+    （比"顺序不对"更糟）；没画线的表格（靠空格对齐）检测不到，会被当普通正文。
+    有框线的表格渲染正常（实测 29 列 × 50 行的生源计划表，表头与合并单元格都对）。
+12. **相关度闸门当前不生效**。`retriever` 里 `low_confidence` 判据依赖
+    relevance 分数（`1-距离`，越大越相关），但 embedding 函数没注册到 Chroma 全局表，
+    LangChain 的 relevance 接口会抛错，实际一律退回距离分数（越小越相关）。
+    两者方向相反，所以闸门宁可不用也不误判 —— 代价是「相关度低」的提示永远不会触发。
+13. **向量库跨进程不刷新**。Chroma 的 HNSW 索引是进程启动时的内存快照：
+    另一个进程（`run_ingest.py`）写进去的片段，本进程 `count()` / `get()` 看得到，
+    `query()` 却查不到。所以**灌库之后必须重启 web 服务**，否则「库里明明有、
+    线上就是搜不到」，很容易误判成入库失败。同进程内上传则立即可查。
 
 ---
 
@@ -389,8 +533,12 @@ graph.invoke(state, config={"configurable": {"thread_id": session_id}})
 
 | 检查项 | 结果 |
 |---|---|
-| 文档加载与切分 | 21 份 → 37 个 chunk |
-| 向量库 | 37 条记录 |
+| 文档解析入库 | 115 份（pdf 20 / docx 20 / md 55 / txt 20）→ **828 个 chunk**，0 失败 0 跳过 |
+| 向量库 | 828 条片段；换进程后 `count` / `get` / `query` 全通，chunk_id 828/828 合规 |
+| 元数据 ↔ 向量库对账 | 115 ↔ 115，两向差集为 0 |
+| 入库耗时 | 全量重建 45s（空库）/ 50s（重写已有）；增量复跑 2.3s、**0 次 embedding**；单份上传 1.4s |
+| 单元测试 | `pytest` 156 passed |
+| 5 条真实提问检索命中 | 5/5 命中，片段精确到「四、材料要求」这一级章节 |
 | 结构化数据 | 竞赛 72 条 / 考试 72 条 / 学生 3 条 |
 | 7 个 Tool 冒烟测试 | 全部通过 |
 | 路由分类（7 条样例） | 全部正确 |
@@ -452,5 +600,10 @@ Q: 我是大二软件工程专业的学生，想参加明年的计算机类竞�
 2. **加 rerank**：检索后用 bge-reranker 之类的小模型重排，召回精度会再上一档
 3. **Query 改写多跳**：把「我是大二计算机专业适合参加什么」拆成多个子查询并行检索
 4. **接入真实数据**：把 `data/raw/` 换成学校真实文件，竞赛库接教务系统
-5. **加评测**：建一个 30~50 条的问题-标准答案集，量化路由准确率和答案忠实度
-   （这一步对面试最有说服力）
+5. **给解析链路补评测**。`evals/` 已经覆盖路由、检索、答案忠实度三层，
+   但没有「切分切得对不对」的量化指标 —— 表格有没有被切成独立块、章节标题有没有漏，
+   目前只能靠人工抽查逐份看。
+6. **把线上换成 v2 链路**。服务器上跑的还是旧代码 + 旧向量库。切换时要按顺序：
+   上传代码 → `run_ingest.py` 重建 → **重启 systemd**。
+   最后一步不能省，Chroma 的 HNSW 索引是进程启动时的内存快照，
+   不重启的话库里明明有新数据，线上却搜不到。

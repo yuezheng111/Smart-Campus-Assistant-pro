@@ -22,6 +22,9 @@ scripts/collect_project_stats.py
 # ---------- 侦察/临时 ----------
 .recon/
 
+# ---------- 测试语料（第三方公开文件，不随仓库分发） ----------
+test_corpus/
+
 # ---------- IDE ----------
 .idea/
 .vscode/

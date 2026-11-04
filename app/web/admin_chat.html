@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>知识库助手 · 管理台</title>
+<link rel="stylesheet" href="./styles/tokens.css" />
+<style>
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    font-family: var(--font-body, -apple-system, "Segoe UI", "Microsoft YaHei", sans-serif);
+    font-size: 14px;
+    line-height: 1.65;
+    color: var(--color-text, #1f2328);
+    background: var(--color-bg, #faf9f7);
+  }
+  header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 12px 20px;
+    border-bottom: 1px solid var(--color-border, #e6e3dd);
+    background: var(--color-surface, #fff);
+    flex: none;
+  }
+  header h1 { font-size: 15px; font-weight: 500; margin: 0; }
+  header .sub { font-size: 12px; color: var(--color-muted, #7a7670); }
+  header .spacer { flex: 1; }
+  header a, header button.link {
+    font-size: 12px; color: var(--color-muted, #7a7670); text-decoration: none;
+    background: none; border: none; cursor: pointer; padding: 4px 6px;
+  }
+  header a:hover, header button.link:hover { color: var(--color-text, #1f2328); }
+
+  main { flex: 1; display: flex; min-height: 0; position: relative; }
+  #drop {
+    position: absolute; inset: 14px; z-index: 5; display: none;
+    align-items: center; justify-content: center; text-align: center;
+    border: 2px dashed #8aa8c4; border-radius: 12px;
+    background: rgba(138, 168, 196, .10);
+    color: #2f5d8a; font-size: 14px; pointer-events: none;
+  }
+  body.dragging #drop { display: flex; }
+  body.dragging #thread { opacity: .55; }
+  #thread {
+    flex: 1;
+    overflow-y: auto;
+    padding: 24px 20px 8px;
+  }
+  .wrap { max-width: 760px; margin: 0 auto; display: flex; flex-direction: column; gap: 18px; }
+
+  .msg { display: flex; gap: 10px; }
+  .msg .who {
+    flex: none; width: 28px; height: 28px; border-radius: 6px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 11px; color: #fff; background: #8a857c;
+  }
+  .msg.user .who { background: #4a6fa5; }
+  .msg .body { flex: 1; min-width: 0; }
+  .msg .body > .text { white-space: normal; word-break: break-word; }
+  .msg .text p { margin: 0 0 10px; }
+  .msg .text p:last-child { margin-bottom: 0; }
+  .msg .text h3, .msg .text h4 { font-size: 14px; margin: 14px 0 6px; font-weight: 500; }
+  .msg .text ul { margin: 0 0 10px; padding-left: 20px; }
+  .msg .text code {
+    font-family: var(--font-mono, Consolas, monospace);
+    font-size: 12px; background: #f1efea; padding: 1px 4px; border-radius: 3px;
+  }
+  .msg .text table { border-collapse: collapse; margin: 8px 0 12px; font-size: 13px; }
+  .msg .text th, .msg .text td { border: 1px solid #e6e3dd; padding: 5px 9px; text-align: left; }
+  .msg .text th { background: #f6f4f0; font-weight: 500; }
+
+  .steps { margin-bottom: 8px; display: flex; flex-direction: column; gap: 4px; }
+  .step {
+    font-size: 12px; color: var(--color-muted, #7a7670);
+    font-family: var(--font-mono, Consolas, monospace);
+  }
+  .step .ok { color: #2f7a4f; }
+  .step .bad { color: #b4432f; }
+
+  .card {
+    margin-top: 10px; border: 1px solid #e2d9c8; background: #fdfaf3;
+    border-radius: 8px; padding: 12px 14px;
+  }
+  .card .title { font-size: 13px; font-weight: 500; margin-bottom: 6px; }
+  .card .diff { font-size: 13px; font-family: var(--font-mono, Consolas, monospace); }
+  .card .diff .old { color: #b4432f; text-decoration: line-through; }
+  .card .diff .new { color: #2f7a4f; }
+  .card .actions { margin-top: 10px; display: flex; gap: 10px; align-items: center; }
+  .card .hint { font-size: 12px; color: var(--color-muted, #7a7670); }
+  .card .result { margin-top: 8px; font-size: 13px; }
+
+  button.primary, button.ghost {
+    font: inherit; font-size: 13px; padding: 6px 14px; border-radius: 6px; cursor: pointer;
+    border: 1px solid #d8d3c9; background: #fff; color: #1f2328;
+  }
+  button.primary { background: #2f5d8a; border-color: #2f5d8a; color: #fff; }
+  button.primary:disabled, button.ghost:disabled { opacity: .5; cursor: default; }
+
+  .attach-row { display: flex; flex-wrap: wrap; gap: 8px; }
+  .attach-row:empty { display: none; }
+  .chip {
+    display: inline-flex; align-items: center; gap: 8px; max-width: 340px;
+    padding: 4px 6px 4px 10px; border: 1px solid #d8d3c9; border-radius: 999px;
+    background: #fff; font-size: 12px;
+  }
+  .chip .nm { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .chip .st { flex: none; color: #7a7670; font-family: var(--font-mono, Consolas, monospace); }
+  .chip.ok { border-color: #b9d5c3; }
+  .chip.ok .st { color: #2f7a4f; }
+  .chip.err { border-color: #e3b4a9; background: #fdf4f2; }
+  .chip.err .st { color: #b4432f; }
+  .chip.uploading { opacity: .65; }
+  .chip button {
+    border: none; background: none; cursor: pointer; padding: 0 3px;
+    font-size: 15px; line-height: 1; color: #8a857c;
+  }
+  .chip button:hover { color: #b4432f; }
+
+  .icon-btn {
+    flex: none; width: 44px; height: 44px; border-radius: 8px; cursor: pointer;
+    border: 1px solid #d8d3c9; background: #fff; color: #5f5b55;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .icon-btn:hover { border-color: #9db4cc; color: #2f5d8a; }
+  .icon-btn:disabled { opacity: .5; cursor: default; }
+
+  footer {
+    flex: none; border-top: 1px solid var(--color-border, #e6e3dd);
+    background: var(--color-surface, #fff); padding: 12px 20px 16px;
+  }
+  footer .wrap { gap: 8px; }
+  .composer { display: flex; gap: 10px; align-items: flex-end; }
+  textarea {
+    flex: 1; resize: none; font: inherit; padding: 10px 12px; border-radius: 8px;
+    border: 1px solid #d8d3c9; background: #fff; color: inherit; min-height: 44px; max-height: 160px;
+    outline: none;
+  }
+  textarea:focus { border-color: #9db4cc; }
+  .tips { font-size: 12px; color: var(--color-muted, #7a7670); }
+  .err { color: #b4432f; font-size: 13px; }
+</style>
+</head>
+<body>
+<header>
+  <div>
+    <h1>知识库助手</h1>
+    <div class="sub">查库、定位文件、提变更单 —— 改动要你确认后才生效</div>
+  </div>
+  <div class="spacer"></div>
+  <button class="link" id="reset">新会话</button>
+  <a href="/admin">文件管理 ↗</a>
+</header>
+
+<main>
+  <div id="thread"><div class="wrap" id="list"></div></div>
+  <div id="drop">松手即可添加到本次对话</div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="attach-row" id="attachRow"></div>
+    <div class="composer">
+      <button class="icon-btn" id="pick" title="添加附件" aria-label="添加附件">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+             stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21.4 11.05l-8.49 8.49a5.5 5.5 0 01-7.78-7.78l8.49-8.49a3.5 3.5 0 014.95 4.95l-8.49 8.49a1.5 1.5 0 01-2.12-2.12l7.78-7.78"/>
+        </svg>
+      </button>
+      <input type="file" id="file" multiple hidden accept=".md,.txt,.pdf,.docx" />
+      <textarea id="q" rows="1" placeholder="例如：库里有多少份奖学金通知？/ 把 25 号文件的标题改成……"></textarea>
+      <button class="primary" id="send">发送</button>
+    </div>
+    <div class="tips">Enter 发送，Shift + Enter 换行 · 支持把文件拖进对话区（md / txt / pdf / docx，单次最多 5 个）</div>
+  </div>
+</footer>
+
+<script>
+const listEl = document.getElementById('list');
+const qEl = document.getElementById('q');
+const sendEl = document.getElementById('send');
+const threadEl = document.getElementById('thread');
+const fileEl = document.getElementById('file');
+const pickEl = document.getElementById('pick');
+const attachRow = document.getElementById('attachRow');
+const mainEl = document.querySelector('main');
+
+let history = [];
+let busy = false;
+
+// 附件按会话隔离：换会话 = 换目录。刷新页面就是新会话（旧的留在磁盘上，不碍事）。
+const sessionId = 's' + Date.now().toString(36) + Math.random().toString(36).slice(2, 8);
+
+// 已添加的附件：{ name, ok, chars, error, uploading }
+let pending = [];
+
+const MAX_FILES = 5;
+const MAX_BYTES = 10 * 1024 * 1024;
+const OK_SUFFIX = ['.md', '.txt', '.pdf', '.docx'];
+
+const token = new URLSearchParams(location.search).get('token') || localStorage.getItem('adminToken') || '';
+if (token) localStorage.setItem('adminToken', token);
+const authHeaders = () => (token ? { 'X-Admin-Token': token } : {});
+
+function el(tag, cls, text) {
+  const n = document.createElement(tag);
+  if (cls) n.className = cls;
+  if (text !== undefined) n.textContent = text;
+  return n;
+}
+
+function escapeHtml(s) {
+  return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+}
+
+function renderMarkdown(src) {
+  const lines = src.split('\n');
+  let html = '', i = 0;
+  const inline = (t) => escapeHtml(t)
+    .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+    .replace(/`([^`]+)`/g, '<code>$1</code>');
+
+  while (i < lines.length) {
+    const line = lines[i];
+    if (/^\s*\|.*\|\s*$/.test(line) && i + 1 < lines.length && /^\s*\|[\s:|-]+\|\s*$/.test(lines[i + 1])) {
+      const cells = (l) => l.trim().replace(/^\||\|$/g, '').split('|').map(c => c.trim());
+      const head = cells(line);
+      i += 2;
+      const rows = [];
+      while (i < lines.length && /^\s*\|.*\|\s*$/.test(lines[i])) { rows.push(cells(lines[i])); i++; }
+      html += '<table><thead><tr>' + head.map(c => `<th>${inline(c)}</th>`).join('') + '</tr></thead><tbody>'
+            + rows.map(r => '<tr>' + r.map(c => `<td>${inline(c)}</td>`).join('') + '</tr>').join('')
+            + '</tbody></table>';
+      continue;
+    }
+    if (/^#{2,4}\s+/.test(line)) {
+      html += `<h4>${inline(line.replace(/^#{2,4}\s+/, ''))}</h4>`;
+      i++; continue;
+    }
+    if (/^\s*[-*]\s+/.test(line)) {
+      const items = [];
+      while (i < lines.length && /^\s*[-*]\s+/.test(lines[i])) {
+        items.push(lines[i].replace(/^\s*[-*]\s+/, '')); i++;
+      }
+      html += '<ul>' + items.map(t => `<li>${inline(t)}</li>`).join('') + '</ul>';
+      continue;
+    }
+    if (!line.trim()) { i++; continue; }
+    const para = [];
+    while (i < lines.length && lines[i].trim() && !/^#{2,4}\s+|^\s*[-*]\s+|^\s*\|/.test(lines[i])) {
+      para.push(lines[i]); i++;
+    }
+    html += `<p>${para.map(inline).join('<br>')}</p>`;
+  }
+  return html;
+}
+
+function addMessage(role, text) {
+  const msg = el('div', 'msg ' + role);
+  msg.appendChild(el('div', 'who', role === 'user' ? '我' : 'AI'));
+  const body = el('div', 'body');
+  const steps = el('div', 'steps');
+  const content = el('div', 'text');
+  content.innerHTML = renderMarkdown(text || '');
+  body.appendChild(steps);
+  body.appendChild(content);
+  msg.appendChild(body);
+  listEl.appendChild(msg);
+  threadEl.scrollTop = threadEl.scrollHeight;
+  return { body, steps, content };
+}
+
+function addStep(stepsEl, text, status) {
+  const line = el('div', 'step');
+  line.appendChild(document.createTextNode((status ? status + ' ' : '· ') + text));
+  stepsEl.appendChild(line);
+  threadEl.scrollTop = threadEl.scrollHeight;
+}
+
+function changeCard(anchor, changeId) {
+  const card = el('div', 'card');
+  card.appendChild(el('div', 'title', '待确认的变更 · ' + changeId.slice(0, 8)));
+  const box = el('div', 'diff', '正在读取变更内容…');
+  card.appendChild(box);
+  const actions = el('div', 'actions');
+  const ok = el('button', 'primary', '确认执行');
+  const no = el('button', 'ghost', '忽略');
+  const hint = el('span', 'hint', '确认后会写入知识库，可在审计记录里回滚');
+  actions.appendChild(ok); actions.appendChild(no); actions.appendChild(hint);
+  card.appendChild(actions);
+  anchor.appendChild(card);
+
+  fetch(`/api/admin/changes/${changeId}`, { headers: authHeaders() })
+    .then(r => r.json())
+    .then(data => {
+      const changes = data.changes || {};
+      box.innerHTML = Object.entries(changes).map(([k, v]) => {
+        const oldVal = (data.before || {})[k] ?? '';
+        return `<div>${escapeHtml(k)}：<span class="old">${escapeHtml(String(oldVal))}</span> → <span class="new">${escapeHtml(String(v))}</span></div>`;
+      }).join('') || '（无字段变化）';
+    })
+    .catch(() => { box.textContent = '读取失败'; });
+
+  no.onclick = () => { card.remove(); };
+  ok.onclick = async () => {
+    ok.disabled = true;
+    box.innerHTML += '<div>执行中…</div>';
+    try {
+      const r = await fetch(`/api/admin/changes/${changeId}/apply`, { method: 'POST', headers: authHeaders() });
+      const data = await r.json();
+      if (!r.ok) throw new Error(data.detail || ('HTTP ' + r.status));
+      actions.remove();
+      const result = el('div', 'result', '已生效：' + (data['提示'] || '完成') +
+        (data['向量副本同步条数'] !== undefined ? `（同步 ${data['向量副本同步条数']} 个切片）` : ''));
+      card.appendChild(result);
+    } catch (e) {
+      ok.disabled = false;
+      const result = el('div', 'err', '执行失败：' + e.message);
+      card.appendChild(result);
+    }
+  };
+  threadEl.scrollTop = threadEl.scrollHeight;
+}
+
+function renderAttach() {
+  attachRow.innerHTML = '';
+  pending.forEach((item, index) => {
+    const chip = el('div', 'chip ' + (item.uploading ? 'uploading' : item.ok ? 'ok' : 'err'));
+    chip.appendChild(el('span', 'nm', item.name));
+    let label = '上传中…';
+    if (!item.uploading) label = item.ok ? `${Math.round(item.chars / 100) / 10}k 字` : (item.error || '失败');
+    chip.appendChild(el('span', 'st', label));
+    const del = el('button', '', '×');
+    del.title = '移除';
+    del.onclick = () => { pending.splice(index, 1); renderAttach(); };
+    chip.appendChild(del);
+    attachRow.appendChild(chip);
+  });
+}
+
+function localCheck(file) {
+  const dot = file.name.lastIndexOf('.');
+  const suffix = dot >= 0 ? file.name.slice(dot).toLowerCase() : '';
+  if (!OK_SUFFIX.includes(suffix)) return `不支持 ${suffix || '无后缀'}`;
+  if (file.size > MAX_BYTES) return `超过 ${MAX_BYTES / 1024 / 1024}MB`;
+  if (!file.size) return '文件是空的';
+  return '';
+}
+
+async function uploadFiles(fileList) {
+  const files = Array.from(fileList || []);
+  if (!files.length) return;
+
+  const room = MAX_FILES - pending.length;
+  if (room <= 0) {
+    addMessage('assistant', `本次对话最多带 ${MAX_FILES} 个附件，先移除一些再添加。`);
+    return;
+  }
+  const accepted = files.slice(0, room);
+  if (files.length > room) {
+    addMessage('assistant', `一次最多 ${MAX_FILES} 个附件，本次只添加前 ${room} 个。`);
+  }
+
+  const toSend = [];
+  accepted.forEach((file) => {
+    const reason = localCheck(file);
+    if (reason) {
+      pending.push({ name: file.name, ok: false, error: reason, uploading: false });
+    } else {
+      pending.push({ name: file.name, ok: false, uploading: true });
+      toSend.push(file);
+    }
+  });
+  renderAttach();
+
+  if (!toSend.length) return;
+
+  const form = new FormData();
+  form.append('session_id', sessionId);
+  toSend.forEach((f) => form.append('files', f));
+
+  try {
+    const resp = await fetch('/api/admin/chat/upload', {
+      method: 'POST',
+      headers: authHeaders(),
+      body: form,
+    });
+    if (!resp.ok) {
+      // 后端整批拒绝（数量超限 / 总量超限）走 HTTPException，正文是 {"detail": "..."}
+      const raw = await resp.text();
+      let detail = raw;
+      try { detail = JSON.parse(raw).detail || raw; } catch (_) { /* 非 JSON 就原样用 */ }
+      throw new Error(resp.status === 401 || resp.status === 403
+        ? '没有权限上传（本机访问或带上 ?token=）'
+        : String(detail).slice(0, 60));
+    }
+    const data = await resp.json();
+    (data['文件'] || []).forEach((res) => {
+      // 服务端可能改名（同名追加 _2），按顺序对回占位的 chip
+      const slot = pending.find((p) => p.uploading && p.name === res.name)
+                || pending.find((p) => p.uploading);
+      if (!slot) return;
+      slot.name = res.name;
+      slot.ok = !!res.ok;
+      slot.chars = res.chars || 0;
+      slot.error = res.error || '';
+      slot.uploading = false;
+    });
+    pending.forEach((p) => { if (p.uploading) { p.uploading = false; p.ok = false; p.error = '上传失败'; } });
+  } catch (e) {
+    pending.forEach((p) => {
+      if (p.uploading) { p.uploading = false; p.ok = false; p.error = e.message.slice(0, 40); }
+    });
+  }
+  renderAttach();
+}
+
+pickEl.onclick = () => fileEl.click();
+fileEl.onchange = () => { uploadFiles(fileEl.files); fileEl.value = ''; };
+
+// 拖拽：只认带文件的拖拽，普通文字拖拽不触发
+let dragDepth = 0;
+const hasFiles = (e) => Array.from(e.dataTransfer?.types || []).includes('Files');
+
+mainEl.addEventListener('dragenter', (e) => {
+  if (!hasFiles(e)) return;
+  e.preventDefault();
+  dragDepth += 1;
+  document.body.classList.add('dragging');
+});
+mainEl.addEventListener('dragover', (e) => {
+  if (!hasFiles(e)) return;
+  e.preventDefault();
+  e.dataTransfer.dropEffect = 'copy';
+});
+mainEl.addEventListener('dragleave', () => {
+  dragDepth = Math.max(0, dragDepth - 1);
+  if (!dragDepth) document.body.classList.remove('dragging');
+});
+mainEl.addEventListener('drop', (e) => {
+  e.preventDefault();
+  dragDepth = 0;
+  document.body.classList.remove('dragging');
+  if (e.dataTransfer?.files?.length) uploadFiles(e.dataTransfer.files);
+});
+// 拖到窗口其他位置时不要让浏览器直接打开文件
+window.addEventListener('dragover', (e) => e.preventDefault());
+window.addEventListener('drop', (e) => e.preventDefault());
+
+async function send() {
+  const question = qEl.value.trim();
+  if (!question || busy) return;
+  if (pending.some((p) => p.uploading)) {
+    addMessage('assistant', '附件还在上传，等它传完再发。');
+    return;
+  }
+  busy = true;
+  sendEl.disabled = true;
+  qEl.value = '';
+  qEl.style.height = 'auto';
+
+  addMessage('user', question);
+  const prior = history.slice();
+  history.push({ role: 'user', content: question });
+
+  const slot = addMessage('assistant', '');
+  addStep(slot.steps, '正在思考…');
+
+  const attached = pending.filter((p) => p.ok).map((p) => p.name);
+
+  try {
+    const resp = await fetch('/api/admin/chat/stream', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', ...authHeaders() },
+      body: JSON.stringify({ question, history: prior, session_id: sessionId, attachments: attached }),
+    });
+    if (!resp.ok || !resp.body) {
+      const detail = await resp.text();
+      throw new Error(resp.status === 401 || resp.status === 403
+        ? '没有权限：本机访问或带上 ?token='
+        : `HTTP ${resp.status} ${detail.slice(0, 120)}`);
+    }
+
+    const reader = resp.body.getReader();
+    const decoder = new TextDecoder();
+    let buffer = '';
+    let answer = '';
+
+    while (true) {
+      const { done, value } = await reader.read();
+      if (done) break;
+      buffer += decoder.decode(value, { stream: true });
+      const frames = buffer.split('\n\n');
+      buffer = frames.pop();
+      for (const frame of frames) {
+        const line = frame.split('\n').find(l => l.startsWith('data: '));
+        if (!line) continue;
+        let evt;
+        try { evt = JSON.parse(line.slice(6)); } catch { continue; }
+
+        if (evt.type === 'plan') {
+          addStep(slot.steps, evt.text);
+        } else if (evt.type === 'tool') {
+          addStep(slot.steps, `${evt.name} ${evt.ok ? '完成' : '失败'}`, evt.ok ? '✓' : '✗');
+        } else if (evt.type === 'change') {
+          changeCard(slot.body, evt.change_id);
+        } else if (evt.type === 'answer') {
+          answer = evt.text || '';
+          slot.content.innerHTML = renderMarkdown(answer);
+        } else if (evt.type === 'error') {
+          addStep(slot.steps, evt.message, '✗');
+        }
+      }
+      threadEl.scrollTop = threadEl.scrollHeight;
+    }
+
+    history.push({ role: 'assistant', content: answer });
+  } catch (e) {
+    slot.content.innerHTML = `<p class="err">出错了：${escapeHtml(e.message)}</p>`;
+  } finally {
+    busy = false;
+    sendEl.disabled = false;
+    qEl.focus();
+  }
+}
+
+sendEl.onclick = send;
+qEl.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); send(); }
+});
+qEl.addEventListener('input', () => {
+  qEl.style.height = 'auto';
+  qEl.style.height = Math.min(qEl.scrollHeight, 160) + 'px';
+});
+document.getElementById('reset').onclick = () => {
+  history = [];
+  pending = [];
+  renderAttach();
+  listEl.innerHTML = '';
+  qEl.focus();
+};
+
+addMessage('assistant', '你可以问我：库里现在什么情况、某类文件有哪些、某份文件为什么搜不到；也可以让我改标题、分类或文件名 —— 我会先给出变更单，你确认后才生效。');
+qEl.focus();
+</script>
+</body>
+</html>

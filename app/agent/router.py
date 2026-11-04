@@ -120,9 +120,39 @@ def build_router():
     return llm.with_structured_output(RoutePlan), system
 
 
-def classify(question: str) -> RoutePlan:
+def _history_block(history: list[dict[str, str]] | None) -> str:
+    """把前几轮对话拼成提示块。
+
+    指令跟着数据走：history 为空时**一个字都不加**，单轮请求的 prompt
+    与原来完全一致 —— 这样多轮能力不会以「改变单轮行为」为代价。
+    （试过把「多轮要还原指代」写进 system prompt，单轮评测上就翻动了 3 题：
+    两条 hybrid 被压成 document。prompt 的一个字都会改分布，能不加就不加。）
+    """
+    if not history:
+        return ""
+    lines = []
+    for turn in history[-6:]:
+        role = "学生" if turn.get("role") == "user" else "助手"
+        lines.append(f"{role}：{turn.get('content', '')}")
+    return (
+        "【前几轮对话】\n" + "\n".join(lines) + "\n"
+        "（以上是本轮之前的对话。如果本轮问题里有「它 / 那份 / 刚才」这类指代，"
+        "请结合上文理解；改写检索语句时要保留前文提到的年份、学院、文件类型等限定，"
+        "不要因为这句话里没提就丢掉。）\n\n"
+    )
+
+
+def classify(question: str, history: list[dict[str, str]] | None = None) -> RoutePlan:
+    """意图识别。
+
+    history 不是锦上添花，是刚需：学生第二句常常只有「那报名截止呢」几个字。
+    不带上下文去分类，前面的限定（哪个学院、哪一年、哪份文件）全部丢失，
+    而下游 compose 又是带历史的 —— 结果就是「回答层知道你在问什么，
+    检索层不知道」，检索必然跑偏，模型只能回一句「未检索到」。
+    """
     structured, system = _cached_router()
-    return structured.invoke([("system", system), ("human", question)])
+    human = f"{_history_block(history)}【本轮问题】\n{question}"
+    return structured.invoke([("system", system), ("human", human)])
 
 
 _ROUTER_CACHE = None

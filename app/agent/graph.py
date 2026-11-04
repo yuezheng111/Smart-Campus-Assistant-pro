@@ -39,16 +39,39 @@ from typing import Any
 from langchain_core.messages import AIMessage, HumanMessage, SystemMessage, ToolMessage
 from langgraph.graph import END, START, StateGraph
 
+from app.agent.evidence import (
+    from_doc_search,
+    from_tool_records,
+    merge_evidence,
+    payload_is_empty,
+)
 from app.agent.llm import get_llm
 from app.agent.router import classify
 from app.agent.state import AgentState, new_state
+from app.agent.verifier import verify_answer
 from app.rag.retriever import format_context, search_documents
 from app.tools import DATA_TOOLS
+from app.tools.common import tool_error_payload
 
 TOOL_MAP = {t.name: t for t in DATA_TOOLS}
 MAX_TOOL_STEPS = 4
+# 预算：外部可以往 state["budget"] 里塞覆盖值（比如压测时收紧步数），
+# 没塞就用这里的缺省。写成 dict 而不是直接改常量，是为了让「同一个图」
+# 能在不同调用方手里跑不同的强度 —— 改常量就得改代码、重启。
+DEFAULT_BUDGET = {"max_steps": MAX_TOOL_STEPS, "max_tool_calls": MAX_TOOL_STEPS}
+
+# 证据的 task_id。现在只有两条取数路径，所以是固定值；
+# 等 M2 把问题拆成子任务之后，这里会换成真正的子任务 id。
+TASK_DOCS = "docs"
+TASK_DATA = "data"
 # 拼进 LLM 上下文的文件数上限（与 format_context 的 limit_docs 保持一致）
 CONTEXT_DOC_LIMIT = 5
+
+
+def _budget(state: AgentState) -> dict[str, int]:
+    merged = dict(DEFAULT_BUDGET)
+    merged.update(state.get("budget") or {})
+    return merged
 
 # ----------------------------------------------------------------------
 # 节点 1：意图识别
@@ -56,7 +79,9 @@ CONTEXT_DOC_LIMIT = 5
 
 
 def classify_node(state: AgentState) -> dict:
-    plan = classify(state["question"])
+    # 历史必须一起给过去：多轮追问的限定条件（哪个学院、哪一年、哪份文件）
+    # 全靠它继承，否则「那报名截止呢」这句话在检索层等于没有信息。
+    plan = classify(state["question"], state.get("history"))
     return {
         "route": plan.route,
         "plan": plan.model_dump(),
@@ -78,14 +103,29 @@ def classify_node(state: AgentState) -> dict:
 
 def retrieve_docs_node(state: AgentState) -> dict:
     plan = state.get("plan") or {}
-    query = plan.get("rewritten_query") or state["question"]
-    result = search_documents(
-        query,
-        doc_type=plan.get("doc_type") or None,
-        college=plan.get("college") or None,
-        year=plan.get("year") or None,
-        department=plan.get("department") or None,
+
+    # 回退场景：结构化查询查空了，退回文件检索。
+    # 此时**只信原始问题**，不信路由抽出来的改写语句和过滤条件 ——
+    # 那套判断本身就是可能出错的东西。比如把 doc_type 抽成「考试」，
+    # 带着它去检索，回退也照样查不到，等于白跑一趟。
+    is_fallback = (
+        state.get("route") == "structured"
+        and state.get("data_query_status") == "empty"
+        and not state.get("doc_fallback_attempted")
     )
+
+    if is_fallback:
+        query = state["question"]
+        result = search_documents(query)
+    else:
+        query = plan.get("rewritten_query") or state["question"]
+        result = search_documents(
+            query,
+            doc_type=plan.get("doc_type") or None,
+            college=plan.get("college") or None,
+            year=plan.get("year") or None,
+            department=plan.get("department") or None,
+        )
 
     sources = [
         {
@@ -104,22 +144,43 @@ def retrieve_docs_node(state: AgentState) -> dict:
     ]
 
     detail = f"命中 {len(result['documents'])} 份文件"
+    if is_fallback:
+        detail = "结构化查询无结果，已回退检索｜" + detail
     if result["fallback"]:
         detail += "（带过滤条件无结果，已放宽条件重查）"
+    if result.get("low_confidence"):
+        detail += "（相关度偏低，已提示模型谨慎引用）"
+
+    score_note = ""
+    if result.get("max_score") is not None:
+        score_note = f"｜最高相关度：{result['max_score']:.3f}"
+
+    # 把这次检索固化成一条证据：谁查的、命中哪些文件、可不可靠。
+    # 下游的校验和引用编号都靠它，不再靠回头解析 doc_context 这段字符串。
+    evidence = merge_evidence(
+        state.get("evidence"),
+        [from_doc_search(result, task_id=TASK_DOCS)],
+    )
 
     return {
         "doc_hits": result["hits"],
         "doc_documents": result["documents"],
-        "doc_context": format_context(result["hits"]),
+        # notice 会拼在上下文开头，把「结果不可靠」告诉模型 ——
+        # 以前这个信息只写进 trace 给前端看，模型毫不知情。
+        "doc_context": format_context(result["hits"], notice=result.get("notice") or ""),
         # 上下文里实际给出了几段资料，compose 要靠它来约束引用编号范围
         "doc_context_count": min(len(result["documents"]), CONTEXT_DOC_LIMIT),
+        "doc_query_status": "success" if result["documents"] else "empty",
+        # 只置真不置假：回退过一次就永久标记，防止 hybrid 绕回时再次触发
+        "doc_fallback_attempted": bool(state.get("doc_fallback_attempted")) or is_fallback,
         "sources": sources,
+        "evidence": evidence,
         "trace": [
             {
                 "节点": "retrieve_docs",
                 "步骤": "学校文件检索（RAG）",
                 "结果": detail,
-                "说明": f"检索语句：{query}｜过滤条件：{result['filter_used'] or '无'}",
+                "说明": f"检索语句：{query}｜过滤条件：{result['filter_used'] or '无'}{score_note}",
             }
         ],
     }
@@ -180,6 +241,36 @@ def _safe_json(raw: Any, limit: int = 12000) -> Any:
         return text[:limit]
 
 
+def _record_status(payload: Any) -> str:
+    """单条工具返回的结局：success / empty / error。
+
+    抽成纯函数是为了能单独测 —— 状态判定错了，回退就永远不触发或者
+    永远触发，而这两种错误在端到端里都表现为「答案怪」，很难归因。
+    """
+    if isinstance(payload, dict) and payload.get("错误"):
+        return "error"
+    empty = payload_is_empty(payload)
+    # None = 结构认不出来，保守当作「有内容」：
+    # 宁可漏一次回退，也不要因为判断不了就误触发检索。
+    return "empty" if empty is True else "success"
+
+
+def _combine_status(statuses: list[str]) -> str:
+    """把多条调用的结局合成一个整体状态。
+
+    优先级：有成功就算成功 > 有异常就报异常 > 否则全空。
+    「有异常就报异常」是刻意的：error 不被当成 empty，否则「库连不上」
+    会被当成「库里没有」，触发一次注定失败的文档回退，还掩盖真实故障。
+    """
+    if not statuses:
+        return "incomplete"        # 一次工具都没调 / 模型直接作答
+    if "success" in statuses:
+        return "success"
+    if "error" in statuses:
+        return "error"
+    return "empty"
+
+
 def query_data_node(state: AgentState) -> dict:
     plan = state.get("plan") or {}
     llm = get_llm().bind_tools(DATA_TOOLS)
@@ -193,8 +284,9 @@ def query_data_node(state: AgentState) -> dict:
 
     records: list[dict[str, Any]] = []
     facts = ""
+    budget = _budget(state)
 
-    for _ in range(MAX_TOOL_STEPS):
+    for _ in range(max(1, int(budget.get("max_steps") or MAX_TOOL_STEPS))):
         ai = llm.invoke(messages)
         messages.append(ai)
         calls = getattr(ai, "tool_calls", None) or []
@@ -213,30 +305,60 @@ def query_data_node(state: AgentState) -> dict:
             try:
                 raw = tool.invoke(call["args"])
             except Exception as exc:  # 参数不合法、查库异常都回吐给模型，让它自己修
-                raw = json.dumps(
-                    {"错误": f"{type(exc).__name__}: {exc}"}, ensure_ascii=False
-                )
+                # 错误本身就是上下文，这是 Agent 和普通 API 的区别。
+                # 但要带上「能不能重试」—— 否则模型分不清参数写错和数据库断了，
+                # 会把剩下的步数全烧在重试同一个坏工具上。
+                raw = tool_error_payload(exc)
             records.append(
                 {"工具": name, "参数": call["args"], "结果": _safe_json(raw)}
             )
             messages.append(ToolMessage(content=str(raw), tool_call_id=call["id"]))
 
-    if not facts:  # 达到步数上限还没收敛，用原始结果兜底，避免空气泡
-        facts = "\n".join(
-            f"- {r['工具']}({r['参数']}) 返回：{json.dumps(r['结果'], ensure_ascii=False)[:600]}"
-            for r in records
-        )
+    # ---- 判定这次查询的真实结局 ----
+    # 依据是「每个工具返回了什么」，不是 records 有几条。
+    # 工具被调用了但返回 0 条时 records 非空 —— 这正是要区分的场景。
+    statuses = [_record_status(record.get("结果")) for record in records]
+    data_status = _combine_status(statuses)
+
+    if not facts:
+        if data_status == "empty":
+            # 不能把 {"数量": 0} 包装成「事实清单」——
+            # 那会让 compose 以为查到了东西，也让 verify 以为有证据。
+            facts = "（结构化数据查询没有匹配记录）"
+        elif data_status == "error":
+            facts = "（结构化数据查询执行失败，未取到任何数据）"
+        else:
+            # 达到步数上限还没收敛，用原始结果兜底，避免空气泡
+            facts = "\n".join(
+                f"- {r['工具']}({r['参数']}) 返回：{json.dumps(r['结果'], ensure_ascii=False)[:600]}"
+                for r in records
+            )
 
     tool_names = ", ".join(dict.fromkeys(r["工具"] for r in records)) or "未调用工具"
+    detail = f"调用 {len(records)} 次工具：{tool_names}"
+    if data_status == "empty":
+        detail += "｜0 条匹配"
+    elif data_status == "error":
+        detail += "｜执行异常"
+    elif data_status == "incomplete":
+        detail += "｜未收敛"
+
+    evidence = merge_evidence(
+        state.get("evidence"),
+        [from_tool_records(records, task_id=TASK_DATA)],
+    )
     return {
         "data_facts": facts,
         "data_records": records,
+        "data_query_status": data_status,
+        "data_has_results": data_status == "success",
+        "evidence": evidence,
         "trace": [
             {
                 "节点": "query_data",
                 "步骤": "结构化数据查询（MySQL Tools）",
-                "结果": f"调用 {len(records)} 次工具：{tool_names}",
-                "说明": f"限定条件：{_plan_hints(plan)}",
+                "结果": detail,
+                "说明": f"限定条件：{_plan_hints(plan)}｜状态：{data_status}",
             }
         ],
     }
@@ -315,6 +437,45 @@ def compose_node(state: AgentState) -> dict:
 
 
 # ----------------------------------------------------------------------
+# 节点 5：校验与终止判定
+# ----------------------------------------------------------------------
+
+
+def verify_node(state: AgentState) -> dict:
+    """检查回答有没有依据、引用指不指得到东西、数字对不对得上。
+
+    它不生成任何内容，只标问题；发现问题也**不改回答**，而是给一条 caveat
+    让前端提示用户。自动重写需要预算控制和死循环防护，那是下一步的事 ——
+    先让系统「能发现自己在没有依据地说话」，这已经是现在完全没有的能力。
+
+    END 以前是拓扑决定的（compose 之后无条件结束），现在是「判定完才结束」：
+    verdict=degrade 时前端会明确告诉用户"这条没有资料支撑"，而不是让它
+    和一条有出处的回答长得一模一样。
+    """
+    verdict = verify_answer(
+        answer=state.get("answer") or "",
+        evidence=state.get("evidence") or [],
+        route=state.get("route") or "",
+    )
+
+    label = {"pass": "通过", "warn": "有提醒", "degrade": "缺少依据"}.get(
+        verdict.status, verdict.status
+    )
+    return {
+        "verdict": verdict.status,
+        "caveats": verdict.caveats,
+        "trace": [
+            {
+                "节点": "verify",
+                "步骤": "结果校验",
+                "结果": label,
+                "说明": "；".join(verdict.detail) if verdict.detail else "未发现问题",
+            }
+        ],
+    }
+
+
+# ----------------------------------------------------------------------
 # 组装图
 # ----------------------------------------------------------------------
 
@@ -329,8 +490,21 @@ def _after_docs(state: AgentState) -> str:
 
 
 def _after_data(state: AgentState) -> str:
+    route = state.get("route")
     # planning 需要「个性化推荐 + 章程原文」，所以查完库再检索文件
-    return "retrieve_docs" if state.get("route") == "planning" else "compose"
+    if route == "planning":
+        return "retrieve_docs"
+    # 兜底：结构化查询查空了，但文件库里可能有答案（体测、体检、军训这类
+    # 只在通知原文里、数据库压根没有对应表的事项）。
+    # 只对 structured 开放，且只允许一次 —— hybrid 本来就两条都走，
+    # 再放开回退会变成 docs → data → docs → data 打转。
+    if (
+        route == "structured"
+        and state.get("data_query_status") == "empty"
+        and not state.get("doc_fallback_attempted")
+    ):
+        return "retrieve_docs"
+    return "compose"
 
 
 def build_graph():
@@ -340,6 +514,7 @@ def build_graph():
     builder.add_node("retrieve_docs", retrieve_docs_node)
     builder.add_node("query_data", query_data_node)
     builder.add_node("compose", compose_node)
+    builder.add_node("verify", verify_node)
 
     builder.add_edge(START, "classify")
     builder.add_conditional_edges(
@@ -363,7 +538,10 @@ def build_graph():
         _after_data,
         {"retrieve_docs": "retrieve_docs", "compose": "compose"},
     )
-    builder.add_edge("compose", END)
+    # 以前是 compose → END。加 verify 之后，「结束」是有条件的：
+    # 先判定这条回答有没有依据，再交给前端决定怎么展示。
+    builder.add_edge("compose", "verify")
+    builder.add_edge("verify", END)
 
     return builder.compile()
 

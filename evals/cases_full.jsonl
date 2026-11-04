@@ -1,0 +1,255 @@
+{"id": "D01", "category": "document", "question": "2025年国家奖学金每人每年奖励多少钱？", "expected_route": "document", "expected_titles": ["关于做好2025年国家奖学金评选工作的通知"], "must_contain": ["8000"]}
+{"id": "D02", "category": "document", "question": "2025年国家奖学金我们学校有多少个名额？", "expected_route": "document", "expected_titles": ["关于做好2025年国家奖学金评选工作的通知"], "must_contain": ["45"]}
+{"id": "D03", "category": "document", "question": "2024年国家奖学金的名额是多少？", "expected_route": "document", "expected_titles": ["关于做好2024年国家奖学金评选工作的通知"], "must_contain": ["42"]}
+{"id": "D04", "category": "document", "question": "国家励志奖学金的奖励标准和名额是多少？", "expected_route": "document", "expected_titles": ["关于做好2024年国家励志奖学金评审工作的通知"], "must_contain": ["5000", "320"]}
+{"id": "D05", "category": "document", "question": "校级优秀学生奖学金一等奖、二等奖、三等奖分别是多少钱？", "expected_route": "document", "expected_titles": ["关于2023—2024学年校级优秀学生奖学金评定工作的通知"], "must_contain": ["2000", "1200", "800"]}
+{"id": "D06", "category": "document", "question": "2025年上半年英语四级考试是哪一天？", "expected_route": "document", "route_accept": ["document", "structured"], "expected_titles": ["关于2025年上半年全国大学英语四、六级考试报名工作的通知"], "must_contain": ["6月14日"], "data_conflict": true, "conflict_note": "文档写「6 月 14 日」，exam 表写 2025-06-16"}
+{"id": "D07", "category": "document", "question": "报考英语六级对四级分数有什么要求？", "expected_route": "document", "expected_titles": ["关于2025年上半年全国大学英语四、六级考试报名工作的通知", "关于2024年上半年全国大学英语四、六级考试报名工作的通知", "关于2024年下半年全国大学英语四、六级考试报名工作的通知"], "must_contain": ["425"]}
+{"id": "D08", "category": "document", "question": "计算机学院2024年转专业接收哪些专业，各接收多少人？", "expected_route": "document", "expected_titles": ["计算机学院2024年本科生转专业工作实施细则"], "must_contain": ["12", "10", "8"]}
+{"id": "D09", "category": "document", "question": "本科生转专业最多可以申请几次？", "expected_route": "document", "expected_titles": ["XX大学本科生转专业管理办法"], "must_contain": ["一次"]}
+{"id": "D10", "category": "document", "question": "蓝桥杯比赛分哪几个赛道？", "expected_route": "document", "expected_titles": ["关于组织我校学生参加2025年第十六届蓝桥杯大赛的通知"], "must_contain": ["软件赛", "电子赛"]}
+{"id": "D11", "category": "document", "question": "2025年数学建模竞赛的比赛时间是什么时候？", "expected_route": "document", "route_accept": ["document", "structured"], "expected_titles": ["关于组织参加2025年全国大学生数学建模竞赛的通知"], "must_contain": ["9月4日", "72"], "data_conflict": true, "conflict_note": "文档写 9 月 4 日—7 日，competition 表写 2025-09-10 ~ 09-17"}
+{"id": "D12", "category": "document", "question": "数学建模竞赛几个人组一队？", "expected_route": "document", "expected_titles": ["关于组织参加2025年全国大学生数学建模竞赛的通知"], "must_contain": ["3"]}
+{"id": "D13", "category": "document", "question": "信息安全竞赛校内选拔有哪几个赛道？", "expected_route": "document", "expected_titles": ["关于2025年全国大学生信息安全竞赛校内选拔的通知"], "must_contain": ["CTF", "作品赛"]}
+{"id": "D14", "category": "document", "question": "这学期选课分几轮，第一轮什么时候开始？", "expected_route": "document", "expected_titles": ["关于2024—2025学年第二学期选课工作的通知"], "must_contain": ["1月10日"]}
+{"id": "D15", "category": "document", "question": "毕业设计选题有什么要求？", "expected_route": "document", "expected_titles": ["XX大学本科生毕业设计（论文）工作管理规定"], "must_contain": ["一人一题"]}
+{"id": "D16", "category": "document", "question": "综合素质测评成绩由哪几部分构成，各占多少分？", "expected_route": "document", "expected_titles": ["XX大学学生综合素质测评实施办法"], "must_contain": ["70", "15"]}
+{"id": "D17", "category": "document", "question": "家庭经济困难学生认定分为哪几个等级？", "expected_route": "document", "expected_titles": ["关于开展2024—2025学年家庭经济困难学生认定工作的通知"], "must_contain": ["特别困难", "比较困难"]}
+{"id": "D18", "category": "document", "question": "图书馆自习室的开放时间是怎么调整的？", "expected_route": "document", "expected_titles": ["关于调整图书馆自习室开放时间的通知"], "must_contain": ["7:00", "23:00"]}
+{"id": "D19", "category": "document", "question": "国家助学贷款本科生每年最多能贷多少钱？", "expected_route": "document", "expected_titles": ["关于2025年春季学期国家助学贷款申请与续贷工作的通知"], "must_contain": ["16000"]}
+{"id": "D20", "category": "document", "question": "2025年计算机学院推免名额一共多少名？", "expected_route": "document", "expected_titles": ["计算机学院2025年推荐优秀应届本科毕业生免试攻读研究生工作细则"], "must_contain": ["46"]}
+{"id": "S01", "category": "structured", "question": "2025年蓝桥杯什么时候开始报名？", "expected_route": "structured", "expect_tool": "query_competition", "must_contain": ["2024-11-27"]}
+{"id": "S02", "category": "structured", "question": "过去五年蓝桥杯分别什么时候报名？", "expected_route": "structured", "expect_tool": "query_competition", "must_contain": ["蓝桥杯"]}
+{"id": "S03", "category": "structured", "question": "近五年计算机类有哪些竞赛？", "expected_route": "structured", "expect_tool": "query_competition", "must_contain": ["计算机"]}
+{"id": "S04", "category": "structured", "question": "2025年数学建模竞赛什么时候开始比赛？", "expected_route": "structured", "expect_tool": "query_competition", "must_contain": ["数学建模"]}
+{"id": "S05", "category": "structured", "question": "学校有哪些英语类考试？", "expected_route": "structured", "expect_tool": "query_exam", "must_contain": ["四级"]}
+{"id": "S06", "category": "structured", "question": "计算机等级考试什么时候报名？", "expected_route": "structured", "expect_tool": "query_exam", "must_contain": ["计算机"]}
+{"id": "S07", "category": "structured", "question": "2026年蓝桥杯什么时候报名？", "expected_route": "structured", "expect_tool": "query_competition", "must_contain": ["2025-11-23"]}
+{"id": "S08", "category": "structured", "question": "创新创业类的竞赛有哪些？", "expected_route": "structured", "expect_tool": "query_competition", "must_contain": ["创新创业"]}
+{"id": "S09", "category": "structured", "question": "大学英语四级考试一年考几次？", "expected_route": "structured", "expect_tool": "query_exam", "must_contain": ["四级"]}
+{"id": "S10", "category": "structured", "question": "电子类竞赛有哪些？", "expected_route": "structured", "expect_tool": "query_competition", "must_contain": ["电子"]}
+{"id": "H01", "category": "hybrid", "question": "帮我找2025年计算机学院的竞赛通知，顺便看看报名截止时间", "expected_route": "hybrid", "expected_titles": ["关于2025年全国大学生信息安全竞赛校内选拔的通知", "关于组织参加2024年中国大学生计算机设计大赛的通知"], "must_contain": ["报名"]}
+{"id": "H02", "category": "hybrid", "question": "找一下学校关于转专业的文件，再说说计算机学院今年接收多少人", "expected_route": "hybrid", "expected_titles": ["XX大学本科生转专业管理办法", "计算机学院2024年本科生转专业工作实施细则"], "must_contain": ["38", "转专业"]}
+{"id": "H03", "category": "hybrid", "question": "国家奖学金的通知发我看看，另外今年名额多少", "expected_route": "hybrid", "expected_titles": ["关于做好2025年国家奖学金评选工作的通知"], "must_contain": ["45"]}
+{"id": "H04", "category": "hybrid", "question": "四六级报名的通知在哪，报名时间是什么时候", "expected_route": "hybrid", "expected_titles": ["关于2025年上半年全国大学英语四、六级考试报名工作的通知", "关于2024年下半年全国大学英语四、六级考试报名工作的通知"], "must_contain": ["报名"]}
+{"id": "H05", "category": "hybrid", "question": "数学建模竞赛的通知找一下，比赛时间也告诉我", "expected_route": "hybrid", "expected_titles": ["关于组织参加2025年全国大学生数学建模竞赛的通知"], "must_contain": ["9月4日"]}
+{"id": "H06", "category": "hybrid", "question": "助学贷款的通知发我，顺便说下本科生额度", "expected_route": "hybrid", "expected_titles": ["关于2025年春季学期国家助学贷款申请与续贷工作的通知"], "must_contain": ["16000"]}
+{"id": "P01", "category": "planning", "question": "我是大二软件工程专业的学生，想参加计算机类竞赛，现在应该怎么准备？", "expected_route": "planning", "must_contain": ["竞赛"]}
+{"id": "P02", "category": "planning", "question": "我大三，学计算机科学与技术，对信息安全感兴趣，适合参加什么竞赛？", "expected_route": "planning", "must_contain": ["信息安全"]}
+{"id": "P03", "category": "planning", "question": "我大一数学专业，想参加数学建模，需要做什么准备？", "expected_route": "planning", "must_contain": ["数学建模"]}
+{"id": "P04", "category": "planning", "question": "学号20240217的学生适合参加哪些竞赛？", "expected_route": "planning", "must_contain": ["竞赛"]}
+{"id": "P05", "category": "planning", "question": "我想保研，现在大二，应该怎么规划？", "expected_route": "planning", "must_contain": ["推免"]}
+{"id": "P06", "category": "planning", "question": "我成绩一般，想拿奖学金，有什么建议？", "expected_route": "planning", "must_contain": ["奖学金"]}
+{"id": "P07", "category": "planning", "question": "帮我规划一下这学期的学习和竞赛安排", "expected_route": "planning", "must_contain": ["竞赛"]}
+{"id": "P08", "category": "planning", "question": "我大二，想参加蓝桥杯，怎么报名和准备？", "expected_route": "planning", "must_contain": ["蓝桥杯"]}
+{"id": "G01", "category": "general", "question": "你好", "expected_route": "general"}
+{"id": "G02", "category": "general", "question": "你能做什么？", "expected_route": "general"}
+{"id": "G03", "category": "general", "question": "今天天气怎么样？", "expected_route": "general", "expect_refusal": true}
+{"id": "G04", "category": "general", "question": "帮我写一首关于春天的诗", "expected_route": "general"}
+{"id": "G05", "category": "general", "question": "我们学校校长是谁？", "expected_route": "general", "expect_refusal": true}
+{"id": "G06", "category": "general", "question": "学校去年一共有多少名学生毕业？", "expected_route": "general", "expect_refusal": true}
+{"id": "B001", "category": "document", "question": "申请2026年国家奖学金要交哪些材料？", "expected_route": "document", "expected_titles": ["关于做好2026年国家奖学金评选工作的通知"], "must_contain": ["XX大学奖助学金申请表"], "_fmt": "md", "_doc_type": "奖学金", "_tpl": "award"}
+{"id": "B002", "category": "document", "question": "申请2026年国家励志奖学金要交哪些材料？", "expected_route": "document", "expected_titles": ["关于做好2026年国家励志奖学金评审工作的通知"], "must_contain": ["XX大学奖助学金申请表"], "_fmt": "pdf", "_doc_type": "奖学金", "_tpl": "award"}
+{"id": "B003", "category": "document", "question": "申请2026年国家助学金要交哪些材料？", "expected_route": "document", "expected_titles": ["关于做好2026年国家助学金评审工作的通知"], "must_contain": ["XX大学奖助学金申请表"], "_fmt": "docx", "_doc_type": "助学金", "_tpl": "award"}
+{"id": "B004", "category": "document", "question": "申请2025年校级优秀学生奖学金要交哪些材料？", "expected_route": "document", "expected_titles": ["关于2025年校级优秀学生奖学金评定工作的通知"], "must_contain": ["XX大学奖助学金申请表"], "_fmt": "txt", "_doc_type": "奖学金", "_tpl": "award"}
+{"id": "B005", "category": "document", "question": "申请2025年华为企业奖学金要交哪些材料？", "expected_route": "document", "expected_titles": ["关于2025年华为企业奖学金评选的通知"], "must_contain": ["XX大学奖助学金申请表"], "_fmt": "md", "_doc_type": "奖学金", "_tpl": "award"}
+{"id": "B006", "category": "document", "question": "申请2026年家庭经济困难学生认定要交哪些材料？", "expected_route": "document", "expected_titles": ["关于开展2026年家庭经济困难学生认定工作的通知"], "must_contain": ["XX大学家庭经济困难学生认定申请表"], "_fmt": "pdf", "_doc_type": "助学金", "_tpl": "award"}
+{"id": "B007", "category": "document", "question": "申请2026年生源地信用助学贷款要交哪些材料？", "expected_route": "document", "expected_titles": ["关于做好2026年生源地信用助学贷款申请工作的通知"], "must_contain": ["生源地信用助学贷款申请表"], "_fmt": "docx", "_doc_type": "助学金", "_tpl": "award"}
+{"id": "B008", "category": "document", "question": "申请2025年勤工助学岗位要交哪些材料？", "expected_route": "document", "expected_titles": ["关于2025年秋季学期勤工助学岗位招聘的通知"], "must_contain": ["XX大学勤工助学岗位申请表"], "_fmt": "txt", "_doc_type": "助学金", "_tpl": "award"}
+{"id": "B009", "category": "document", "question": "申请2025年学费减免要交哪些材料？", "expected_route": "document", "expected_titles": ["关于开展2025年学费减免工作的通知"], "must_contain": ["XX大学学费减免申请表"], "_fmt": "md", "_doc_type": "助学金", "_tpl": "award"}
+{"id": "B010", "category": "document", "question": "申请2025年临时困难补助要交哪些材料？", "expected_route": "document", "expected_titles": ["关于发放2025年临时困难补助的通知"], "must_contain": ["XX大学临时困难补助申请表"], "_fmt": "pdf", "_doc_type": "助学金", "_tpl": "award"}
+{"id": "B011", "category": "document", "question": "申请2026年基层就业学费补偿贷款代偿要交哪些材料？", "expected_route": "document", "expected_titles": ["关于做好2026年基层就业学费补偿贷款代偿工作的通知"], "must_contain": ["毕业生基层就业学费补偿申请表"], "_fmt": "docx", "_doc_type": "助学金", "_tpl": "award"}
+{"id": "B012", "category": "document", "question": "申请2025年资助育人主题活动要交哪些材料？", "expected_route": "document", "expected_titles": ["关于举办2025年资助育人主题活动的通知"], "must_contain": ["活动报名表"], "_fmt": "txt", "_doc_type": "助学金", "_tpl": "award"}
+{"id": "B013", "category": "document", "question": "2026年上半年全国大学英语四、六级考试的准考证什么时候能打印？", "expected_route": "document", "expected_titles": ["关于2026年上半年全国大学英语四、六级考试报名工作的通知"], "must_contain": ["考前一周", "2026年6月13日", "3月27日"], "_fmt": "md", "_doc_type": "考试", "_tpl": "exam"}
+{"id": "B014", "category": "document", "question": "2025年下半年全国大学英语四、六级考试的准考证什么时候能打印？", "expected_route": "document", "expected_titles": ["关于2025年下半年全国大学英语四、六级考试报名工作的通知"], "must_contain": ["考前一周", "2025年12月13日", "9月26日"], "_fmt": "pdf", "_doc_type": "考试", "_tpl": "exam"}
+{"id": "B015", "category": "document", "question": "2025年9月全国计算机等级考试的准考证什么时候能打印？", "expected_route": "document", "expected_titles": ["关于2025年9月全国计算机等级考试报名工作的通知"], "must_contain": ["考前一周", "2025年9月20日至22日", "7月5日"], "_fmt": "docx", "_doc_type": "考试", "_tpl": "exam"}
+{"id": "B016", "category": "document", "question": "2025年普通话水平测试的准考证什么时候能打印？", "expected_route": "document", "expected_titles": ["关于2025年普通话水平测试报名工作的通知"], "must_contain": ["考前一周", "2025年11月8日至9日", "10月20日"], "_fmt": "txt", "_doc_type": "考试", "_tpl": "exam"}
+{"id": "B017", "category": "document", "question": "2025年下半年中小学教师资格考试笔试的准考证什么时候能打印？", "expected_route": "document", "expected_titles": ["关于2025年下半年中小学教师资格考试笔试报名工作的通知"], "must_contain": ["考前一周", "2025年11月1日", "9月8日"], "_fmt": "md", "_doc_type": "考试", "_tpl": "exam"}
+{"id": "B018", "category": "document", "question": "2025—2026学年第一学期期中考试的准考证什么时候能打印？", "expected_route": "document", "expected_titles": ["关于2025—2026学年第一学期期中考试安排的通知"], "must_contain": ["考前一周", "2025年11月10日至11月21日"], "_fmt": "pdf", "_doc_type": "教学", "_tpl": "exam"}
+{"id": "B019", "category": "document", "question": "2025—2026学年第一学期期末考试的准考证什么时候能打印？", "expected_route": "document", "expected_titles": ["关于2025—2026学年第一学期期末考试安排的通知"], "must_contain": ["考前一周", "2026年1月5日至1月16日"], "_fmt": "docx", "_doc_type": "教学", "_tpl": "exam"}
+{"id": "B020", "category": "document", "question": "2026年春季学期补考与重修的准考证什么时候能打印？", "expected_route": "document", "expected_titles": ["关于2026年春季学期补考与重修报名工作的通知"], "must_contain": ["考前一周", "2026年3月2日至3月6日", "1月23日"], "_fmt": "txt", "_doc_type": "教学", "_tpl": "exam"}
+{"id": "B021", "category": "document", "question": "2025年成人学士学位外语水平考试的准考证什么时候能打印？", "expected_route": "document", "expected_titles": ["关于2025年成人学士学位外语水平考试报名工作的通知"], "must_contain": ["考前一周", "2025年12月6日", "11月18日"], "_fmt": "md", "_doc_type": "考试", "_tpl": "exam"}
+{"id": "B022", "category": "document", "question": "2026年全国硕士研究生招生考试报名信息确认的准考证什么时候能打印？", "expected_route": "document", "expected_titles": ["关于2026年全国硕士研究生招生考试报名信息确认的通知"], "must_contain": ["考前一周", "2026年12月19日至20日", "11月5日"], "_fmt": "pdf", "_doc_type": "考试", "_tpl": "exam"}
+{"id": "B023", "category": "document", "question": "第十七届蓝桥杯全国软件和信息技术专业人才大赛的赛程是怎么安排的？省赛在什么时候？", "expected_route": "document", "expected_titles": ["关于组织我校学生参加2026年第十七届蓝桥杯大赛的通知"], "must_contain": ["2025年12月20日", "2026年4月11日"], "_fmt": "docx", "_doc_type": "竞赛", "_tpl": "contest"}
+{"id": "B024", "category": "document", "question": "ACM-ICPC 国际大学生程序设计竞赛校内选拔赛的赛程是怎么安排的？省赛在什么时候？", "expected_route": "document", "expected_titles": ["关于举办2025年ACM-ICPC国际大学生程序设计竞赛校内选拔赛的通知"], "must_contain": ["2025年9月25日", "2025年11月8日"], "_fmt": "txt", "_doc_type": "竞赛", "_tpl": "contest"}
+{"id": "B025", "category": "document", "question": "「挑战杯」全国大学生课外学术科技作品竞赛的赛程是怎么安排的？省赛在什么时候？", "expected_route": "document", "expected_titles": ["关于组织参加2025年「挑战杯」全国大学生课外学术科技作品竞赛的通知"], "must_contain": ["2025年11月10日", "2026年4月"], "_fmt": "md", "_doc_type": "竞赛", "_tpl": "contest"}
+{"id": "B026", "category": "document", "question": "大学生创新创业训练计划项目的赛程是怎么安排的？省赛在什么时候？", "expected_route": "document", "expected_titles": ["关于开展2026年大学生创新创业训练计划项目立项申报的通知"], "must_contain": ["2026年3月31日", "2026年6月"], "_fmt": "pdf", "_doc_type": "竞赛", "_tpl": "contest"}
+{"id": "B027", "category": "document", "question": "全国大学生电子设计竞赛的赛程是怎么安排的？省赛在什么时候？", "expected_route": "document", "expected_titles": ["关于组织参加2025年全国大学生电子设计竞赛的通知"], "must_contain": ["2025年7月5日", "2025年8月6日至9日"], "_fmt": "docx", "_doc_type": "竞赛", "_tpl": "contest"}
+{"id": "B028", "category": "document", "question": "中国大学生计算机设计大赛的赛程是怎么安排的？省赛在什么时候？", "expected_route": "document", "expected_titles": ["关于组织参加2025年中国大学生计算机设计大赛的通知"], "must_contain": ["2025年4月25日", "2025年6月"], "_fmt": "txt", "_doc_type": "竞赛", "_tpl": "contest"}
+{"id": "B029", "category": "document", "question": "中国国际大学生创新大赛的赛程是怎么安排的？省赛在什么时候？", "expected_route": "document", "expected_titles": ["关于组织参加2025年中国国际大学生创新大赛（「互联网+」）的通知"], "must_contain": ["2025年5月20日", "2025年7月"], "_fmt": "md", "_doc_type": "竞赛", "_tpl": "contest"}
+{"id": "B030", "category": "document", "question": "全国大学生英语竞赛的赛程是怎么安排的？省赛在什么时候？", "expected_route": "document", "expected_titles": ["关于组织参加2025年全国大学生英语竞赛的通知"], "must_contain": ["2025年4月10日", "2025年5月11日"], "_fmt": "pdf", "_doc_type": "竞赛", "_tpl": "contest"}
+{"id": "B031", "category": "document", "question": "全国大学生数学竞赛的赛程是怎么安排的？省赛在什么时候？", "expected_route": "document", "expected_titles": ["关于组织参加2025年全国大学生数学竞赛的通知"], "must_contain": ["2025年10月15日", "2025年11月8日"], "_fmt": "docx", "_doc_type": "竞赛", "_tpl": "contest"}
+{"id": "B032", "category": "document", "question": "美国大学生数学建模竞赛（MCM/ICM）的赛程是怎么安排的？省赛在什么时候？", "expected_route": "document", "expected_titles": ["关于组织参加2026年美国大学生数学建模竞赛的通知"], "must_contain": ["2025年12月31日", "2026年2月5日至9日"], "_fmt": "txt", "_doc_type": "竞赛", "_tpl": "contest"}
+{"id": "B033", "category": "document", "question": "图书馆图书借阅规则调整要怎么办？在哪里办？", "expected_route": "document", "expected_titles": ["关于调整图书馆图书借阅规则的通知"], "must_contain": ["图书馆一楼总服务台及各自助借还机", "020-84096400"], "_fmt": "md", "_doc_type": "后勤", "_tpl": "service"}
+{"id": "B034", "category": "document", "question": "学生食堂营业时间调整要怎么办？在哪里办？", "expected_route": "document", "expected_titles": ["关于调整学生食堂营业时间的通知"], "must_contain": ["第一食堂、第二食堂、清真食堂", "020-84096400"], "_fmt": "pdf", "_doc_type": "后勤", "_tpl": "service"}
+{"id": "B035", "category": "document", "question": "学生宿舍热水供应时间调整要怎么办？在哪里办？", "expected_route": "document", "expected_titles": ["关于2025年秋季学期宿舍热水供应时间调整的通知"], "must_contain": ["各宿舍楼公共浴室及独立卫浴", "020-84096400"], "_fmt": "docx", "_doc_type": "后勤", "_tpl": "service"}
+{"id": "B036", "category": "document", "question": "校园卡办理与补办要怎么办？在哪里办？", "expected_route": "document", "expected_titles": ["关于校园卡办理与补办流程的通知"], "must_contain": ["学生服务中心一楼 3 号窗口", "020-84096400"], "_fmt": "txt", "_doc_type": "后勤", "_tpl": "service"}
+{"id": "B037", "category": "document", "question": "校医院门诊时间调整要怎么办？在哪里办？", "expected_route": "document", "expected_titles": ["关于校医院门诊时间调整的通知"], "must_contain": ["校医院一楼门诊大厅", "020-84096400"], "_fmt": "md", "_doc_type": "后勤", "_tpl": "service"}
+{"id": "B038", "category": "document", "question": "校园网核心设备升级要怎么办？在哪里办？", "expected_route": "document", "expected_titles": ["关于校园网核心设备升级的通知"], "must_contain": ["覆盖全部教学楼、宿舍楼、图书馆", "020-84096400"], "_fmt": "pdf", "_doc_type": "后勤", "_tpl": "service"}
+{"id": "B039", "category": "document", "question": "校园快递服务点搬迁要怎么办？在哪里办？", "expected_route": "document", "expected_titles": ["关于校园快递服务点搬迁的通知"], "must_contain": ["由原体育馆西侧搬迁至学生公寓 6 栋架空层", "020-84096400"], "_fmt": "docx", "_doc_type": "后勤", "_tpl": "service"}
+{"id": "B040", "category": "document", "question": "学生宿舍报修流程要怎么办？在哪里办？", "expected_route": "document", "expected_titles": ["关于学生宿舍报修流程的通知"], "must_contain": ["各宿舍楼值班室或线上报修平台", "020-84096400"], "_fmt": "txt", "_doc_type": "后勤", "_tpl": "service"}
+{"id": "B041", "category": "document", "question": "体育场馆开放安排要怎么办？在哪里办？", "expected_route": "document", "expected_titles": ["关于体育场馆开放安排的通知"], "must_contain": ["东区田径场、体育馆、游泳池", "020-84096400"], "_fmt": "md", "_doc_type": "后勤", "_tpl": "service"}
+{"id": "B042", "category": "document", "question": "校车运行时刻表调整要怎么办？在哪里办？", "expected_route": "document", "expected_titles": ["关于校车运行时刻表调整的通知"], "must_contain": ["校本部南门、新校区行政楼前", "020-84096400"], "_fmt": "pdf", "_doc_type": "后勤", "_tpl": "service"}
+{"id": "B043", "category": "document", "question": "第十二届校园歌手大赛有哪些内容？在哪里办？", "expected_route": "document", "expected_titles": ["关于举办第十二届校园歌手大赛的通知"], "must_contain": ["2025年10月20日", "大学生活动中心礼堂"], "_fmt": "docx", "_doc_type": "活动", "_tpl": "activity"}
+{"id": "B044", "category": "document", "question": "2025年秋季田径运动会有哪些内容？在哪里办？", "expected_route": "document", "expected_titles": ["关于举办2025年秋季田径运动会的通知"], "must_contain": ["2025年10月30日", "东区田径场"], "_fmt": "txt", "_doc_type": "活动", "_tpl": "activity"}
+{"id": "B045", "category": "document", "question": "2025年志愿服务月有哪些内容？在哪里办？", "expected_route": "document", "expected_titles": ["关于开展2025年志愿服务月的通知"], "must_contain": ["2025年11月12日", "校内各服务点及周边社区"], "_fmt": "md", "_doc_type": "活动", "_tpl": "activity"}
+{"id": "B046", "category": "document", "question": "2025年心理健康教育月有哪些内容？在哪里办？", "expected_route": "document", "expected_titles": ["关于开展2025年心理健康教育月活动的通知"], "must_contain": ["2025年11月1日", "心理健康教育中心及各学院活动室"], "_fmt": "pdf", "_doc_type": "活动", "_tpl": "activity"}
+{"id": "B047", "category": "document", "question": "2025年学生社团招新有哪些内容？在哪里办？", "expected_route": "document", "expected_titles": ["关于2025年学生社团招新的通知"], "must_contain": ["2025年9月26日", "中心广场"], "_fmt": "docx", "_doc_type": "活动", "_tpl": "activity"}
+{"id": "B048", "category": "document", "question": "2025年学术活动月有哪些内容？在哪里办？", "expected_route": "document", "expected_titles": ["关于举办2025年学术活动月的通知"], "must_contain": ["2025年11月30日", "各学院报告厅"], "_fmt": "txt", "_doc_type": "活动", "_tpl": "activity"}
+{"id": "B049", "category": "document", "question": "第八届校园读书节有哪些内容？在哪里办？", "expected_route": "document", "expected_titles": ["关于举办第八届校园读书节的通知"], "must_contain": ["2025年11月20日", "图书馆一楼大厅"], "_fmt": "md", "_doc_type": "活动", "_tpl": "activity"}
+{"id": "B050", "category": "document", "question": "2026届毕业生晚会有哪些内容？在哪里办？", "expected_route": "document", "expected_titles": ["关于举办2026届毕业生晚会的通知"], "must_contain": ["2026年5月30日", "大学生活动中心礼堂"], "_fmt": "pdf", "_doc_type": "活动", "_tpl": "activity"}
+{"id": "B051", "category": "document", "question": "2025—2026学年第二学期选课对学生有什么具体要求？", "expected_route": "document", "expected_titles": ["关于2025—2026学年第二学期选课工作的通知"], "must_contain": ["2025年12月22日", "赵老师"], "_fmt": "docx", "_doc_type": "教学", "_tpl": "academic"}
+{"id": "B052", "category": "document", "question": "2025—2026学年人才培养方案修订对学生有什么具体要求？", "expected_route": "document", "expected_titles": ["关于开展2025年本科专业人才培养方案修订工作的通知"], "must_contain": ["2025年11月25日", "赵老师"], "_fmt": "txt", "_doc_type": "教学", "_tpl": "academic"}
+{"id": "B053", "category": "document", "question": "2025—2026学年毕业实习安排对学生有什么具体要求？", "expected_route": "document", "expected_titles": ["关于做好2026届毕业生毕业实习安排的通知"], "must_contain": ["2026年3月2日", "赵老师"], "_fmt": "md", "_doc_type": "教学", "_tpl": "academic"}
+{"id": "B054", "category": "document", "question": "2025—2026学年毕业论文（设计）答辩对学生有什么具体要求？", "expected_route": "document", "expected_titles": ["关于做好2026届本科毕业论文（设计）答辩工作的通知"], "must_contain": ["2026年4月20日", "赵老师"], "_fmt": "pdf", "_doc_type": "教学", "_tpl": "academic"}
+{"id": "B055", "category": "document", "question": "2025—2026学年第一学期学生网上评教对学生有什么具体要求？", "expected_route": "document", "expected_titles": ["关于开展2025—2026学年第一学期学生评教工作的通知"], "must_contain": ["2025年12月22日", "赵老师"], "_fmt": "docx", "_doc_type": "教学", "_tpl": "academic"}
+{"id": "B056", "category": "document", "question": "2025—2026学年辅修专业与双学位报名对学生有什么具体要求？", "expected_route": "document", "expected_titles": ["关于开展2026年辅修专业与双学位报名工作的通知"], "must_contain": ["2026年4月20日", "赵老师"], "_fmt": "txt", "_doc_type": "教学", "_tpl": "academic"}
+{"id": "B057", "category": "document", "question": "2025—2026学年本科生转专业对学生有什么具体要求？", "expected_route": "document", "expected_titles": ["关于做好2026年本科生转专业工作的通知"], "must_contain": ["2026年5月8日", "赵老师"], "_fmt": "md", "_doc_type": "学籍", "_tpl": "academic"}
+{"id": "B058", "category": "document", "question": "2025—2026学年第一学期期中教学检查对学生有什么具体要求？", "expected_route": "document", "expected_titles": ["关于开展2025—2026学年第一学期期中教学检查的通知"], "must_contain": ["2025年11月3日", "赵老师"], "_fmt": "pdf", "_doc_type": "教学", "_tpl": "academic"}
+{"id": "B059", "category": "document", "question": "2025—2026学年第二学期教材征订对学生有什么具体要求？", "expected_route": "document", "expected_titles": ["关于2026年春季学期教材征订工作的通知"], "must_contain": ["2025年12月8日", "赵老师"], "_fmt": "docx", "_doc_type": "教学", "_tpl": "academic"}
+{"id": "B060", "category": "document", "question": "2025—2026学年第一学期实验课安排调整对学生有什么具体要求？", "expected_route": "document", "expected_titles": ["关于调整2025年秋季学期实验课安排的通知"], "must_contain": ["2025年10月8日", "赵老师"], "_fmt": "txt", "_doc_type": "教学", "_tpl": "academic"}
+{"id": "B061", "category": "document", "question": "2025—2026学年小学期课程安排对学生有什么具体要求？", "expected_route": "document", "expected_titles": ["关于2026年小学期课程安排的通知"], "must_contain": ["2026年6月29日", "赵老师"], "_fmt": "md", "_doc_type": "教学", "_tpl": "academic"}
+{"id": "B062", "category": "document", "question": "2025—2026学年第一学期学业预警对学生有什么具体要求？", "expected_route": "document", "expected_titles": ["关于开展2025—2026学年第一学期学业预警工作的通知"], "must_contain": ["2025年11月10日", "赵老师"], "_fmt": "pdf", "_doc_type": "学籍", "_tpl": "academic"}
+{"id": "B063", "category": "document", "question": "《XX大学学生违纪处分规定》从什么时候开始施行？由哪个部门负责解释？", "expected_route": "document", "expected_titles": ["XX大学学生违纪处分规定"], "must_contain": ["2025年9月1日", "学生工作处"], "_fmt": "docx", "_doc_type": "规章制度", "_tpl": "regulation"}
+{"id": "B064", "category": "document", "question": "《XX大学学生宿舍管理规定》从什么时候开始施行？由哪个部门负责解释？", "expected_route": "document", "expected_titles": ["XX大学学生宿舍管理规定"], "must_contain": ["2025年9月1日", "后勤处"], "_fmt": "txt", "_doc_type": "规章制度", "_tpl": "regulation"}
+{"id": "B065", "category": "document", "question": "《XX大学学术不端行为处理办法》从什么时候开始施行？由哪个部门负责解释？", "expected_route": "document", "expected_titles": ["XX大学学术不端行为处理办法"], "must_contain": ["2025年9月1日", "科研处"], "_fmt": "md", "_doc_type": "规章制度", "_tpl": "regulation"}
+{"id": "B066", "category": "document", "question": "《XX大学考场纪律规定》从什么时候开始施行？由哪个部门负责解释？", "expected_route": "document", "expected_titles": ["XX大学考场纪律规定"], "must_contain": ["2025年9月1日", "教务处"], "_fmt": "pdf", "_doc_type": "规章制度", "_tpl": "regulation"}
+{"id": "B067", "category": "document", "question": "《XX大学学生申诉处理办法》从什么时候开始施行？由哪个部门负责解释？", "expected_route": "document", "expected_titles": ["XX大学学生申诉处理办法"], "must_contain": ["2025年9月1日", "学生工作处"], "_fmt": "docx", "_doc_type": "规章制度", "_tpl": "regulation"}
+{"id": "B068", "category": "document", "question": "《XX大学校园交通安全管理办法》从什么时候开始施行？由哪个部门负责解释？", "expected_route": "document", "expected_titles": ["XX大学校园交通安全管理办法"], "must_contain": ["2025年9月1日", "保卫处"], "_fmt": "txt", "_doc_type": "规章制度", "_tpl": "regulation"}
+{"id": "B069", "category": "document", "question": "2026届毕业生秋季校园招聘会对参会的学生有什么要求？", "expected_route": "document", "expected_titles": ["关于举办2026届毕业生秋季校园招聘会的通知"], "must_contain": ["大学生活动中心一楼、中心广场", "10月20日"], "_fmt": "md", "_doc_type": "就业", "_tpl": "employment"}
+{"id": "B070", "category": "document", "question": "2026届毕业生就业协议书签订对参会的学生有什么要求？", "expected_route": "document", "expected_titles": ["关于做好2026届毕业生就业协议书签订工作的通知"], "must_contain": ["就业指导中心服务大厅及各学院就业工作办公室", "11月1日"], "_fmt": "pdf", "_doc_type": "就业", "_tpl": "employment"}
+{"id": "B071", "category": "document", "question": "2026届毕业生档案转递对参会的学生有什么要求？", "expected_route": "document", "expected_titles": ["关于做好2026届毕业生档案转递工作的通知"], "must_contain": ["各学院学生工作办公室", "6月1日"], "_fmt": "docx", "_doc_type": "就业", "_tpl": "employment"}
+{"id": "B072", "category": "document", "question": "高校毕业生就业见习补贴申报对参会的学生有什么要求？", "expected_route": "document", "expected_titles": ["关于申报2026年高校毕业生就业见习补贴的通知"], "must_contain": ["就业指导中心 102 室", "3月10日"], "_fmt": "txt", "_doc_type": "就业", "_tpl": "employment"}
+{"id": "B073", "category": "document", "question": "2025年秋季简历门诊对参会的学生有什么要求？", "expected_route": "document", "expected_titles": ["关于开展2025年秋季简历门诊活动的通知"], "must_contain": ["学生活动中心 102 室", "9月28日"], "_fmt": "md", "_doc_type": "就业", "_tpl": "employment"}
+{"id": "B074", "category": "document", "question": "2026年基层就业项目报名对参会的学生有什么要求？", "expected_route": "document", "expected_titles": ["关于做好2026年基层就业项目报名工作的通知"], "must_contain": ["就业指导中心服务大厅", "4月15日"], "_fmt": "pdf", "_doc_type": "就业", "_tpl": "employment"}
+{"id": "B075", "category": "document", "question": "申请2026年秋季学期交换生项目需要什么条件？有多少名额？", "expected_route": "document", "expected_titles": ["关于选拔2026年秋季学期交换生的通知"], "must_contain": ["30名", "2026年3月6日"], "_fmt": "docx", "_doc_type": "国际交流", "_tpl": "exchange"}
+{"id": "B076", "category": "document", "question": "申请2026年暑期海外研修项目需要什么条件？有多少名额？", "expected_route": "document", "expected_titles": ["关于选拔2026年暑期海外研修项目学生的通知"], "must_contain": ["45名", "2026年4月20日"], "_fmt": "txt", "_doc_type": "国际交流", "_tpl": "exchange"}
+{"id": "B077", "category": "document", "question": "申请2026年港澳台地区交流生项目需要什么条件？有多少名额？", "expected_route": "document", "expected_titles": ["关于选拔2026年港澳台地区交流生的通知"], "must_contain": ["20名", "2026年3月27日"], "_fmt": "md", "_doc_type": "国际交流", "_tpl": "exchange"}
+{"id": "B078", "category": "document", "question": "申请国际组织实习项目需要什么条件？有多少名额？", "expected_route": "document", "expected_titles": ["关于招募国际组织实习项目候选人的通知"], "must_contain": ["10名", "2026年5月15日"], "_fmt": "pdf", "_doc_type": "国际交流", "_tpl": "exchange"}
+{"id": "B079", "category": "document", "question": "申请2025年雅思托福备考培训班需要什么条件？有多少名额？", "expected_route": "document", "expected_titles": ["关于举办2025年雅思托福备考培训班的通知"], "must_contain": ["60名", "2025年10月16日"], "_fmt": "docx", "_doc_type": "国际交流", "_tpl": "exchange"}
+{"id": "B080", "category": "document", "question": "申请2026年秋季学期留学生接待志愿者需要什么条件？有多少名额？", "expected_route": "document", "expected_titles": ["关于招募2026年秋季学期留学生接待志愿者的通知"], "must_contain": ["40名", "2026年8月28日"], "_fmt": "txt", "_doc_type": "国际交流", "_tpl": "exchange"}
+{"id": "S101", "category": "structured", "question": "2024年挑战杯什么时候开始报名？", "expected_route": "structured", "expect_tool": "query_competition", "must_contain": ["2024-03-19"]}
+{"id": "S102", "category": "structured", "question": "2025年挑战杯什么时候开始报名？", "expected_route": "structured", "expect_tool": "query_competition", "must_contain": ["2025-03-22"]}
+{"id": "S103", "category": "structured", "question": "2026年挑战杯什么时候开始报名？", "expected_route": "structured", "expect_tool": "query_competition", "must_contain": ["2026-03-18"]}
+{"id": "S104", "category": "structured", "question": "2024年互联网+大学生创新创业大赛什么时候开始报名？", "expected_route": "structured", "expect_tool": "query_competition", "must_contain": ["2024-04-14"]}
+{"id": "S105", "category": "structured", "question": "2025年互联网+大学生创新创业大赛什么时候开始报名？", "expected_route": "structured", "expect_tool": "query_competition", "must_contain": ["2025-04-17"]}
+{"id": "S106", "category": "structured", "question": "2026年互联网+大学生创新创业大赛什么时候开始报名？", "expected_route": "structured", "expect_tool": "query_competition", "must_contain": ["2026-04-13"]}
+{"id": "S107", "category": "structured", "question": "2024年CCPC程序设计竞赛什么时候开始报名？", "expected_route": "structured", "expect_tool": "query_competition", "must_contain": ["2024-05-09"]}
+{"id": "S108", "category": "structured", "question": "2025年CCPC程序设计竞赛什么时候开始报名？", "expected_route": "structured", "expect_tool": "query_competition", "must_contain": ["2025-05-12"]}
+{"id": "S109", "category": "structured", "question": "2026年CCPC程序设计竞赛什么时候开始报名？", "expected_route": "structured", "expect_tool": "query_competition", "must_contain": ["2026-05-08"]}
+{"id": "S110", "category": "structured", "question": "2024年计算机设计大赛什么时候开始报名？", "expected_route": "structured", "expect_tool": "query_competition", "must_contain": ["2024-02-29"]}
+{"id": "S111", "category": "structured", "question": "2025年计算机设计大赛什么时候开始报名？", "expected_route": "structured", "expect_tool": "query_competition", "must_contain": ["2025-03-03"]}
+{"id": "S112", "category": "structured", "question": "2026年计算机设计大赛什么时候开始报名？", "expected_route": "structured", "expect_tool": "query_competition", "must_contain": ["2026-02-27"]}
+{"id": "S113", "category": "structured", "question": "2024年团体程序设计天梯赛什么时候开始报名？", "expected_route": "structured", "expect_tool": "query_competition", "must_contain": ["2024-01-09"]}
+{"id": "S114", "category": "structured", "question": "2025年团体程序设计天梯赛什么时候开始报名？", "expected_route": "structured", "expect_tool": "query_competition", "must_contain": ["2025-01-12"]}
+{"id": "S115", "category": "structured", "question": "2026年团体程序设计天梯赛什么时候开始报名？", "expected_route": "structured", "expect_tool": "query_competition", "must_contain": ["2026-01-08"]}
+{"id": "S116", "category": "structured", "question": "2024年信息安全竞赛什么时候开始报名？", "expected_route": "structured", "expect_tool": "query_competition", "must_contain": ["2024-03-14"]}
+{"id": "S117", "category": "structured", "question": "2025年信息安全竞赛什么时候开始报名？", "expected_route": "structured", "expect_tool": "query_competition", "must_contain": ["2025-03-17"]}
+{"id": "S118", "category": "structured", "question": "2026年信息安全竞赛什么时候开始报名？", "expected_route": "structured", "expect_tool": "query_competition", "must_contain": ["2026-03-13"]}
+{"id": "S119", "category": "structured", "question": "2024年数学建模竞赛什么时候开始报名？", "expected_route": "structured", "expect_tool": "query_competition", "must_contain": ["2024-04-30"]}
+{"id": "S120", "category": "structured", "question": "2025年数学建模竞赛什么时候开始报名？", "expected_route": "structured", "expect_tool": "query_competition", "must_contain": ["2025-05-03"]}
+{"id": "S121", "category": "structured", "question": "2026年数学建模竞赛什么时候开始报名？", "expected_route": "structured", "expect_tool": "query_competition", "must_contain": ["2026-04-29"]}
+{"id": "S122", "category": "structured", "question": "2024年数学竞赛什么时候开始报名？", "expected_route": "structured", "expect_tool": "query_competition", "must_contain": ["2024-08-31"]}
+{"id": "S123", "category": "structured", "question": "2025年数学竞赛什么时候开始报名？", "expected_route": "structured", "expect_tool": "query_competition", "must_contain": ["2025-09-03"]}
+{"id": "S124", "category": "structured", "question": "2026年数学竞赛什么时候开始报名？", "expected_route": "structured", "expect_tool": "query_competition", "must_contain": ["2026-08-30"]}
+{"id": "S125", "category": "structured", "question": "2024年电子设计竞赛什么时候开始报名？", "expected_route": "structured", "expect_tool": "query_competition", "must_contain": ["2024-03-31"]}
+{"id": "S126", "category": "structured", "question": "2025年电子设计竞赛什么时候开始报名？", "expected_route": "structured", "expect_tool": "query_competition", "must_contain": ["2025-04-03"]}
+{"id": "S127", "category": "structured", "question": "2026年电子设计竞赛什么时候开始报名？", "expected_route": "structured", "expect_tool": "query_competition", "must_contain": ["2026-03-30"]}
+{"id": "S128", "category": "structured", "question": "2024年大学生英语竞赛什么时候开始报名？", "expected_route": "structured", "expect_tool": "query_competition", "must_contain": ["2023-12-14"]}
+{"id": "S129", "category": "structured", "question": "2025年大学生英语竞赛什么时候开始报名？", "expected_route": "structured", "expect_tool": "query_competition", "must_contain": ["2024-12-17"]}
+{"id": "S130", "category": "structured", "question": "2026年大学生英语竞赛什么时候开始报名？", "expected_route": "structured", "expect_tool": "query_competition", "must_contain": ["2025-12-13"]}
+{"id": "S131", "category": "structured", "question": "2024年英语演讲大赛什么时候开始报名？", "expected_route": "structured", "expect_tool": "query_competition", "must_contain": ["2024-09-09"]}
+{"id": "S132", "category": "structured", "question": "2025年英语演讲大赛什么时候开始报名？", "expected_route": "structured", "expect_tool": "query_competition", "must_contain": ["2025-09-12"]}
+{"id": "S133", "category": "structured", "question": "2026年英语演讲大赛什么时候开始报名？", "expected_route": "structured", "expect_tool": "query_competition", "must_contain": ["2026-09-08"]}
+{"id": "S134", "category": "structured", "question": "2024年蓝桥杯什么时候开始报名？", "expected_route": "structured", "expect_tool": "query_competition", "must_contain": ["2023-11-24"]}
+{"id": "S135", "category": "structured", "question": "2025年蓝桥杯什么时候开始报名？", "expected_route": "structured", "expect_tool": "query_competition", "must_contain": ["2024-11-27"]}
+{"id": "S136", "category": "structured", "question": "2026年蓝桥杯什么时候开始报名？", "expected_route": "structured", "expect_tool": "query_competition", "must_contain": ["2025-11-23"]}
+{"id": "S137", "category": "structured", "question": "2024年大学生英语竞赛初赛什么时候考试？", "expected_route": "structured", "expect_tool": "query_exam", "must_contain": ["2024-04-15"]}
+{"id": "S138", "category": "structured", "question": "2025年大学生英语竞赛初赛什么时候考试？", "expected_route": "structured", "expect_tool": "query_exam", "must_contain": ["2025-04-16"]}
+{"id": "S139", "category": "structured", "question": "2026年大学生英语竞赛初赛什么时候考试？", "expected_route": "structured", "expect_tool": "query_exam", "must_contain": ["2026-04-12"]}
+{"id": "S140", "category": "structured", "question": "2024年大学英语六级什么时候考试？", "expected_route": "structured", "expect_tool": "query_exam", "must_contain": ["2024-06-15"]}
+{"id": "S141", "category": "structured", "question": "2024年大学英语六级什么时候考试？", "expected_route": "structured", "expect_tool": "query_exam", "must_contain": ["2024-12-16"]}
+{"id": "S142", "category": "structured", "question": "2025年大学英语六级什么时候考试？", "expected_route": "structured", "expect_tool": "query_exam", "must_contain": ["2025-06-16"]}
+{"id": "S143", "category": "structured", "question": "2025年大学英语六级什么时候考试？", "expected_route": "structured", "expect_tool": "query_exam", "must_contain": ["2025-12-12"]}
+{"id": "S144", "category": "structured", "question": "2026年大学英语六级什么时候考试？", "expected_route": "structured", "expect_tool": "query_exam", "must_contain": ["2026-06-12"]}
+{"id": "S145", "category": "structured", "question": "2026年大学英语六级什么时候考试？", "expected_route": "structured", "expect_tool": "query_exam", "must_contain": ["2026-12-13"]}
+{"id": "S146", "category": "structured", "question": "2024年大学英语四级什么时候考试？", "expected_route": "structured", "expect_tool": "query_exam", "must_contain": ["2024-06-15"]}
+{"id": "S147", "category": "structured", "question": "2024年大学英语四级什么时候考试？", "expected_route": "structured", "expect_tool": "query_exam", "must_contain": ["2024-12-16"]}
+{"id": "S148", "category": "structured", "question": "2025年大学英语四级什么时候考试？", "expected_route": "structured", "expect_tool": "query_exam", "must_contain": ["2025-06-16"]}
+{"id": "S149", "category": "structured", "question": "2025年大学英语四级什么时候考试？", "expected_route": "structured", "expect_tool": "query_exam", "must_contain": ["2025-12-12"]}
+{"id": "S150", "category": "structured", "question": "2026年大学英语四级什么时候考试？", "expected_route": "structured", "expect_tool": "query_exam", "must_contain": ["2026-06-12"]}
+{"id": "S151", "category": "structured", "question": "2026年大学英语四级什么时候考试？", "expected_route": "structured", "expect_tool": "query_exam", "must_contain": ["2026-12-13"]}
+{"id": "S152", "category": "structured", "question": "2024年硕士研究生招生考试初试什么时候考试？", "expected_route": "structured", "expect_tool": "query_exam", "must_contain": ["2024-12-22"]}
+{"id": "S153", "category": "structured", "question": "2025年硕士研究生招生考试初试什么时候考试？", "expected_route": "structured", "expect_tool": "query_exam", "must_contain": ["2025-12-23"]}
+{"id": "S154", "category": "structured", "question": "2026年硕士研究生招生考试初试什么时候考试？", "expected_route": "structured", "expect_tool": "query_exam", "must_contain": ["2026-12-19"]}
+{"id": "S155", "category": "structured", "question": "2024年计算机二级什么时候考试？", "expected_route": "structured", "expect_tool": "query_exam", "must_contain": ["2024-03-23"]}
+{"id": "S156", "category": "structured", "question": "2024年计算机二级什么时候考试？", "expected_route": "structured", "expect_tool": "query_exam", "must_contain": ["2024-09-23"]}
+{"id": "S157", "category": "structured", "question": "2025年计算机二级什么时候考试？", "expected_route": "structured", "expect_tool": "query_exam", "must_contain": ["2025-09-19"]}
+{"id": "S158", "category": "structured", "question": "2025年计算机二级什么时候考试？", "expected_route": "structured", "expect_tool": "query_exam", "must_contain": ["2025-03-24"]}
+{"id": "S159", "category": "structured", "question": "2026年计算机二级什么时候考试？", "expected_route": "structured", "expect_tool": "query_exam", "must_contain": ["2026-09-20"]}
+{"id": "S160", "category": "structured", "question": "2026年计算机二级什么时候考试？", "expected_route": "structured", "expect_tool": "query_exam", "must_contain": ["2026-03-20"]}
+{"id": "S161", "category": "structured", "question": "2024年普通话水平测试什么时候考试？", "expected_route": "structured", "expect_tool": "query_exam", "must_contain": ["2024-04-19"]}
+{"id": "S162", "category": "structured", "question": "2024年普通话水平测试什么时候考试？", "expected_route": "structured", "expect_tool": "query_exam", "must_contain": ["2024-10-20"]}
+{"id": "S163", "category": "structured", "question": "2025年普通话水平测试什么时候考试？", "expected_route": "structured", "expect_tool": "query_exam", "must_contain": ["2025-04-20"]}
+{"id": "S164", "category": "structured", "question": "2025年普通话水平测试什么时候考试？", "expected_route": "structured", "expect_tool": "query_exam", "must_contain": ["2025-10-16"]}
+{"id": "S165", "category": "structured", "question": "2026年普通话水平测试什么时候考试？", "expected_route": "structured", "expect_tool": "query_exam", "must_contain": ["2026-04-16"]}
+{"id": "S166", "category": "structured", "question": "2026年普通话水平测试什么时候考试？", "expected_route": "structured", "expect_tool": "query_exam", "must_contain": ["2026-10-17"]}
+{"id": "S167", "category": "structured", "question": "2024年软考中级什么时候考试？", "expected_route": "structured", "expect_tool": "query_exam", "must_contain": ["2024-11-10"]}
+{"id": "S168", "category": "structured", "question": "2024年软考中级什么时候考试？", "expected_route": "structured", "expect_tool": "query_exam", "must_contain": ["2024-05-25"]}
+{"id": "S169", "category": "structured", "question": "2025年软考中级什么时候考试？", "expected_route": "structured", "expect_tool": "query_exam", "must_contain": ["2025-05-26"]}
+{"id": "S170", "category": "structured", "question": "2025年软考中级什么时候考试？", "expected_route": "structured", "expect_tool": "query_exam", "must_contain": ["2025-11-06"]}
+{"id": "S171", "category": "structured", "question": "2026年软考中级什么时候考试？", "expected_route": "structured", "expect_tool": "query_exam", "must_contain": ["2026-05-22"]}
+{"id": "S172", "category": "structured", "question": "2026年软考中级什么时候考试？", "expected_route": "structured", "expect_tool": "query_exam", "must_contain": ["2026-11-07"]}
+{"id": "H101", "category": "hybrid", "question": "帮我找一下《关于组织我校学生参加2026年第十七届蓝桥杯大赛的通知》，另外2024年挑战杯什么时候开始报名？", "expected_route": "hybrid", "expected_titles": ["关于组织我校学生参加2026年第十七届蓝桥杯大赛的通知"], "must_contain": ["2024-03-19", "2025年12月20日"]}
+{"id": "H102", "category": "hybrid", "question": "帮我找一下《关于举办2025年ACM-ICPC国际大学生程序设计竞赛校内选拔赛的通知》，另外2025年挑战杯什么时候开始报名？", "expected_route": "hybrid", "expected_titles": ["关于举办2025年ACM-ICPC国际大学生程序设计竞赛校内选拔赛的通知"], "must_contain": ["2025-03-22", "2025年9月25日"]}
+{"id": "H103", "category": "hybrid", "question": "帮我找一下《关于组织参加2025年「挑战杯」全国大学生课外学术科技作品竞赛的通知》，另外2026年挑战杯什么时候开始报名？", "expected_route": "hybrid", "expected_titles": ["关于组织参加2025年「挑战杯」全国大学生课外学术科技作品竞赛的通知"], "must_contain": ["2026-03-18", "2025年11月10日"]}
+{"id": "H104", "category": "hybrid", "question": "帮我找一下《关于开展2026年大学生创新创业训练计划项目立项申报的通知》，另外2024年互联网+大学生创新创业大赛什么时候开始报名？", "expected_route": "hybrid", "expected_titles": ["关于开展2026年大学生创新创业训练计划项目立项申报的通知"], "must_contain": ["2024-04-14", "2026年3月31日"]}
+{"id": "H105", "category": "hybrid", "question": "帮我找一下《关于组织参加2025年全国大学生电子设计竞赛的通知》，另外2025年互联网+大学生创新创业大赛什么时候开始报名？", "expected_route": "hybrid", "expected_titles": ["关于组织参加2025年全国大学生电子设计竞赛的通知"], "must_contain": ["2025-04-17", "2025年7月5日"]}
+{"id": "H106", "category": "hybrid", "question": "帮我找一下《关于组织参加2025年中国大学生计算机设计大赛的通知》，另外2026年互联网+大学生创新创业大赛什么时候开始报名？", "expected_route": "hybrid", "expected_titles": ["关于组织参加2025年中国大学生计算机设计大赛的通知"], "must_contain": ["2026-04-13", "2025年4月25日"]}
+{"id": "H107", "category": "hybrid", "question": "帮我找一下《关于组织参加2025年中国国际大学生创新大赛（「互联网+」）的通知》，另外2024年CCPC程序设计竞赛什么时候开始报名？", "expected_route": "hybrid", "expected_titles": ["关于组织参加2025年中国国际大学生创新大赛（「互联网+」）的通知"], "must_contain": ["2024-05-09", "2025年5月20日"]}
+{"id": "H108", "category": "hybrid", "question": "帮我找一下《关于组织参加2025年全国大学生英语竞赛的通知》，另外2025年CCPC程序设计竞赛什么时候开始报名？", "expected_route": "hybrid", "expected_titles": ["关于组织参加2025年全国大学生英语竞赛的通知"], "must_contain": ["2025-05-12", "2025年4月10日"]}
+{"id": "H109", "category": "hybrid", "question": "帮我找一下《关于组织参加2025年全国大学生数学竞赛的通知》，另外2026年CCPC程序设计竞赛什么时候开始报名？", "expected_route": "hybrid", "expected_titles": ["关于组织参加2025年全国大学生数学竞赛的通知"], "must_contain": ["2026-05-08", "2025年10月15日"]}
+{"id": "H110", "category": "hybrid", "question": "帮我找一下《关于组织参加2026年美国大学生数学建模竞赛的通知》，另外2024年计算机设计大赛什么时候开始报名？", "expected_route": "hybrid", "expected_titles": ["关于组织参加2026年美国大学生数学建模竞赛的通知"], "must_contain": ["2024-02-29", "2025年12月31日"]}
+{"id": "H111", "category": "hybrid", "question": "帮我找一下《关于2026年上半年全国大学英语四、六级考试报名工作的通知》，另外2024年大学生英语竞赛初赛什么时候考试？", "expected_route": "hybrid", "expected_titles": ["关于2026年上半年全国大学英语四、六级考试报名工作的通知"], "must_contain": ["2024-04-15", "考前一周"]}
+{"id": "H112", "category": "hybrid", "question": "帮我找一下《关于2025年下半年全国大学英语四、六级考试报名工作的通知》，另外2025年大学生英语竞赛初赛什么时候考试？", "expected_route": "hybrid", "expected_titles": ["关于2025年下半年全国大学英语四、六级考试报名工作的通知"], "must_contain": ["2025-04-16", "考前一周"]}
+{"id": "H113", "category": "hybrid", "question": "帮我找一下《关于2025年9月全国计算机等级考试报名工作的通知》，另外2026年大学生英语竞赛初赛什么时候考试？", "expected_route": "hybrid", "expected_titles": ["关于2025年9月全国计算机等级考试报名工作的通知"], "must_contain": ["2026-04-12", "考前一周"]}
+{"id": "H114", "category": "hybrid", "question": "帮我找一下《关于2025年普通话水平测试报名工作的通知》，另外2024年大学英语六级什么时候考试？", "expected_route": "hybrid", "expected_titles": ["关于2025年普通话水平测试报名工作的通知"], "must_contain": ["2024-06-15", "考前一周"]}
+{"id": "H115", "category": "hybrid", "question": "帮我找一下《关于2025年下半年中小学教师资格考试笔试报名工作的通知》，另外2024年大学英语六级什么时候考试？", "expected_route": "hybrid", "expected_titles": ["关于2025年下半年中小学教师资格考试笔试报名工作的通知"], "must_contain": ["2024-12-16", "考前一周"]}
+{"id": "H116", "category": "hybrid", "question": "帮我找一下《关于2025年成人学士学位外语水平考试报名工作的通知》，另外2025年大学英语六级什么时候考试？", "expected_route": "hybrid", "expected_titles": ["关于2025年成人学士学位外语水平考试报名工作的通知"], "must_contain": ["2025-06-16", "考前一周"]}
+{"id": "H117", "category": "hybrid", "question": "帮我找一下《关于2026年全国硕士研究生招生考试报名信息确认的通知》，另外2025年大学英语六级什么时候考试？", "expected_route": "hybrid", "expected_titles": ["关于2026年全国硕士研究生招生考试报名信息确认的通知"], "must_contain": ["2025-12-12", "考前一周"]}
+{"id": "P101", "category": "planning", "question": "我是大二软件工程的学生，想参加蓝桥杯，现在应该怎么准备？", "expected_route": "planning"}
+{"id": "P102", "category": "planning", "question": "我大一对人工智能感兴趣，大学四年应该怎么规划？", "expected_route": "planning"}
+{"id": "P103", "category": "planning", "question": "我想保研，现在大二，绩点和竞赛该怎么平衡？", "expected_route": "planning"}
+{"id": "P104", "category": "planning", "question": "我大三想找实习，应该从哪些方面准备？", "expected_route": "planning"}
+{"id": "P105", "category": "planning", "question": "我成绩中等，想申请奖学金，有什么建议？", "expected_route": "planning"}
+{"id": "P106", "category": "planning", "question": "我数学基础一般，想参加数学建模竞赛，要补哪些内容？", "expected_route": "planning"}
+{"id": "P107", "category": "planning", "question": "我想跨专业考研到计算机，现在应该做什么准备？", "expected_route": "planning"}
+{"id": "P108", "category": "planning", "question": "我大一想加入实验室，应该怎么联系老师？", "expected_route": "planning"}
+{"id": "P109", "category": "planning", "question": "我想出国交换，需要提前准备什么？", "expected_route": "planning"}
+{"id": "P110", "category": "planning", "question": "我大四了还没确定方向，就业和考研怎么选？", "expected_route": "planning"}
+{"id": "P111", "category": "planning", "question": "我想参加创新创业比赛，但没有项目想法，怎么办？", "expected_route": "planning"}
+{"id": "P112", "category": "planning", "question": "我英语基础差，怎么安排四六级的复习计划？", "expected_route": "planning"}
+{"id": "P113", "category": "planning", "question": "我想做前端开发，大学期间应该学哪些东西？", "expected_route": "planning"}
+{"id": "P114", "category": "planning", "question": "我打算考公务员，在校期间需要准备什么？", "expected_route": "planning"}
+{"id": "P115", "category": "planning", "question": "我专业是信息管理，想转行做数据分析，怎么规划？", "expected_route": "planning"}
+{"id": "P116", "category": "planning", "question": "我想参加电子设计竞赛，但我是计算机专业的，可以吗？", "expected_route": "planning"}
+{"id": "P117", "category": "planning", "question": "我大二想辅修金融，值得吗？怎么安排时间？", "expected_route": "planning"}
+{"id": "P118", "category": "planning", "question": "我想在大学期间发一篇论文，应该怎么开始？", "expected_route": "planning"}
+{"id": "P119", "category": "planning", "question": "我性格内向，想锻炼表达能力，有什么建议？", "expected_route": "planning"}
+{"id": "P120", "category": "planning", "question": "我打算毕业后创业，在校期间应该积累什么？", "expected_route": "planning"}
+{"id": "G101", "category": "general", "question": "你好", "expected_route": "general"}
+{"id": "G102", "category": "general", "question": "你能做什么？", "expected_route": "general"}
+{"id": "G103", "category": "general", "question": "帮我写一首关于春天的诗", "expected_route": "general"}
+{"id": "G104", "category": "general", "question": "讲个笑话吧", "expected_route": "general"}
+{"id": "G105", "category": "general", "question": "谢谢", "expected_route": "general"}
+{"id": "G106", "category": "general", "question": "你是谁开发的？", "expected_route": "general"}
+{"id": "G107", "category": "general", "question": "今天天气怎么样？", "expected_route": "general", "expect_refusal": true}
+{"id": "G108", "category": "general", "question": "学校有多少名在校学生？", "expected_route": "general", "expect_refusal": true}
+{"id": "G109", "category": "general", "question": "我们学校校长是谁？", "expected_route": "general", "expect_refusal": true}
+{"id": "G110", "category": "general", "question": "今年学校的预算是多少？", "expected_route": "general", "expect_refusal": true}
+{"id": "G111", "category": "general", "question": "学校有几个校区？", "expected_route": "general", "expect_refusal": true}
+{"id": "G112", "category": "general", "question": "食堂一天的营业额是多少？", "expected_route": "general", "expect_refusal": true}
+{"id": "G113", "category": "general", "question": "宿舍晚上几点熄灯？", "expected_route": "general", "expect_refusal": true}
+{"id": "G114", "category": "general", "question": "学校有多少位教授？", "expected_route": "general", "expect_refusal": true}
+{"id": "G115", "category": "general", "question": "图书馆一共有多少册藏书？", "expected_route": "general", "expect_refusal": true}
+{"id": "G116", "category": "general", "question": "学校去年的就业率是多少？", "expected_route": "general", "expect_refusal": true}

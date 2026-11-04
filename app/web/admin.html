@@ -467,6 +467,17 @@
 </div>
 
 <script>
+  const ADMIN_TOKEN =
+    new URLSearchParams(location.search).get('token') ||
+    localStorage.getItem('adminToken') || '';
+  if (ADMIN_TOKEN) localStorage.setItem('adminToken', ADMIN_TOKEN);
+  const authInit = (init) => {
+    const merged = Object.assign({}, init || {});
+    merged.headers = Object.assign({}, merged.headers || {},
+      ADMIN_TOKEN ? { 'X-Admin-Token': ADMIN_TOKEN } : {});
+    return merged;
+  };
+
   const form = document.getElementById('upload-form');
   const fileInput = document.getElementById('file');
   const btn = document.getElementById('submit-btn');
@@ -519,7 +530,7 @@
     resultEl.classList.remove('show');
 
     try {
-      const res = await fetch('/api/admin/upload', { method: 'POST', body: data });
+      const res = await fetch('/api/admin/upload', authInit({ method: 'POST', body: data }));
       const body = await res.json().catch(function () { return {}; });
 
       if (!res.ok || body.ok === false) {
@@ -649,7 +660,7 @@
 
     listStatusEl.textContent = '读取中…';
     try {
-      const res = await fetch('/api/admin/documents?' + params.toString());
+      const res = await fetch('/api/admin/documents?' + params.toString(), authInit());
       const body = await res.json().catch(function () { return {}; });
       if (!res.ok) {
         docListEl.replaceChildren();
@@ -680,7 +691,8 @@
   async function changeStatus(id, action, trigger) {
     trigger.disabled = true;
     try {
-      const res = await fetch('/api/admin/documents/' + id + '/' + action, { method: 'POST' });
+      const res = await fetch('/api/admin/documents/' + id + '/' + action,
+        authInit({ method: 'POST' }));
       const body = await res.json().catch(function () { return {}; });
       if (!res.ok) {
         listStatusEl.textContent = body.detail || ('操作失败：HTTP ' + res.status);
@@ -838,7 +850,7 @@
   async function scanOrphans() {
     scanStatusEl.textContent = '扫描中…';
     try {
-      const res = await fetch('/api/admin/orphans');
+      const res = await fetch('/api/admin/orphans', authInit());
       const body = await res.json().catch(function () { return {}; });
       if (!res.ok) {
         scanResultEl.replaceChildren();
@@ -854,11 +866,11 @@
   async function applyOrphans(action, ids, trigger) {
     trigger.disabled = true;
     try {
-      const res = await fetch('/api/admin/orphans/' + action, {
+      const res = await fetch('/api/admin/orphans/' + action, authInit({
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ ids: ids })
-      });
+      }));
       const body = await res.json().catch(function () { return {}; });
       if (!res.ok || body.ok === false) {
         scanStatusEl.textContent = body.detail || ('操作失败：HTTP ' + res.status);
@@ -875,11 +887,11 @@
   async function restoreMissing(ids, trigger) {
     trigger.disabled = true;
     try {
-      const res = await fetch('/api/admin/orphans/restore', {
+      const res = await fetch('/api/admin/orphans/restore', authInit({
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ ids: ids })
-      });
+      }));
       const body = await res.json().catch(function () { return {}; });
       if (!res.ok || body.ok === false) {
         listStatusEl.textContent = body.detail || ('恢复失败：HTTP ' + res.status);

@@ -58,7 +58,11 @@ def search_school_document(
         "命中文件数": len(result["documents"]),
         "文件列表": result["documents"],
         "是否放宽了过滤条件": result["fallback"],
-        "原文片段": format_context(hits),
+        "最高相关度": result.get("max_score"),
+        # notice 进两处：payload 里是结构化信号，片段开头是模型读正文时不会漏的提醒。
+        # 少了它，模型就把放宽条件后的近似结果当成精确答案。
+        "提示": result.get("notice") or None,
+        "原文片段": format_context(hits, notice=result.get("notice") or ""),
     }
     return json.dumps(payload, ensure_ascii=False, default=str)
 

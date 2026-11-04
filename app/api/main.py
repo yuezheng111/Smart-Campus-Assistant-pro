@@ -18,14 +18,26 @@ import time
 from pathlib import Path
 from typing import Any
 
-from fastapi import FastAPI, File, Form, HTTPException, Query, Request, UploadFile
+from fastapi import (
+    Depends,
+    FastAPI,
+    File,
+    Form,
+    HTTPException,
+    Query,
+    Request,
+    UploadFile,
+)
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import FileResponse
+from fastapi.responses import FileResponse, JSONResponse, StreamingResponse
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, Field
 
 from app import config, db
+from app.admin_change import apply_change, get_change, list_changes
+from app.agent.admin_graph import run_admin_agent, stream_admin_agent
 from app.agent.graph import run_agent
+from app.api.auth import is_admin_configured, require_admin
 from app.ingest import (
     file_sha256,
     find_orphans,
@@ -81,6 +93,27 @@ async def log_requests(request: Request, call_next: Any) -> Any:
     cost_ms = (time.perf_counter() - started) * 1000
     log.info("HTTP %s %s -> %s (%.0fms)", request.method, path, response.status_code, cost_ms)
     return response
+
+
+@app.middleware("http")
+async def admin_guard(request: Request, call_next: Any) -> Any:
+    """整个 /api/admin 前缀默认受保护。
+
+    为什么用中间件而不是给每个路由加依赖：这是**默认安全**——
+    以后新增管理接口不需要记得加鉴权，忘了也不会漏。逐个加依赖的写法，
+    迟早会在某次赶工里漏掉一个，而漏掉的那个正好是能改数据的。
+
+    规则见 app/api/auth.py：没配 ADMIN_TOKEN 时只允许本机回环。
+    """
+    path = request.url.path
+    # 用 startswith 而不是 ==：/admin/chat 这类子路径也要保护，
+    # 否则新加的页面会绕过鉴权（漏在"只写了一个等号"上）。
+    if path.startswith("/api/admin") or path == "/admin" or path.startswith("/admin/"):
+        try:
+            require_admin(request)
+        except HTTPException as exc:
+            return JSONResponse(status_code=exc.status_code, content={"detail": exc.detail})
+    return await call_next(request)
 
 
 # ----------------------------------------------------------------------
@@ -189,10 +222,11 @@ def chat(req: ChatRequest) -> dict[str, Any]:
     cost_ms = (time.perf_counter() - started) * 1000
     # 这是日志里最有价值的一行：一问一答到底走了哪条路、命中多少、花了多久。
     log.info(
-        "chat | route=%s | 来源=%d | 工具调用=%d | %.0fms | q=%s",
+        "chat | route=%s | 来源=%d | 工具调用=%d | 校验=%s | %.0fms | q=%s",
         result.get("route", ""),
         len(result.get("sources") or []),
         len(result.get("data_records") or []),
+        result.get("verdict", "") or "-",
         cost_ms,
         question,
     )
@@ -205,6 +239,10 @@ def chat(req: ChatRequest) -> dict[str, Any]:
         "documents": result.get("doc_documents", []),
         "trace": result.get("trace", []),
         "tool_calls": result.get("data_records", []),
+        # 校验结论。verdict=degrade 表示这条回答没找到资料支撑，
+        # 前端要把它和「有出处的回答」区分开，否则两者长得一模一样。
+        "verdict": result.get("verdict", ""),
+        "caveats": result.get("caveats", []),
     }
 
 
@@ -492,6 +530,20 @@ def stats() -> dict[str, Any]:
 _UNSAFE_NAME = re.compile(r'[<>:"/\\|?*\x00-\x1f]')
 
 
+def _allowed_suffixes() -> set[str]:
+    """上传白名单，跟着**当前那条入库链路**走。
+
+    v2 已经能解析 pptx / xlsx，但白名单还是老的四个后缀的话，管理员上传课件
+    会被 400 拦住 —— 能力做了却用不上。所以这里直接问解析器注册表，
+    不再手抄一份列表。
+    """
+    if config.PARSING_PIPELINE == "legacy":
+        return set(loader.SUPPORTED_SUFFIXES)
+    from app.parsing.factory import SUPPORTED_SUFFIXES as PARSING_SUFFIXES
+
+    return set(PARSING_SUFFIXES)
+
+
 def _safe_filename(raw: str) -> str:
     """把浏览器传来的文件名清理成安全的文件名。
 
@@ -547,8 +599,9 @@ async def admin_upload(
     """
     filename = file.filename or ""
     suffix = Path(filename).suffix.lower()
-    if suffix not in loader.SUPPORTED_SUFFIXES:
-        supported = " / ".join(sorted(loader.SUPPORTED_SUFFIXES))
+    allowed = _allowed_suffixes()
+    if suffix not in allowed:
+        supported = " / ".join(sorted(allowed))
         raise HTTPException(
             status_code=400,
             detail=f"不支持 {suffix or '无后缀'} 文件，仅支持：{supported}",
@@ -598,7 +651,21 @@ async def admin_upload(
 
     unchanged = int(result.get("跳过数") or 0)
     if unchanged and not result["文档数"]:
-        note = (note + "；" if note else "") + "文件内容与档案都没变，已跳过（没有重算向量，也没花钱）"
+        # 跳过有两种原因：「内容没变」和「扫描件没有文本层」。用流水线给的原因，
+        # 不要在这里猜 —— 猜错会变成"管理员传了份扫描件，系统说它没变化"。
+        reason = ""
+        for _, detail in result.get("跳过明细") or []:
+            reason = str(detail or "")
+            if reason:
+                break
+        note = (note + "；" if note else "") + (
+            reason or "文件没有产生任何可入库的内容，已跳过（没有重算向量，也没花钱）"
+        )
+
+    failed = int(result.get("失败数") or 0)
+    if failed:
+        detail = (result.get("失败明细") or [("", "")])[0][1]
+        note = (note + "；" if note else "") + f"解析失败：{detail}"
 
     log.info(
         "upload | file=%s | 文档=%d chunk=%d 跳过=%d | 向量库=%d | %s",
@@ -783,6 +850,204 @@ def admin_restore_missing(req: IdsRequest) -> dict[str, Any]:
     return {"ok": True, **result}
 
 
+# ----------------------------------------------------------------------
+# 管理端助手：对话 + 工具
+# ----------------------------------------------------------------------
+
+
+class AdminChatRequest(BaseModel):
+    question: str = Field(min_length=1, description="管理员的要求，自然语言")
+    history: list[Turn] = Field(default_factory=list, description="最近几轮对话（可选）")
+    session_id: str = Field("", description="会话 id，附件按会话隔离")
+    attachments: list[str] = Field(
+        default_factory=list, description="本轮要带上的附件文件名"
+    )
+
+
+def _attachments_of(session_id: str, names: list[str]) -> list[dict[str, Any]]:
+    """把前端传来的文件名映射成附件元信息。
+
+    只认会话目录里真实存在的文件：前端传什么名字都行，但这里不会凭名字
+    去拼路径 —— 否则 `../../.env` 这种就能读到会话目录之外。
+    """
+    if not names:
+        return []
+    from app.chat_attachment import list_attachments
+
+    available = {item["name"]: item for item in list_attachments(session_id or None)}
+    picked = [available[name] for name in names if name in available]
+    return picked
+
+
+@app.post("/api/admin/chat/upload", dependencies=[Depends(require_admin)])
+async def admin_chat_upload(
+    files: list[UploadFile] = File(..., description="对话附件，可多选"),
+    session_id: str = Form(""),
+) -> dict[str, Any]:
+    """上传对话附件：逐文件返回结果，一个失败不影响其他。
+
+    附件先落 `var/uploads/{session}/` 并解析出正文，**不入知识库**。
+    模型只能通过 admin_read_attachment 按需读取，所以不会因为传了个大文件
+    就把上下文撑爆。
+    """
+    from app.chat_attachment import MAX_FILES, MAX_TOTAL_BYTES, save_upload
+
+    if not files:
+        raise HTTPException(status_code=400, detail="没有收到文件")
+    if len(files) > MAX_FILES:
+        raise HTTPException(
+            status_code=400,
+            detail=f"一次最多上传 {MAX_FILES} 个文件，本次收到 {len(files)} 个",
+        )
+
+    results = []
+    payloads = []
+    for item in files:
+        try:
+            payloads.append((item.filename or "", await item.read()))
+        except Exception as exc:
+            results.append({
+                "name": item.filename or "",
+                "ok": False,
+                "error": f"读取上传内容失败：{exc}",
+            })
+
+    # 总量是「这一批」的属性，不是单个文件的属性 —— 必须先整批判完再落盘。
+    # 边读边存会出现「前 4 个进去了、第 5 个报超限」的半成功状态，用户不知道该删哪个。
+    total_bytes = sum(len(payload) for _, payload in payloads)
+    if total_bytes > MAX_TOTAL_BYTES:
+        raise HTTPException(
+            status_code=400,
+            detail=(
+                f"本批附件共 {total_bytes / (1024 * 1024):.1f}MB，"
+                f"超过上限 {MAX_TOTAL_BYTES // (1024 * 1024)}MB，请分批上传"
+            ),
+        )
+
+    for name, payload in payloads:
+        results.append(save_upload(name, payload, session_id or None))
+
+    ok = sum(1 for r in results if r.get("ok"))
+    log.info(
+        "附件上传 | session=%s | 成功=%d 失败=%d | %s",
+        session_id or "default", ok, len(results) - ok,
+        ",".join(r.get("name", "") for r in results),
+    )
+    return {"成功": ok, "失败": len(results) - ok, "文件": results}
+
+
+@app.post("/api/admin/chat", dependencies=[Depends(require_admin)])
+def admin_chat(req: AdminChatRequest) -> dict[str, Any]:
+    """管理端 Agent 入口：模型自己决定调哪些工具。
+
+    和学生端 /api/chat 的区别不在"有没有 LLM"，而在**谁来定流程**：
+    学生端是分类后走固定分支，这里是 ReAct 循环 —— 调几次、调哪个、按什么顺序，
+    全部由模型根据当前问题决定。所以返回体里带 trace，前端能看到它查了什么。
+    """
+    if not req.question.strip():
+        raise HTTPException(status_code=400, detail="问题不能为空")
+
+    started = time.perf_counter()
+    try:
+        result = run_admin_agent(
+            req.question.strip(),
+            [turn.model_dump() for turn in req.history],
+            attachments=_attachments_of(req.session_id, req.attachments),
+            session_id=req.session_id,
+        )
+    except Exception as exc:
+        log.exception("管理端 Agent 执行失败 | question=%s", req.question[:80])
+        raise HTTPException(
+            status_code=500,
+            detail=f"管理端助手执行失败：{type(exc).__name__}: {exc}",
+        ) from exc
+
+    cost_ms = (time.perf_counter() - started) * 1000
+    log.info(
+        "admin_chat | 步数=%s | 工具=%s | 耗时=%.0fms | 问题=%s",
+        result["steps"],
+        ",".join(dict.fromkeys(r["工具"] for r in result["records"])) or "无",
+        cost_ms,
+        req.question[:60],
+    )
+    return {
+        "回答": result["answer"],
+        "轨迹": result["trace"],
+        "工具调用": result["records"],
+        "步数": result["steps"],
+        "耗时ms": round(cost_ms),
+    }
+
+
+@app.post("/api/admin/chat/stream", dependencies=[Depends(require_admin)])
+def admin_chat_stream(req: AdminChatRequest) -> StreamingResponse:
+    """同一个 Agent，步骤级流式返回（SSE）。
+
+    事件类型：plan（模型决定调什么）/ tool（工具结果）/ change（生成了变更单）/
+    answer（最终回答）/ done / error。前端据此实时显示"正在查…"，而不是干等。
+    """
+    if not req.question.strip():
+        raise HTTPException(status_code=400, detail="问题不能为空")
+
+    history = [turn.model_dump() for turn in req.history]
+    question = req.question.strip()
+    attachments = _attachments_of(req.session_id, req.attachments)
+
+    def gen():
+        try:
+            for event in stream_admin_agent(
+                question, history, attachments, req.session_id
+            ):
+                payload = json.dumps(event, ensure_ascii=False, default=str)
+                yield f"data: {payload}\n\n"
+        except Exception as exc:
+            log.exception("管理端流式接口失败 | question=%s", question[:60])
+            payload = json.dumps(
+                {"type": "error", "message": f"{type(exc).__name__}: {exc}"},
+                ensure_ascii=False,
+            )
+            yield f"data: {payload}\n\n"
+
+    return StreamingResponse(
+        gen(),
+        media_type="text/event-stream",
+        headers={"Cache-Control": "no-store", "X-Accel-Buffering": "no"},
+    )
+
+
+@app.get("/api/admin/changes", dependencies=[Depends(require_admin)])
+def admin_changes(limit: int = Query(20, ge=1, le=100)) -> dict[str, Any]:
+    """最近的变更单列表。"""
+    return {"数量": len(list_changes(limit)), "变更单": list_changes(limit)}
+
+
+@app.get("/api/admin/changes/{change_id}", dependencies=[Depends(require_admin)])
+def admin_change_detail(change_id: str) -> dict[str, Any]:
+    """看一张变更单的 diff —— 前端确认卡就渲染这个。"""
+    change = get_change(change_id)
+    if not change:
+        raise HTTPException(status_code=404, detail=f"没有 id={change_id} 的变更单")
+    return change
+
+
+@app.post("/api/admin/changes/{change_id}/apply", dependencies=[Depends(require_admin)])
+def admin_change_apply(change_id: str) -> dict[str, Any]:
+    """人工确认后执行变更。
+
+    这个接口**只能人点**：模型手里没有这个工具，所以它无法自己确认自己。
+    执行顺序是 MySQL 正本 → 向量库副本 → 审计，中途失败会留下可重跑的中间态。
+    """
+    try:
+        return apply_change(change_id)
+    except LookupError as exc:
+        raise HTTPException(status_code=404, detail=str(exc)) from exc
+    except ValueError as exc:
+        raise HTTPException(status_code=409, detail=str(exc)) from exc
+    except Exception as exc:
+        log.exception("执行变更单失败 | id=%s", change_id)
+        raise HTTPException(status_code=500, detail=f"执行失败：{exc}") from exc
+
+
 @app.get("/admin", include_in_schema=False)
 def admin_page() -> FileResponse:
     """管理员上传页。
@@ -793,6 +1058,19 @@ def admin_page() -> FileResponse:
     page = WEB_DIR / "admin.html"
     if not page.is_file():
         raise HTTPException(status_code=404, detail="管理页面不存在")
+    return FileResponse(page, media_type="text/html; charset=utf-8")
+
+
+@app.get("/admin/chat", include_in_schema=False)
+def admin_chat_page() -> FileResponse:
+    """管理员对话页：和模型对话查库、提变更单。
+
+    单独一个文件而不是塞进 admin.html：那个页面是「上传与文件管理」，
+    职责已经饱和（900 多行），再塞一个对话界面只会让两边都难改。
+    """
+    page = WEB_DIR / "admin_chat.html"
+    if not page.is_file():
+        raise HTTPException(status_code=404, detail="对话页面不存在")
     return FileResponse(page, media_type="text/html; charset=utf-8")
 
 

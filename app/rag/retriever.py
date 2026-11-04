@@ -11,6 +11,7 @@
 from __future__ import annotations
 
 import re
+import warnings
 from typing import Any
 
 from app import config
@@ -18,6 +19,16 @@ from app.logging_config import get_logger
 from app.rag.vectorstore import get_vectorstore
 
 log = get_logger(__name__)
+
+# Chroma 在 1 - cosine距离 落到 [0,1] 之外时会打 UserWarning。这不是错误：
+# cosine 距离上限是 2，所以无关内容的相关度天然会到负数（实测 -0.048）。
+# 但一次不相关查询就刷一条，日志会被淹掉，所以在导入时统一压掉。
+# 用模块级 filter 而不是 catch_warnings：后者会改全局过滤器，并发下不安全。
+warnings.filterwarnings(
+    "ignore",
+    message="Relevance scores must be between 0 and 1",
+    category=UserWarning,
+)
 
 # 检索默认只看「现行」文件。已废止的文件并没有被删掉 ——
 # 它们只是不再进入默认候选集，学生明确问往年政策时仍然搜得到。
@@ -46,7 +57,11 @@ def _merge(*conditions: dict[str, Any] | None) -> dict[str, Any] | None:
     return {"$and": items}
 
 
-def _baseline_filter() -> dict[str, Any]:
+def _baseline_filter(
+    *,
+    include_superseded: bool = False,
+    include_missing: bool = False,
+) -> dict[str, Any] | None:
     """任何检索都必须成立的「地基」条件。
 
     两条，各自挡掉一种「不该出现在默认结果里」的文件：
@@ -56,13 +71,22 @@ def _baseline_filter() -> dict[str, Any]:
 
     第二条为什么也要挡：原件没了，学生在来源卡片上点「查看原文」会直接 404。
     但它**没有被删除** —— 片段和正文都还在库里，问历史时仍然查得到。
+
+    两个开关只给学生端之外的两个场景用：
+        include_superseded=True  「问往年政策」
+        include_missing=True     管理端（要能看见原件缺失的留档）
+    两个都为 True 时返回 None，表示不加任何地基条件。
     """
-    return {
-        "$and": [
-            {"status": {"$eq": STATUS_ACTIVE}},
-            {"file_missing": {"$eq": 0}},
-        ]
-    }
+    conditions: list[dict[str, Any]] = []
+    if not include_superseded:
+        conditions.append({"status": {"$eq": STATUS_ACTIVE}})
+    if not include_missing:
+        conditions.append({"file_missing": {"$eq": 0}})
+    if not conditions:
+        return None
+    if len(conditions) == 1:
+        return conditions[0]
+    return {"$and": conditions}
 
 
 def build_filter(
@@ -126,6 +150,7 @@ def search_documents(
     year: int | None = None,
     department: str | None = None,
     include_superseded: bool = False,
+    include_missing: bool | None = None,
 ) -> dict[str, Any]:
     """检索学校文件，返回 {hits, documents, filter_used, fallback}。
 
@@ -134,25 +159,35 @@ def search_documents(
 
     include_superseded=False（默认）只搜现行文件。学生明确问「往年政策」
     「去年的通知怎么规定的」时传 True，把已废止的文件一并纳入候选。
+
+    include_missing 默认跟随 include_superseded —— 这条是刻意保持的历史行为：
+    问往年政策时，原件已被移出库的留档也应该能搜到。管理端会显式传 True。
     """
+    if include_missing is None:
+        include_missing = include_superseded
+
     store = get_vectorstore()
     top_k = k or config.RETRIEVE_TOP_K
 
     # 状态过滤是所有检索的**地基**，业务条件只是可松可紧的上层。
     # 两者分开构造，才有办法在「放宽」时只放开上层。
-    baseline_where = None if include_superseded else _baseline_filter()
+    baseline_where = _baseline_filter(
+        include_superseded=include_superseded,
+        include_missing=include_missing,
+    )
     business_where = build_filter(doc_type, college, year, department)
     where = _merge(baseline_where, business_where)
 
     fallback = False
+    score_kind = "relevance"
     try:
-        pairs = _search_with_score(store, query, top_k, where)
+        pairs, score_kind = _search_with_score(store, query, top_k, where)
         if not pairs and business_where:
             # 带业务条件查不到 → 放开业务条件重查一次，避免「一个条件卡死后端」。
             # 但状态过滤**必须保留**：否则这一「放宽」就会把已经废止的旧政策、
             # 或者原件已经被删掉的留档重新召回上来，而那正是它要防的事。
             fallback = True
-            pairs = _search_with_score(store, query, top_k, baseline_where)
+            pairs, score_kind = _search_with_score(store, query, top_k, baseline_where)
         if not pairs and not include_superseded and _library_lacks_state_fields(store):
             # 仍然为空，而且这次不是「真的没有」—— 是向量库还没按新结构重灌、
             # chunk 上根本没有 status / file_missing 字段。这是数据迁移问题，
@@ -162,10 +197,10 @@ def search_documents(
                 "文件状态过滤；重新执行 python run_ingest.py 可修复。"
             )
             fallback = True
-            pairs = _search_with_score(store, query, top_k, business_where)
+            pairs, score_kind = _search_with_score(store, query, top_k, business_where)
     except Exception as exc:  # 过滤语法不被支持时也要能兜住
         fallback = True
-        pairs = _search_with_score(store, query, top_k, baseline_where)
+        pairs, score_kind = _search_with_score(store, query, top_k, baseline_where)
         if not pairs:
             raise exc
 
@@ -187,11 +222,38 @@ def search_documents(
         merged["snippet"] = re.sub(r"\s+", " ", snippet).strip()[:180]
         documents.append(merged)
 
+    # 相关度闸门。只有 relevance 分数才能直接和阈值比较；distance 语义相反，
+    # 拿它做阈值判断会把「最相关」判成「最不相关」，所以宁可不用。
+    max_score: float | None = None
+    low_confidence = False
+    if hits and score_kind == "relevance":
+        max_score = max(h["score"] for h in hits)
+        low_confidence = max_score < config.MIN_RELEVANCE_SCORE
+
+    # 把「结果不可靠」这件事显式告诉模型。以前 fallback 只写进 trace 给前端看，
+    # 模型毫不知情，会把放宽条件后的跨年份/跨学院结果当成精确答案。
+    notices: list[str] = []
+    if low_confidence:
+        notices.append(
+            "以下片段与问题的相关度较低，可能答非所问；对不上就明确说"
+            "「未检索到相关内容」，不要硬凑"
+        )
+    if fallback:
+        notices.append(
+            "按原限定条件没有查到结果，以下是放宽条件后的近似内容，"
+            "引用时要向学生说明这一点"
+        )
+    notice = ("【注意】" + "；".join(notices) + "。") if notices else ""
+
     return {
         "hits": hits,
         "documents": documents,
         "filter_used": where,
         "fallback": fallback,
+        "max_score": max_score,
+        "low_confidence": low_confidence,
+        "score_kind": score_kind,
+        "notice": notice,
     }
 
 
@@ -214,18 +276,30 @@ def _library_lacks_state_fields(store) -> bool:
 
 
 def _search_with_score(store, query: str, k: int, where: dict | None):
+    """返回 (结果, 分数语义)。
+
+    两个 API 的分数方向**相反**：
+        similarity_search_with_relevance_scores  越大越相关，取值 [0, 1]
+        similarity_search_with_score             是距离，越小越相关
+    上游要拿分数做判断，就必须知道拿到的是哪一种 —— 否则会把「距离 0.2（非常相关）」
+    当成「相关度 0.2（几乎不相关）」，判断整个反过来。
+    """
     try:
-        return store.similarity_search_with_relevance_scores(query, k=k, filter=where)
+        return store.similarity_search_with_relevance_scores(query, k=k, filter=where), "relevance"
     except Exception:
-        return store.similarity_search_with_score(query, k=k, filter=where)
+        return store.similarity_search_with_score(query, k=k, filter=where), "distance"
 
 
 def format_context(
     hits: list[dict[str, Any]],
     limit_docs: int = 5,
     max_chars_per_doc: int = 1400,
+    notice: str = "",
 ) -> str:
     """把检索结果整理成给 LLM 看的上下文。
+
+    notice 用来传达「这批结果本身不可靠」（相关度低 / 放宽过条件）。
+    它必须进上下文而不是只进日志 —— 模型不知道，就会把近似结果当精确答案。
 
     注意这里是**按文件编号**（[资料1]、[资料2]），不是按 chunk 编号。
     同一份文件的多个 chunk 会合并到一个编号下 —— 因为：
@@ -242,13 +316,33 @@ def format_context(
         if title not in grouped:
             grouped[title] = {"meta": hit, "chunks": []}
             order.append(title)
-        grouped[title]["chunks"].append(str(hit["content"]))
+        # 连 chunk_index 一起存：hits 是按相似度排的，丢了它就没法还原原文顺序
+        grouped[title]["chunks"].append(
+            (int(hit.get("chunk_index") or 0), str(hit["content"]))
+        )
 
     blocks: list[str] = []
     for index, title in enumerate(order[:limit_docs], start=1):
         item = grouped[title]
         meta = item["meta"]
-        body = "\n".join(item["chunks"])[:max_chars_per_doc]
+
+        # 同一份文件内部必须按原文顺序拼接。
+        # 直接按 hits 顺序拼会出现「第 3 段排在申请条件第 1 条前面」，
+        # 条款类文件（1. 2. 3.）被读串就是这么来的。
+        ordered = sorted(item["chunks"], key=lambda pair: pair[0])
+        parts: list[str] = []
+        prev_chunk: int | None = None
+        for chunk_index, text in ordered:
+            if prev_chunk is not None and chunk_index > prev_chunk + 1:
+                parts.append("……（中间段落未召回）……")
+            parts.append(text)
+            prev_chunk = chunk_index
+
+        full = "\n".join(parts)
+        body = full[:max_chars_per_doc]
+        if len(full) > max_chars_per_doc:
+            # 标出来，模型才知道自己拿到的是残篇，不会根据半句话下结论
+            body += "\n……（原文较长，此处已截断）"
         # 已废止 / 原件已消失的文件只在「学生主动问历史」时才会进上下文。
         # 标出来是为了让模型说清这是哪个版本，而不是把旧政策当成现行规定来答。
         if meta.get("status") == "superseded":
@@ -262,7 +356,68 @@ def format_context(
             f"｜类型：{meta['doc_type']}｜适用学院：{meta['college']}"
             f"｜发布日期：{meta['publish_date']}{flag}\n{body}"
         )
-    return "\n\n".join(blocks)
+    prefix = f"{notice}\n\n" if notice else ""
+    return prefix + "\n\n".join(blocks)
+
+
+def _document_ids() -> dict[str, int]:
+    """file_path -> document.id 的映射。
+
+    向量库只存 file_path，但管理端要拿 id 才能做后续操作（看详情、改元数据）。
+    文件表只有几十到上万行，直接全量取一次比按路径拼 IN 更省事，
+    也不会因为路径里的特殊字符拼坏 SQL。
+    """
+    from app import db
+
+    try:
+        rows = db.fetch_all("SELECT id, file_path FROM document")
+    except Exception as exc:
+        log.warning("读取文件 id 映射失败：%s", exc)
+        return {}
+    return {
+        str(r.get("file_path") or "").strip().replace("\\", "/"): int(r["id"])
+        for r in rows
+        if r.get("file_path")
+    }
+
+
+def search_documents_admin(
+    query: str,
+    k: int | None = None,
+    doc_type: str | None = None,
+    college: str | None = None,
+    year: int | None = None,
+    department: str | None = None,
+) -> dict[str, Any]:
+    """管理端检索：**不过滤**文件状态，并补上 id。
+
+    和管理端列表工具的分工：这里是「不知道是哪份文件、只能按内容找」的路径。
+    它不改变索引、不改变切分，只是换了一套 where 条件和返回字段 ——
+    这就是「复用同一套 RAG、做逻辑隔离」的落点，不是另起一套向量库。
+
+    学生端的 search_documents 一行没动，两边共用同一个 collection。
+    """
+    result = search_documents(
+        query,
+        k=k,
+        doc_type=doc_type,
+        college=college,
+        year=year,
+        department=department,
+        include_superseded=True,
+        include_missing=True,
+    )
+
+    id_map = _document_ids()
+
+    def norm(value: Any) -> str:
+        return str(value or "").strip().replace("\\", "/")
+
+    for item in result["documents"]:
+        item["id"] = id_map.get(norm(item.get("file_path")))
+    for hit in result["hits"]:
+        hit["id"] = id_map.get(norm(hit.get("file_path")))
+    return result
 
 
 if __name__ == "__main__":

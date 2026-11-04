@@ -13,6 +13,9 @@ from sqlalchemy import create_engine, text
 from sqlalchemy.engine import Engine
 
 from app import config
+from app.logging_config import get_logger
+
+log = get_logger(__name__)
 
 _engine: Engine | None = None
 _server_engine: Engine | None = None
@@ -28,22 +31,68 @@ def _build_url(database: str | None) -> str:
     )
 
 
+def _pool_config() -> tuple[int, int]:
+    """按 worker 数分配连接池额度，返回 (pool_size, max_overflow)。
+
+    预算按「全部 worker 加起来不超过 60 个连接」算，给 MySQL 默认
+    max_connections=151 留一半余量（还要留给运维手动连、留给 init_db）。
+
+    | WEB_WORKERS | 每 worker | 合计 |
+    |---|---|---|
+    | 1–4 | 10 + 5 = 15 | ≤ 60 |
+    | 8 | 5 + 1 = 6 | 48 |
+    | 16 | 3 + 1 = 4 | 64 |
+
+    1–4 个 worker 刻意保持原值 10/5 —— 单进程时不能因为这次改动改变既有行为。
+    """
+    workers = max(1, config.WEB_WORKERS)
+    if workers <= 4:
+        return 10, 5
+    return max(3, 40 // workers), max(1, 10 // workers)
+
+
 def get_engine() -> Engine:
-    """连接到业务库 school_agent。"""
+    """连接到业务库 school_agent。
+
+    连接池参数是刻意设置的：SQLAlchemy 默认 pool_size=5 + max_overflow=10，
+    也就是 15 个并发就把池打满，第 16 个请求开始无限等待。
+    pool_timeout 让它等 10 秒就报错 —— 排队等到超时比直接失败更伤，
+    前者会让请求堆积到把整个进程拖死。
+
+    池大小由 `_pool_config()` 按 worker 数分配，不是硬编码 —— 加 worker
+    时如果忘了改这里，MySQL 会报 `Too many connections`，而那个报错
+    发生在连接池内部，堆栈里看不出跟 worker 数有关。
+    """
     global _engine
     if _engine is None:
+        size, overflow = _pool_config()
+        total = (size + overflow) * max(1, config.WEB_WORKERS)
+        if total > 100:
+            log.warning("连接池预算偏高：%d worker × %d = %d 个连接，"
+                        "接近 MySQL max_connections(151)", config.WEB_WORKERS,
+                        size + overflow, total)
         _engine = create_engine(
-            _build_url(config.MYSQL_DB), pool_pre_ping=True, pool_recycle=3600
+            _build_url(config.MYSQL_DB),
+            pool_pre_ping=True,
+            pool_size=size,
+            max_overflow=overflow,
+            pool_timeout=10,
+            # 从 3600 降到 1800：云数据库的 NAT 空闲超时往往比 1 小时更短
+            pool_recycle=1800,
         )
     return _engine
 
 
 def get_server_engine() -> Engine:
-    """连接到 MySQL 服务器本身（不指定库），用于 CREATE DATABASE。"""
+    """连接到 MySQL 服务器本身（不指定库），用于 CREATE DATABASE。
+
+    刻意用小池：它只在 init_db / 建库时用，web 进程里基本碰不到。
+    """
     global _server_engine
     if _server_engine is None:
         _server_engine = create_engine(
-            _build_url(None), pool_pre_ping=True, pool_recycle=3600
+            _build_url(None), pool_pre_ping=True, pool_recycle=3600,
+            pool_size=2, max_overflow=2,
         )
     return _server_engine
 
